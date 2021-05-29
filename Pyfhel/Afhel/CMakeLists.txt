@@ -871,3 +871,11 @@ target_compile_features(seal PUBLIC cxx_std_14)
 add_executable(demo_batch Demos/Demo_Afseal_batch.cpp)
 target_include_directories(demo_batch PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(demo_batch PRIVATE seal)
+
+add_executable(demo_IO Demos/Demo_Afseal_IO.cpp)
+target_include_directories(demo_IO PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(demo_IO PRIVATE seal)
+
+add_executable(demo_int Demos/Demo_Afseal_int.cpp)
+target_include_directories(demo_int PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(demo_int PRIVATE seal)
