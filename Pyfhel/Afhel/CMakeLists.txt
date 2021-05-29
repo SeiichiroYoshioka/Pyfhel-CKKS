@@ -1,131 +1,9 @@
-cmake_minimum_required(VERSION 3.12)
-
-project(Afhel LANGUAGES CXX)
-
-
-add_library(afhel
-        afhel.h
-        afseal.cpp
-
-        # Instead of linking against the global SEAL install, grab all the files from the SEAL4Pyfhel "flattened" version
-        ../SEAL/SEAL/seal/batchencoder.cpp
-        ../SEAL/SEAL/seal/batchencoder.h
-        ../SEAL/SEAL/seal/blake2.h
-        ../SEAL/SEAL/seal/blake2-impl.h
-        ../SEAL/SEAL/seal/blake2b.c
-        ../SEAL/SEAL/seal/blake2xb.c
-        ../SEAL/SEAL/seal/ciphertext.cpp
-        ../SEAL/SEAL/seal/ciphertext.h
-        ../SEAL/SEAL/seal/ckks.cpp
-        ../SEAL/SEAL/seal/ckks.h
-        ../SEAL/SEAL/seal/clang.h
-        ../SEAL/SEAL/seal/clipnormal.cpp
-        ../SEAL/SEAL/seal/clipnormal.h
-        ../SEAL/SEAL/seal/common.cpp
-        ../SEAL/SEAL/seal/common.h
-        ../SEAL/SEAL/seal/config.h
-        ../SEAL/SEAL/seal/context.cpp
-        ../SEAL/SEAL/seal/context.h
-        ../SEAL/SEAL/seal/croots.cpp
-        ../SEAL/SEAL/seal/croots.h
-        ../SEAL/SEAL/seal/decryptor.cpp
-        ../SEAL/SEAL/seal/decryptor.h
-        ../SEAL/SEAL/seal/defines.h
-        ../SEAL/SEAL/seal/dwthandler.h
-        ../SEAL/SEAL/seal/dynarray.h
-        ../SEAL/SEAL/seal/encryptionparams.cpp
-        ../SEAL/SEAL/seal/encryptionparams.h
-        ../SEAL/SEAL/seal/encryptor.cpp
-        ../SEAL/SEAL/seal/encryptor.h
-        ../SEAL/SEAL/seal/evaluator.cpp
-        ../SEAL/SEAL/seal/evaluator.h
-        ../SEAL/SEAL/seal/fips202.c
-        ../SEAL/SEAL/seal/fips202.h
-        ../SEAL/SEAL/seal/galois.cpp
-        ../SEAL/SEAL/seal/galois.h
-        ../SEAL/SEAL/seal/galoiskeys.h
-        ../SEAL/SEAL/seal/gcc.h
-        ../SEAL/SEAL/seal/globals.cpp
-        ../SEAL/SEAL/seal/globals.h
-        ../SEAL/SEAL/seal/gsl.h
-        ../SEAL/SEAL/seal/gsl_algorithm.h
-        ../SEAL/SEAL/seal/gsl_assert.h
-        ../SEAL/SEAL/seal/gsl_byte.h
-        ../SEAL/SEAL/seal/gsl_narrow.h
-        ../SEAL/SEAL/seal/gsl_pointers.h
-        ../SEAL/SEAL/seal/gsl_span.h
-        ../SEAL/SEAL/seal/gsl_span_ext.h
-        ../SEAL/SEAL/seal/gsl_string_span.h
-        ../SEAL/SEAL/seal/gsl_util.h
-        ../SEAL/SEAL/seal/hash.cpp
-        ../SEAL/SEAL/seal/hash.h
-        ../SEAL/SEAL/seal/hestdparms.h
-        ../SEAL/SEAL/seal/intel_seal_ext.h
-        ../SEAL/SEAL/seal/iterator.cpp
-        ../SEAL/SEAL/seal/iterator.h
-        ../SEAL/SEAL/seal/keygenerator.cpp
-        ../SEAL/SEAL/seal/keygenerator.h
-        ../SEAL/SEAL/seal/kswitchkeys.cpp
-        ../SEAL/SEAL/seal/kswitchkeys.h
-        ../SEAL/SEAL/seal/locks.h
-        ../SEAL/SEAL/seal/memorymanager.cpp
-        ../SEAL/SEAL/seal/memorymanager.h
-        ../SEAL/SEAL/seal/mempool.cpp
-        ../SEAL/SEAL/seal/mempool.h
-        ../SEAL/SEAL/seal/modulus.cpp
-        ../SEAL/SEAL/seal/modulus.h
-        ../SEAL/SEAL/seal/msvc.h
-        ../SEAL/SEAL/seal/ntt.cpp
-        ../SEAL/SEAL/seal/ntt.h
-        ../SEAL/SEAL/seal/numth.cpp
-        ../SEAL/SEAL/seal/numth.h
-        ../SEAL/SEAL/seal/plaintext.cpp
-        ../SEAL/SEAL/seal/plaintext.h
-        ../SEAL/SEAL/seal/pointer.h
-        ../SEAL/SEAL/seal/polyarithsmallmod.cpp
-        ../SEAL/SEAL/seal/polyarithsmallmod.h
-        ../SEAL/SEAL/seal/polycore.h
-        ../SEAL/SEAL/seal/publickey.h
-        ../SEAL/SEAL/seal/randomgen.cpp
-        ../SEAL/SEAL/seal/randomgen.h
-        ../SEAL/SEAL/seal/randomtostd.h
-        ../SEAL/SEAL/seal/relinkeys.h
-        ../SEAL/SEAL/seal/rlwe.cpp
-        ../SEAL/SEAL/seal/rlwe.h
-        ../SEAL/SEAL/seal/rns.cpp
-        ../SEAL/SEAL/seal/rns.h
-        ../SEAL/SEAL/seal/scalingvariant.cpp
-        ../SEAL/SEAL/seal/scalingvariant.h
-        ../SEAL/SEAL/seal/seal.h
-        ../SEAL/SEAL/seal/secretkey.h
-        ../SEAL/SEAL/seal/serializable.h
-        ../SEAL/SEAL/seal/serialization.cpp
-        ../SEAL/SEAL/seal/serialization.h
-        ../SEAL/SEAL/seal/streambuf.cpp
-        ../SEAL/SEAL/seal/streambuf.h
-        ../SEAL/SEAL/seal/uintarith.cpp
-        ../SEAL/SEAL/seal/uintarith.h
-        ../SEAL/SEAL/seal/uintarithmod.cpp
-        ../SEAL/SEAL/seal/uintarithmod.h
-        ../SEAL/SEAL/seal/uintarithsmallmod.cpp
-        ../SEAL/SEAL/seal/uintarithsmallmod.h
-        ../SEAL/SEAL/seal/uintcore.cpp
-        ../SEAL/SEAL/seal/uintcore.h
-        ../SEAL/SEAL/seal/valcheck.cpp
-        ../SEAL/SEAL/seal/valcheck.h
-        ../SEAL/SEAL/seal/version.h
-        ../SEAL/SEAL/seal/ztools.cpp
-        ../SEAL/SEAL/seal/ztools.h
-        )
-target_compile_features(afhel PUBLIC cxx_std_17)
-
-add_executable(demo_batch Demo_Afseal_batch.cpp)
-target_link_libraries(demo_batch PRIVATE afhel)
-
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT license.
 
 cmake_minimum_required(VERSION 3.12)
+
+project(Afhel LANGUAGES CXX C)
 
 ###################################################
 # Project SEAL includes the following components: #
@@ -147,7 +25,6 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Build type (CMAKE_BUILD_TYPE): ${CMAKE_BUILD_TYPE}")
 
-project(SEAL VERSION 3.6.5 LANGUAGES CXX C)
 
 ########################
 # Global configuration #
@@ -163,7 +40,7 @@ include(CheckTypeSize)
 include(CheckSymbolExists)
 
 # Extra modules
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}  ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(SEALMacros)
 
 # Always build position-independent-code
@@ -212,7 +89,7 @@ include(GNUInstallDirs)
 set(SEAL_INCLUDES_DIR ${CMAKE_CURRENT_LIST_DIR}/native/src)
 set(SEAL_THIRDPARTY_DIR ${CMAKE_CURRENT_LIST_DIR}/thirdparty)
 set(SEAL_CONFIG_IN_FILENAME ${CMAKE_CURRENT_LIST_DIR}/cmake/SEALConfig.cmake.in)
-set(SEAL_CONFIG_H_IN_FILENAME ${SEAL_INCLUDES_DIR}/seal/util/config.h.in)
+set(SEAL_CONFIG_H_IN_FILENAME  ${CMAKE_CURRENT_LIST_DIR}/../SEAL/SEAL/seal/config.h.in)
 
 # Build tree
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${OUTLIB_PATH})
@@ -221,7 +98,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(SEAL_TARGETS_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/cmake/SEALTargets.cmake)
 set(SEAL_CONFIG_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/cmake/SEALConfig.cmake)
 set(SEAL_CONFIG_VERSION_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/cmake/SEALConfigVersion.cmake)
-set(SEAL_CONFIG_H_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/native/src/seal/util/config.h)
+set(SEAL_CONFIG_H_FILENAME  ${CMAKE_CURRENT_LIST_DIR}/../SEAL/SEAL/seal/config.h)
 
 # Install
 set(SEAL_CONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/SEAL-${SEAL_VERSION_MAJOR}.${SEAL_VERSION_MINOR})
@@ -241,114 +118,114 @@ set(SEAL_PKGCONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 # Clean up artifacts from previous versions
 include(CleanArtifacts)
 
-#########################
-# External dependencies #
-#########################
-
-# [option] SEAL_BUILD_DEPS (default: ON)
-# Download and build missing dependencies, throw error if disabled.
-set(SEAL_BUILD_DEPS_OPTION_STR "Automatically download and build unmet dependencies")
-option(SEAL_BUILD_DEPS ${SEAL_BUILD_DEPS_OPTION_STR} ON)
-message(STATUS "SEAL_BUILD_DEPS: ${SEAL_BUILD_DEPS}")
-
-if(SEAL_BUILD_DEPS)
-    include(FetchContent)
-    mark_as_advanced(FETCHCONTENT_BASE_DIR)
-    mark_as_advanced(FETCHCONTENT_FULLY_DISCONNECTED)
-    mark_as_advanced(FETCHCONTENT_UPDATES_DISCONNECTED)
-    mark_as_advanced(FETCHCONTENT_QUIET)
-endif()
-
-# [option] SEAL_USE_MSGSL (default: ON)
-set(SEAL_USE_MSGSL_OPTION_STR "Use Microsoft GSL")
-option(SEAL_USE_MSGSL ${SEAL_USE_MSGSL_OPTION_STR} ON)
-message(STATUS "SEAL_USE_MSGSL: ${SEAL_USE_MSGSL}")
-
-if(SEAL_USE_MSGSL)
-    if(SEAL_BUILD_DEPS)
-        message(STATUS "Microsoft GSL: download ...")
-        seal_fetch_thirdparty_content(ExternalMSGSL)
-    else()
-        find_package(Microsoft.GSL 3 CONFIG)
-        if(NOT Microsoft.GSL_FOUND)
-            message(FATAL_ERROR "Microsoft GSL: not found")
-        else()
-            message(STATUS "Microsoft GSL: found")
-        endif()
-    endif()
-endif()
-
-# [option] SEAL_USE_ZLIB (default: ON)
-set(SEAL_USE_ZLIB_OPTION_STR "Use ZLIB for compressed serialization")
-option(SEAL_USE_ZLIB ${SEAL_USE_ZLIB_OPTION_STR} ON)
-message(STATUS "SEAL_USE_ZLIB: ${SEAL_USE_ZLIB}")
-
-if(SEAL_USE_ZLIB)
-    if(SEAL_BUILD_DEPS)
-        message(STATUS "ZLIB: download ...")
-        seal_fetch_thirdparty_content(ExternalZLIB)
-        set(zlib "zlibstatic")
-    else()
-        find_package(ZLIB 1.2.11)
-        if(NOT ZLIB_FOUND)
-            message(FATAL_ERROR "ZLIB: not found")
-        else()
-            message(STATUS "ZLIB: found")
-        endif()
-        set(zlib "ZLIB::ZLIB")
-    endif()
-endif()
-
-# [option] SEAL_USE_ZSTD (default: ON)
-set(SEAL_USE_ZSTD_OPTION_STR "Use Zstandard for compressed serialization")
-option(SEAL_USE_ZSTD ${SEAL_USE_ZSTD_OPTION_STR} ON)
-message(STATUS "SEAL_USE_ZSTD: ${SEAL_USE_ZSTD}")
-
-if(SEAL_USE_ZSTD)
-    if(SEAL_BUILD_DEPS)
-        message(STATUS "Zstandard: download ...")
-        seal_fetch_thirdparty_content(ExternalZSTD)
-        set(zstd_static "libzstd_static")
-    else()
-        find_package(zstd CONFIG)
-        if(NOT zstd_FOUND)
-            message(FATAL_ERROR "Zstandard: not found")
-        else()
-            if(TARGET zstd::libzstd_static)
-                set(zstd_static "zstd::libzstd_static")
-            elseif(TARGET libzstd)
-                get_target_property(libzstd_type libzstd TYPE)
-                if(libzstd_type STREQUAL "STATIC_LIBRARY")
-                    set(zstd_static "libzstd")
-                    message(STATUS "Zstandard: found")
-                else()
-                    message(FATAL_ERROR "Zstandard: must be static")
-                endif()
-            elseif(TARGET zstd::libzstd_shared)
-                message(FATAL_ERROR "Zstandard: must be static")
-            else()
-                message(FATAL_ERROR "Zstandard: not found")
-            endif()
-        endif()
-    endif()
-endif()
-
-# [option] SEAL_USE_INTEL_HEXL (default: OFF)
-set(SEAL_USE_INTEL_HEXL_OPTION_STR "Use Intel HEXL library")
-option(SEAL_USE_INTEL_HEXL ${SEAL_USE_INTEL_HEXL_OPTION_STR} OFF)
-message(STATUS "SEAL_USE_INTEL_HEXL: ${SEAL_USE_INTEL_HEXL}")
-
-if(SEAL_USE_INTEL_HEXL)
-    if(SEAL_BUILD_DEPS)
-        message(STATUS "Intel HEXL: download ...")
-        seal_fetch_thirdparty_content(ExternalIntelHEXL)
-    else()
-        find_package(HEXL 1.1.0)
-        if (NOT TARGET HEXL::hexl)
-            FATAL_ERROR("Intel HEXL: not found")
-        endif()
-    endif()
-endif()
+##########################
+## External dependencies #
+##########################
+#
+## [option] SEAL_BUILD_DEPS (default: ON)
+## Download and build missing dependencies, throw error if disabled.
+#set(SEAL_BUILD_DEPS_OPTION_STR "Automatically download and build unmet dependencies")
+#option(SEAL_BUILD_DEPS ${SEAL_BUILD_DEPS_OPTION_STR} ON)
+#message(STATUS "SEAL_BUILD_DEPS: ${SEAL_BUILD_DEPS}")
+#
+#if(SEAL_BUILD_DEPS)
+#    include(FetchContent)
+#    mark_as_advanced(FETCHCONTENT_BASE_DIR)
+#    mark_as_advanced(FETCHCONTENT_FULLY_DISCONNECTED)
+#    mark_as_advanced(FETCHCONTENT_UPDATES_DISCONNECTED)
+#    mark_as_advanced(FETCHCONTENT_QUIET)
+#endif()
+#
+## [option] SEAL_USE_MSGSL (default: ON)
+#set(SEAL_USE_MSGSL_OPTION_STR "Use Microsoft GSL")
+#option(SEAL_USE_MSGSL ${SEAL_USE_MSGSL_OPTION_STR} ON)
+#message(STATUS "SEAL_USE_MSGSL: ${SEAL_USE_MSGSL}")
+#
+#if(SEAL_USE_MSGSL)
+#    if(SEAL_BUILD_DEPS)
+#        message(STATUS "Microsoft GSL: download ...")
+#        seal_fetch_thirdparty_content(ExternalMSGSL)
+#    else()
+#        find_package(Microsoft.GSL 3 CONFIG)
+#        if(NOT Microsoft.GSL_FOUND)
+#            message(FATAL_ERROR "Microsoft GSL: not found")
+#        else()
+#            message(STATUS "Microsoft GSL: found")
+#        endif()
+#    endif()
+#endif()
+#
+## [option] SEAL_USE_ZLIB (default: ON)
+#set(SEAL_USE_ZLIB_OPTION_STR "Use ZLIB for compressed serialization")
+#option(SEAL_USE_ZLIB ${SEAL_USE_ZLIB_OPTION_STR} ON)
+#message(STATUS "SEAL_USE_ZLIB: ${SEAL_USE_ZLIB}")
+#
+#if(SEAL_USE_ZLIB)
+#    if(SEAL_BUILD_DEPS)
+#        message(STATUS "ZLIB: download ...")
+#        seal_fetch_thirdparty_content(ExternalZLIB)
+#        set(zlib "zlibstatic")
+#    else()
+#        find_package(ZLIB 1.2.11)
+#        if(NOT ZLIB_FOUND)
+#            message(FATAL_ERROR "ZLIB: not found")
+#        else()
+#            message(STATUS "ZLIB: found")
+#        endif()
+#        set(zlib "ZLIB::ZLIB")
+#    endif()
+#endif()
+#
+## [option] SEAL_USE_ZSTD (default: ON)
+#set(SEAL_USE_ZSTD_OPTION_STR "Use Zstandard for compressed serialization")
+#option(SEAL_USE_ZSTD ${SEAL_USE_ZSTD_OPTION_STR} ON)
+#message(STATUS "SEAL_USE_ZSTD: ${SEAL_USE_ZSTD}")
+#
+#if(SEAL_USE_ZSTD)
+#    if(SEAL_BUILD_DEPS)
+#        message(STATUS "Zstandard: download ...")
+#        seal_fetch_thirdparty_content(ExternalZSTD)
+#        set(zstd_static "libzstd_static")
+#    else()
+#        find_package(zstd CONFIG)
+#        if(NOT zstd_FOUND)
+#            message(FATAL_ERROR "Zstandard: not found")
+#        else()
+#            if(TARGET zstd::libzstd_static)
+#                set(zstd_static "zstd::libzstd_static")
+#            elseif(TARGET libzstd)
+#                get_target_property(libzstd_type libzstd TYPE)
+#                if(libzstd_type STREQUAL "STATIC_LIBRARY")
+#                    set(zstd_static "libzstd")
+#                    message(STATUS "Zstandard: found")
+#                else()
+#                    message(FATAL_ERROR "Zstandard: must be static")
+#                endif()
+#            elseif(TARGET zstd::libzstd_shared)
+#                message(FATAL_ERROR "Zstandard: must be static")
+#            else()
+#                message(FATAL_ERROR "Zstandard: not found")
+#            endif()
+#        endif()
+#    endif()
+#endif()
+#
+## [option] SEAL_USE_INTEL_HEXL (default: OFF)
+#set(SEAL_USE_INTEL_HEXL_OPTION_STR "Use Intel HEXL library")
+#option(SEAL_USE_INTEL_HEXL ${SEAL_USE_INTEL_HEXL_OPTION_STR} OFF)
+#message(STATUS "SEAL_USE_INTEL_HEXL: ${SEAL_USE_INTEL_HEXL}")
+#
+#if(SEAL_USE_INTEL_HEXL)
+#    if(SEAL_BUILD_DEPS)
+#        message(STATUS "Intel HEXL: download ...")
+#        seal_fetch_thirdparty_content(ExternalIntelHEXL)
+#    else()
+#        find_package(HEXL 1.1.0)
+#        if (NOT TARGET HEXL::hexl)
+#            FATAL_ERROR("Intel HEXL: not found")
+#        endif()
+#    endif()
+#endif()
 
 ####################
 # SEAL C++ library #
@@ -484,392 +361,512 @@ cmake_dependent_option(SEAL_USE_ALIGNED_ALLOC ${SEAL_USE_ALIGNED_ALLOC_OPTION_ST
 mark_as_advanced(FORCE SEAL_USE_ALIGNED_ALLOC)
 
 # Add source files to library and header files to install
-set(SEAL_SOURCE_FILES "")
-add_subdirectory(native/src/seal)
+set(SEAL_SOURCE_FILES "dummy_seal_file.cpp")
+#add_subdirectory(native/src/seal)
 
 # Create the config file
 configure_file(${SEAL_CONFIG_H_IN_FILENAME} ${SEAL_CONFIG_H_FILENAME})
 install(
         FILES ${SEAL_CONFIG_H_FILENAME}
-        DESTINATION ${SEAL_INCLUDES_INSTALL_DIR}/seal/util)
+        DESTINATION ${SEAL_CONFIG_H_FILENAME})
 
-# Build only a static library
-if(NOT BUILD_SHARED_LIBS)
-    add_library(seal STATIC ${SEAL_SOURCE_FILES})
-    seal_set_version_filename(seal)
-    seal_set_language(seal)
-    seal_set_include_directories(seal)
-    seal_set_version(seal)
-    seal_link_threads(seal)
-    seal_install_target(seal SEALTargets)
+## Build only a static library
+#if(NOT BUILD_SHARED_LIBS)
+#    add_library(seal STATIC ${SEAL_SOURCE_FILES})
+#    seal_set_version_filename(seal)
+#    seal_set_language(seal)
+#    seal_set_include_directories(seal)
+#    seal_set_version(seal)
+#    seal_link_threads(seal)
+#    seal_install_target(seal SEALTargets)
+#
+#    if(SEAL_USE_MSGSL)
+#        if(SEAL_BUILD_DEPS)
+#            target_include_directories(seal PUBLIC $<BUILD_INTERFACE:${msgsl_SOURCE_DIR}/include>)
+#        else()
+#            target_link_libraries(seal PUBLIC Microsoft.GSL::GSL)
+#        endif()
+#    endif()
+#
+#    if(SEAL_USE_ZLIB)
+#        if(SEAL_BUILD_DEPS)
+#            add_dependencies(seal ${zlib})
+#            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:${zlib_SOURCE_DIR}>)
+#            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:$<TARGET_PROPERTY:${zlib},BINARY_DIR>>)
+#            seal_combine_archives(seal ${zlib})
+#        else()
+#            target_link_libraries(seal PRIVATE ${zlib})
+#        endif()
+#    endif()
+#
+#    if(SEAL_USE_ZSTD)
+#        if(SEAL_BUILD_DEPS)
+#            add_dependencies(seal ${zstd_static})
+#            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib>)
+#            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib/common>)
+#            seal_combine_archives(seal ${zstd_static})
+#        else()
+#            target_link_libraries(seal PRIVATE ${zstd_static})
+#        endif()
+#    endif()
+#
+#    if(SEAL_USE_INTEL_HEXL)
+#        if(SEAL_BUILD_DEPS)
+#            add_dependencies(seal HEXL::hexl)
+#            target_include_directories(seal PUBLIC $<BUILD_INTERFACE:${hexl_SOURCE_DIR}/hexl/include>)
+#            seal_combine_archives(seal HEXL::hexl)
+#        else()
+#            target_link_libraries(seal PRIVATE HEXL::hexl)
+#            get_target_property(
+#                    HEXL_INCLUDE_DIR
+#                    HEXL::hexl
+#                    INTERFACE_INCLUDE_DIRECTORIES)
+#            target_include_directories(seal PUBLIC ${HEXL_INCLUDE_DIR})
+#        endif()
+#    endif()
+#
+#    # Set secure compile options if SEAL_SECURE_COMPILE_OPTIONS is ON; only supported on MSVC
+#    if(SEAL_SECURE_COMPILE_OPTIONS)
+#        seal_set_secure_compile_options(seal PUBLIC)
+#    endif()
+#
+#    # Build only a shared library
+#else()
+#    add_library(seal_shared SHARED ${SEAL_SOURCE_FILES})
+#    seal_set_soversion(seal_shared)
+#    set_target_properties(seal_shared PROPERTIES OUTPUT_NAME seal)
+#    seal_set_language(seal_shared)
+#    seal_set_include_directories(seal_shared)
+#    seal_set_version(seal_shared)
+#    seal_link_threads(seal_shared)
+#    seal_install_target(seal_shared SEALTargets)
+#
+#    if(SEAL_USE_MSGSL)
+#        if(SEAL_BUILD_DEPS)
+#            target_include_directories(seal_shared PUBLIC $<BUILD_INTERFACE:${msgsl_SOURCE_DIR}/include>)
+#        else()
+#            target_link_libraries(seal_shared PUBLIC Microsoft.GSL::GSL)
+#        endif()
+#    endif()
+#
+#    if(SEAL_USE_ZLIB)
+#        target_link_libraries(seal_shared PRIVATE ${zlib})
+#        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:${zlib_SOURCE_DIR}>)
+#        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:$<TARGET_PROPERTY:${zlib},BINARY_DIR>>)
+#    endif()
+#
+#    if(SEAL_USE_ZSTD)
+#        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib>)
+#        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib/common>)
+#        target_link_libraries(seal_shared PRIVATE ${zstd_static})
+#    endif()
+#
+#    if(SEAL_USE_INTEL_HEXL)
+#        get_target_property(
+#                HEXL_INCLUDE_DIR
+#                HEXL::hexl
+#                INTERFACE_INCLUDE_DIRECTORIES)
+#        target_include_directories(seal_shared PUBLIC ${HEXL_INCLUDE_DIR})
+#        target_link_libraries(seal_shared PRIVATE HEXL::hexl)
+#    endif()
+#endif()
+#
+## Add standard alias targets for SEAL::seal and SEAL::seal_shared
+#if(TARGET seal)
+#    add_library(SEAL::seal ALIAS seal)
+#endif()
+#if(TARGET seal_shared)
+#    add_library(SEAL::seal_shared ALIAS seal_shared)
+#endif()
+#
+##########################
+## SEAL C export library #
+##########################
+#
+## [option] SEAL_BUILD_SEAL_C (default: OFF)
+#set(SEAL_BUILD_SEAL_C_OPTION_STR "Build C export library for Microsoft SEAL")
+#option(SEAL_BUILD_SEAL_C ${SEAL_BUILD_SEAL_C_OPTION_STR} OFF)
+#message(STATUS "SEAL_BUILD_SEAL_C: ${SEAL_BUILD_SEAL_C}")
+#
+#set(SEAL_BUILD_STATIC_SEAL_C_OPTION_STR "Build static C library for Microsoft SEAL")
+#cmake_dependent_option(SEAL_BUILD_STATIC_SEAL_C ${SEAL_BUILD_STATIC_SEAL_C_OPTION_STR} OFF "SEAL_BUILD_SEAL_C" OFF)
+#mark_as_advanced(SEAL_BUILD_STATIC_SEAL_C)
+#
+## Create SEAL_C library but add no source files yet
+#if(SEAL_BUILD_SEAL_C)
+#    # Check that size_t is 8 bytes
+#    include(CheckTypeSize)
+#    check_type_size("size_t" SIZET LANGUAGE C)
+#    if(NOT ${SIZET} EQUAL 8)
+#        unset(SIZET CACHE)
+#        unset(HAVE_SIZET CACHE)
+#        message(FATAL_ERROR "SEAL_C requires 64-bit platform")
+#    endif()
+#    unset(SIZET CACHE)
+#    unset(HAVE_SIZET CACHE)
+#
+#    if(BUILD_SHARED_LIBS)
+#        message(FATAL_ERROR "SEAL_C (shared or static) requires a static SEAL; set `BUILD_SHARED_LIBS=OFF` and control "
+#                "SEAL_C by setting `SEAL_BUILD_STATIC_SEAL_C` to `OFF` (default) or `ON`")
+#    endif()
+#
+#    if(NOT SEAL_BUILD_DEPS)
+#        message(FATAL_ERROR "SEAL_C requires `SEAL_BUILD_DEPS=ON`")
+#    endif()
+#
+#    if(SEAL_BUILD_STATIC_SEAL_C)
+#        add_library(sealc STATIC)
+#    else()
+#        add_library(sealc SHARED)
+#    endif()
+#
+#    # Add source files to library and header files to install
+#    add_subdirectory(${SEAL_INCLUDES_DIR}/seal/c)
+#    seal_set_version(sealc)
+#    if(SEAL_BUILD_STATIC_SEAL_C)
+#        seal_set_version_filename(sealc)
+#    else()
+#        seal_set_soversion(sealc)
+#    endif()
+#    seal_set_language(sealc)
+#    seal_set_include_directories(sealc)
+#    if (SEAL_USE_INTEL_HEXL)
+#        target_include_directories(sealc PRIVATE $<BUILD_INTERFACE:${hexl_SOURCE_DIR}/hexl/include>)
+#    endif()
+#
+#    target_link_libraries(sealc PUBLIC seal)
+#
+#    seal_install_target(sealc SEALTargets)
+#endif()
+#
+## Add standard alias target for SEAL::sealc
+#if(TARGET sealc)
+#    add_library(SEAL::sealc ALIAS sealc)
+#endif()
+#
+##################################
+## Installation and CMake config #
+##################################
+#
+## Create the CMake config file
+#include(CMakePackageConfigHelpers)
+#configure_package_config_file(
+#        ${SEAL_CONFIG_IN_FILENAME} ${SEAL_CONFIG_FILENAME}
+#        INSTALL_DESTINATION ${SEAL_CONFIG_INSTALL_DIR})
+#
+## Install the export
+#install(
+#        EXPORT SEALTargets
+#        NAMESPACE SEAL::
+#        DESTINATION ${SEAL_CONFIG_INSTALL_DIR})
+#
+## Version file; we require exact version match for downstream
+#write_basic_package_version_file(
+#        ${SEAL_CONFIG_VERSION_FILENAME}
+#        VERSION ${SEAL_VERSION}
+#        COMPATIBILITY SameMinorVersion)
+#
+## Install config and module files
+#install(
+#        FILES
+#        ${SEAL_CONFIG_FILENAME}
+#        ${SEAL_CONFIG_VERSION_FILENAME}
+#        DESTINATION ${SEAL_CONFIG_INSTALL_DIR})
+#
+## We export SEALTargets from the build tree so it can be used by other projects
+## without requiring an install.
+#export(
+#        EXPORT SEALTargets
+#        NAMESPACE SEAL::
+#        FILE ${SEAL_TARGETS_FILENAME})
+#
+## Install header files of dependencies if SEAL_BUILD_DEPS is ON
+#if(SEAL_BUILD_DEPS)
+#    # MSGSL
+#    if(SEAL_USE_MSGSL)
+#        install(
+#                DIRECTORY ${msgsl_SOURCE_DIR}/include/gsl
+#                DESTINATION ${SEAL_INCLUDES_INSTALL_DIR})
+#    endif()
+#    # Intel HEXL
+#    if(SEAL_USE_INTEL_HEXL)
+#        install(
+#                DIRECTORY ${hexl_SOURCE_DIR}/hexl/include/hexl
+#                DESTINATION ${SEAL_INCLUDES_INSTALL_DIR})
+#    endif()
+#endif()
+#
+###############
+## pkg-config #
+###############
+#
+#if(UNIX OR APPLE)
+#    # Set the requirements according to the current configuration if SEAL_BUILD_DEPS=OFF
+#    if(NOT SEAL_BUILD_DEPS)
+#        if(SEAL_USE_MSGSL)
+#            # Extract the include directories from Microsoft.GSL::GSL
+#            get_target_property(
+#                    SEAL_PKGCONFIG_MSGSL_INCLUDE_DIR
+#                    Microsoft.GSL::GSL
+#                    INTERFACE_INCLUDE_DIRECTORIES)
+#
+#            # Create the Microsoft GSL pkg-config file
+#            configure_file(${SEAL_PKGCONFIG_MSGSL_IN_FILENAME} ${SEAL_PKGCONFIG_MSGSL_FILENAME} @ONLY)
+#
+#            set(SEAL_PKGCONFIG_MSGSL_REQUIRES_STRING "seal_msgsl >= ${Microsoft.GSL_VERSION_MAJOR}")
+#        endif()
+#        if(SEAL_USE_ZLIB)
+#            set(SEAL_PKGCONFIG_ZLIB_REQUIRES_STRING "zlib = ${ZLIB_VERSION_STRING}")
+#        endif()
+#        if(SEAL_USE_ZSTD)
+#            set(SEAL_PKGCONFIG_ZSTD_REQUIRES_STRING "libzstd >= ${zstd_VERSION_MAJOR}")
+#        endif()
+#        if(SEAL_USE_INTEL_HEXL)
+#            set(SEAL_PKGCONFIG_INTEL_HEXL_REQUIRES_STRING "HEXL >= ${HEXL_VERSION_MAJOR}")
+#            message(STATUS "Intel HEXL does not have a pkg-config file")
+#        endif()
+#    endif()
+#
+#    # Create the pkg-config file
+#    if(TARGET seal)
+#        configure_file(${SEAL_PKGCONFIG_IN_FILENAME} ${SEAL_PKGCONFIG_FILENAME} @ONLY)
+#    endif()
+#    if(TARGET seal_shared)
+#        configure_file(${SEAL_PKGCONFIG_SHARED_IN_FILENAME} ${SEAL_PKGCONFIG_SHARED_FILENAME} @ONLY)
+#    endif()
+#
+#    # Install the pkg-config files
+#    if(EXISTS ${SEAL_PKGCONFIG_FILENAME})
+#        install(
+#                FILES ${SEAL_PKGCONFIG_FILENAME}
+#                DESTINATION ${SEAL_PKGCONFIG_INSTALL_DIR})
+#    endif()
+#    if(EXISTS ${SEAL_PKGCONFIG_SHARED_FILENAME})
+#        install(
+#                FILES ${SEAL_PKGCONFIG_SHARED_FILENAME}
+#                DESTINATION ${SEAL_PKGCONFIG_INSTALL_DIR})
+#    endif()
+#    if(EXISTS ${SEAL_PKGCONFIG_MSGSL_FILENAME})
+#        install(
+#                FILES ${SEAL_PKGCONFIG_MSGSL_FILENAME}
+#                DESTINATION ${SEAL_PKGCONFIG_INSTALL_DIR})
+#    endif()
+#endif()
+#
+######################
+## SEAL C++ examples #
+######################
+#
+## [option] SEAL_BUILD_EXAMPLES
+#set(SEAL_BUILD_EXAMPLES_OPTION_STR "Build C++ examples for Microsoft SEAL")
+#option(SEAL_BUILD_EXAMPLES ${SEAL_BUILD_EXAMPLES_OPTION_STR} OFF)
+#message(STATUS "SEAL_BUILD_EXAMPLES: ${SEAL_BUILD_EXAMPLES}")
+#
+#if(SEAL_BUILD_EXAMPLES)
+#    add_subdirectory(native/examples)
+#endif()
+#
+###################
+## SEAL C++ tests #
+###################
+#
+## [option] SEAL_BUILD_TESTS
+#set(SEAL_BUILD_TESTS_OPTION_STR "Build C++ tests for Microsoft SEAL")
+#option(SEAL_BUILD_TESTS ${SEAL_BUILD_TESTS_OPTION_STR} OFF)
+#message(STATUS "SEAL_BUILD_TESTS: ${SEAL_BUILD_TESTS}")
+#
+#if(SEAL_BUILD_TESTS)
+#    add_subdirectory(native/tests)
+#endif()
+#
+########################
+## SEAL C++ benchmarks #
+########################
+#
+## [option] SEAL_BUILD_BENCH
+#set(SEAL_BUILD_BENCH_OPTION_STR "Build C++ benchmarks for Microsoft SEAL")
+#option(SEAL_BUILD_BENCH ${SEAL_BUILD_BENCH_OPTION_STR} OFF)
+#message(STATUS "SEAL_BUILD_BENCH: ${SEAL_BUILD_BENCH}")
+#
+#if(SEAL_BUILD_BENCH)
+#    add_subdirectory(native/bench)
+#endif()
+#
+########################################
+## Configure SEALNet and NuGet package #
+########################################
+#
+## In Windows we will set the SEAL_C library path according to the CMake generator
+#set(SEAL_WINDOWS_SEAL_C_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+#get_property(SEAL_IS_MULTI_CONFIG_GENERATOR GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+#if(SEAL_IS_MULTI_CONFIG_GENERATOR)
+#    # Is this the Visual Studio generator? If so, the output path will contain the configuration.
+#    # We shall use CMAKE_BUILD_TYPE here, which by default will be "Release". The user has the
+#    # option of changing this by explicitly specifying CMAKE_BUILD_TYPE, which multi-config
+#    # generators otherwise ignore.
+#    set(SEAL_WINDOWS_SEAL_C_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
+#endif()
+#
+## Create SEALNet.csproj, SEALNetExamples.csproj, and SEALNetTest.csproj
+#configure_file(
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/src/SEALNet.csproj.in
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/src/SEALNet.csproj
+#        @ONLY)
+#configure_file(
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/tests/SEALNetTest.csproj.in
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/tests/SEALNetTest.csproj
+#        @ONLY)
+#configure_file(
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/examples/SEALNetExamples.csproj.in
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/examples/SEALNetExamples.csproj
+#        @ONLY)
+#
+## Set the sealc dynamic library file names to be included in creating
+## the NuGet package. When building a multi-platform NuGet package, the
+## dynamic library paths need to be specified explicitly in the NuGet
+## command. See dotnet/nuget/SEALNet.nuspec.in.
+#
+## Create SEALNet-multi.nuspec for a multi-platform NuGet package
+#configure_file(
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet-multi.nuspec.in
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet-multi.nuspec
+#        @ONLY)
+#
+#set(NUGET_WINDOWS_SEAL_C_PATH "")
+#set(NUGET_LINUX_SEAL_C_PATH "")
+#set(NUGET_MACOS_SEAL_C_PATH "")
+#
+## Supporting local building of NuGet package
+#if(WIN32)
+#    set(NUGET_WINDOWS_SEAL_C_PATH ${SEAL_WINDOWS_SEAL_C_DIRECTORY}/sealc.dll)
+#elseif(UNIX AND NOT APPLE)
+#    set(NUGET_LINUX_SEAL_C_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libsealc.so)
+#elseif(APPLE)
+#    set(NUGET_MACOS_SEAL_C_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libsealc.dylib)
+#endif()
+#
+## Create SEALNet.nuspec for a local NuGet pack from SEALNet.nuspec.in
+#configure_file(
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet.nuspec.in
+#        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet.nuspec
+#        @ONLY)
 
-    if(SEAL_USE_MSGSL)
-        if(SEAL_BUILD_DEPS)
-            target_include_directories(seal PUBLIC $<BUILD_INTERFACE:${msgsl_SOURCE_DIR}/include>)
-        else()
-            target_link_libraries(seal PUBLIC Microsoft.GSL::GSL)
-        endif()
-    endif()
 
-    if(SEAL_USE_ZLIB)
-        if(SEAL_BUILD_DEPS)
-            add_dependencies(seal ${zlib})
-            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:${zlib_SOURCE_DIR}>)
-            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:$<TARGET_PROPERTY:${zlib},BINARY_DIR>>)
-            seal_combine_archives(seal ${zlib})
-        else()
-            target_link_libraries(seal PRIVATE ${zlib})
-        endif()
-    endif()
+add_library(seal
+        afhel.h
+        afseal.cpp
 
-    if(SEAL_USE_ZSTD)
-        if(SEAL_BUILD_DEPS)
-            add_dependencies(seal ${zstd_static})
-            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib>)
-            target_include_directories(seal PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib/common>)
-            seal_combine_archives(seal ${zstd_static})
-        else()
-            target_link_libraries(seal PRIVATE ${zstd_static})
-        endif()
-    endif()
+        # Instead of linking against the global SEAL install, grab all the files from the SEAL4Pyfhel "flattened" version
+        ../SEAL/SEAL/seal/batchencoder.cpp
+        ../SEAL/SEAL/seal/batchencoder.h
+        ../SEAL/SEAL/seal/blake2.h
+        ../SEAL/SEAL/seal/blake2-impl.h
+        ../SEAL/SEAL/seal/blake2b.c
+        ../SEAL/SEAL/seal/blake2xb.c
+        ../SEAL/SEAL/seal/ciphertext.cpp
+        ../SEAL/SEAL/seal/ciphertext.h
+        ../SEAL/SEAL/seal/ckks.cpp
+        ../SEAL/SEAL/seal/ckks.h
+        ../SEAL/SEAL/seal/clang.h
+        ../SEAL/SEAL/seal/clipnormal.cpp
+        ../SEAL/SEAL/seal/clipnormal.h
+        ../SEAL/SEAL/seal/common.cpp
+        ../SEAL/SEAL/seal/common.h
+        ../SEAL/SEAL/seal/config.h
+        ../SEAL/SEAL/seal/context.cpp
+        ../SEAL/SEAL/seal/context.h
+        ../SEAL/SEAL/seal/croots.cpp
+        ../SEAL/SEAL/seal/croots.h
+        ../SEAL/SEAL/seal/decryptor.cpp
+        ../SEAL/SEAL/seal/decryptor.h
+        ../SEAL/SEAL/seal/defines.h
+        ../SEAL/SEAL/seal/dwthandler.h
+        ../SEAL/SEAL/seal/dynarray.h
+        ../SEAL/SEAL/seal/encryptionparams.cpp
+        ../SEAL/SEAL/seal/encryptionparams.h
+        ../SEAL/SEAL/seal/encryptor.cpp
+        ../SEAL/SEAL/seal/encryptor.h
+        ../SEAL/SEAL/seal/evaluator.cpp
+        ../SEAL/SEAL/seal/evaluator.h
+        ../SEAL/SEAL/seal/fips202.c
+        ../SEAL/SEAL/seal/fips202.h
+        ../SEAL/SEAL/seal/galois.cpp
+        ../SEAL/SEAL/seal/galois.h
+        ../SEAL/SEAL/seal/galoiskeys.h
+        ../SEAL/SEAL/seal/gcc.h
+        ../SEAL/SEAL/seal/globals.cpp
+        ../SEAL/SEAL/seal/globals.h
+        ../SEAL/SEAL/seal/gsl.h
+        ../SEAL/SEAL/seal/gsl_algorithm.h
+        ../SEAL/SEAL/seal/gsl_assert.h
+        ../SEAL/SEAL/seal/gsl_byte.h
+        ../SEAL/SEAL/seal/gsl_narrow.h
+        ../SEAL/SEAL/seal/gsl_pointers.h
+        ../SEAL/SEAL/seal/gsl_span.h
+        ../SEAL/SEAL/seal/gsl_span_ext.h
+        ../SEAL/SEAL/seal/gsl_string_span.h
+        ../SEAL/SEAL/seal/gsl_util.h
+        ../SEAL/SEAL/seal/hash.cpp
+        ../SEAL/SEAL/seal/hash.h
+        ../SEAL/SEAL/seal/hestdparms.h
+        ../SEAL/SEAL/seal/intel_seal_ext.h
+        ../SEAL/SEAL/seal/iterator.cpp
+        ../SEAL/SEAL/seal/iterator.h
+        ../SEAL/SEAL/seal/keygenerator.cpp
+        ../SEAL/SEAL/seal/keygenerator.h
+        ../SEAL/SEAL/seal/kswitchkeys.cpp
+        ../SEAL/SEAL/seal/kswitchkeys.h
+        ../SEAL/SEAL/seal/locks.h
+        ../SEAL/SEAL/seal/memorymanager.cpp
+        ../SEAL/SEAL/seal/memorymanager.h
+        ../SEAL/SEAL/seal/mempool.cpp
+        ../SEAL/SEAL/seal/mempool.h
+        ../SEAL/SEAL/seal/modulus.cpp
+        ../SEAL/SEAL/seal/modulus.h
+        ../SEAL/SEAL/seal/msvc.h
+        ../SEAL/SEAL/seal/ntt.cpp
+        ../SEAL/SEAL/seal/ntt.h
+        ../SEAL/SEAL/seal/numth.cpp
+        ../SEAL/SEAL/seal/numth.h
+        ../SEAL/SEAL/seal/plaintext.cpp
+        ../SEAL/SEAL/seal/plaintext.h
+        ../SEAL/SEAL/seal/pointer.h
+        ../SEAL/SEAL/seal/polyarithsmallmod.cpp
+        ../SEAL/SEAL/seal/polyarithsmallmod.h
+        ../SEAL/SEAL/seal/polycore.h
+        ../SEAL/SEAL/seal/publickey.h
+        ../SEAL/SEAL/seal/randomgen.cpp
+        ../SEAL/SEAL/seal/randomgen.h
+        ../SEAL/SEAL/seal/randomtostd.h
+        ../SEAL/SEAL/seal/relinkeys.h
+        ../SEAL/SEAL/seal/rlwe.cpp
+        ../SEAL/SEAL/seal/rlwe.h
+        ../SEAL/SEAL/seal/rns.cpp
+        ../SEAL/SEAL/seal/rns.h
+        ../SEAL/SEAL/seal/scalingvariant.cpp
+        ../SEAL/SEAL/seal/scalingvariant.h
+        ../SEAL/SEAL/seal/seal.h
+        ../SEAL/SEAL/seal/secretkey.h
+        ../SEAL/SEAL/seal/serializable.h
+        ../SEAL/SEAL/seal/serialization.cpp
+        ../SEAL/SEAL/seal/serialization.h
+        ../SEAL/SEAL/seal/streambuf.cpp
+        ../SEAL/SEAL/seal/streambuf.h
+        ../SEAL/SEAL/seal/uintarith.cpp
+        ../SEAL/SEAL/seal/uintarith.h
+        ../SEAL/SEAL/seal/uintarithmod.cpp
+        ../SEAL/SEAL/seal/uintarithmod.h
+        ../SEAL/SEAL/seal/uintarithsmallmod.cpp
+        ../SEAL/SEAL/seal/uintarithsmallmod.h
+        ../SEAL/SEAL/seal/uintcore.cpp
+        ../SEAL/SEAL/seal/uintcore.h
+        ../SEAL/SEAL/seal/valcheck.cpp
+        ../SEAL/SEAL/seal/valcheck.h
+        ../SEAL/SEAL/seal/version.h
+        ../SEAL/SEAL/seal/ztools.cpp
+        ../SEAL/SEAL/seal/ztools.h
+        )
+target_compile_features(seal PUBLIC cxx_std_17)
 
-    if(SEAL_USE_INTEL_HEXL)
-        if(SEAL_BUILD_DEPS)
-            add_dependencies(seal HEXL::hexl)
-            target_include_directories(seal PUBLIC $<BUILD_INTERFACE:${hexl_SOURCE_DIR}/hexl/include>)
-            seal_combine_archives(seal HEXL::hexl)
-        else()
-            target_link_libraries(seal PRIVATE HEXL::hexl)
-            get_target_property(
-                    HEXL_INCLUDE_DIR
-                    HEXL::hexl
-                    INTERFACE_INCLUDE_DIRECTORIES)
-            target_include_directories(seal PUBLIC ${HEXL_INCLUDE_DIR})
-        endif()
-    endif()
-
-    # Set secure compile options if SEAL_SECURE_COMPILE_OPTIONS is ON; only supported on MSVC
-    if(SEAL_SECURE_COMPILE_OPTIONS)
-        seal_set_secure_compile_options(seal PUBLIC)
-    endif()
-
-    # Build only a shared library
-else()
-    add_library(seal_shared SHARED ${SEAL_SOURCE_FILES})
-    seal_set_soversion(seal_shared)
-    set_target_properties(seal_shared PROPERTIES OUTPUT_NAME seal)
-    seal_set_language(seal_shared)
-    seal_set_include_directories(seal_shared)
-    seal_set_version(seal_shared)
-    seal_link_threads(seal_shared)
-    seal_install_target(seal_shared SEALTargets)
-
-    if(SEAL_USE_MSGSL)
-        if(SEAL_BUILD_DEPS)
-            target_include_directories(seal_shared PUBLIC $<BUILD_INTERFACE:${msgsl_SOURCE_DIR}/include>)
-        else()
-            target_link_libraries(seal_shared PUBLIC Microsoft.GSL::GSL)
-        endif()
-    endif()
-
-    if(SEAL_USE_ZLIB)
-        target_link_libraries(seal_shared PRIVATE ${zlib})
-        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:${zlib_SOURCE_DIR}>)
-        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:$<TARGET_PROPERTY:${zlib},BINARY_DIR>>)
-    endif()
-
-    if(SEAL_USE_ZSTD)
-        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib>)
-        target_include_directories(seal_shared PRIVATE $<BUILD_INTERFACE:${zstd_SOURCE_DIR}/lib/common>)
-        target_link_libraries(seal_shared PRIVATE ${zstd_static})
-    endif()
-
-    if(SEAL_USE_INTEL_HEXL)
-        get_target_property(
-                HEXL_INCLUDE_DIR
-                HEXL::hexl
-                INTERFACE_INCLUDE_DIRECTORIES)
-        target_include_directories(seal_shared PUBLIC ${HEXL_INCLUDE_DIR})
-        target_link_libraries(seal_shared PRIVATE HEXL::hexl)
-    endif()
-endif()
-
-# Add standard alias targets for SEAL::seal and SEAL::seal_shared
-if(TARGET seal)
-    add_library(SEAL::seal ALIAS seal)
-endif()
-if(TARGET seal_shared)
-    add_library(SEAL::seal_shared ALIAS seal_shared)
-endif()
-
-#########################
-# SEAL C export library #
-#########################
-
-# [option] SEAL_BUILD_SEAL_C (default: OFF)
-set(SEAL_BUILD_SEAL_C_OPTION_STR "Build C export library for Microsoft SEAL")
-option(SEAL_BUILD_SEAL_C ${SEAL_BUILD_SEAL_C_OPTION_STR} OFF)
-message(STATUS "SEAL_BUILD_SEAL_C: ${SEAL_BUILD_SEAL_C}")
-
-set(SEAL_BUILD_STATIC_SEAL_C_OPTION_STR "Build static C library for Microsoft SEAL")
-cmake_dependent_option(SEAL_BUILD_STATIC_SEAL_C ${SEAL_BUILD_STATIC_SEAL_C_OPTION_STR} OFF "SEAL_BUILD_SEAL_C" OFF)
-mark_as_advanced(SEAL_BUILD_STATIC_SEAL_C)
-
-# Create SEAL_C library but add no source files yet
-if(SEAL_BUILD_SEAL_C)
-    # Check that size_t is 8 bytes
-    include(CheckTypeSize)
-    check_type_size("size_t" SIZET LANGUAGE C)
-    if(NOT ${SIZET} EQUAL 8)
-        unset(SIZET CACHE)
-        unset(HAVE_SIZET CACHE)
-        message(FATAL_ERROR "SEAL_C requires 64-bit platform")
-    endif()
-    unset(SIZET CACHE)
-    unset(HAVE_SIZET CACHE)
-
-    if(BUILD_SHARED_LIBS)
-        message(FATAL_ERROR "SEAL_C (shared or static) requires a static SEAL; set `BUILD_SHARED_LIBS=OFF` and control "
-                "SEAL_C by setting `SEAL_BUILD_STATIC_SEAL_C` to `OFF` (default) or `ON`")
-    endif()
-
-    if(NOT SEAL_BUILD_DEPS)
-        message(FATAL_ERROR "SEAL_C requires `SEAL_BUILD_DEPS=ON`")
-    endif()
-
-    if(SEAL_BUILD_STATIC_SEAL_C)
-        add_library(sealc STATIC)
-    else()
-        add_library(sealc SHARED)
-    endif()
-
-    # Add source files to library and header files to install
-    add_subdirectory(${SEAL_INCLUDES_DIR}/seal/c)
-    seal_set_version(sealc)
-    if(SEAL_BUILD_STATIC_SEAL_C)
-        seal_set_version_filename(sealc)
-    else()
-        seal_set_soversion(sealc)
-    endif()
-    seal_set_language(sealc)
-    seal_set_include_directories(sealc)
-    if (SEAL_USE_INTEL_HEXL)
-        target_include_directories(sealc PRIVATE $<BUILD_INTERFACE:${hexl_SOURCE_DIR}/hexl/include>)
-    endif()
-
-    target_link_libraries(sealc PUBLIC seal)
-
-    seal_install_target(sealc SEALTargets)
-endif()
-
-# Add standard alias target for SEAL::sealc
-if(TARGET sealc)
-    add_library(SEAL::sealc ALIAS sealc)
-endif()
-
-#################################
-# Installation and CMake config #
-#################################
-
-# Create the CMake config file
-include(CMakePackageConfigHelpers)
-configure_package_config_file(
-        ${SEAL_CONFIG_IN_FILENAME} ${SEAL_CONFIG_FILENAME}
-        INSTALL_DESTINATION ${SEAL_CONFIG_INSTALL_DIR})
-
-# Install the export
-install(
-        EXPORT SEALTargets
-        NAMESPACE SEAL::
-        DESTINATION ${SEAL_CONFIG_INSTALL_DIR})
-
-# Version file; we require exact version match for downstream
-write_basic_package_version_file(
-        ${SEAL_CONFIG_VERSION_FILENAME}
-        VERSION ${SEAL_VERSION}
-        COMPATIBILITY SameMinorVersion)
-
-# Install config and module files
-install(
-        FILES
-        ${SEAL_CONFIG_FILENAME}
-        ${SEAL_CONFIG_VERSION_FILENAME}
-        DESTINATION ${SEAL_CONFIG_INSTALL_DIR})
-
-# We export SEALTargets from the build tree so it can be used by other projects
-# without requiring an install.
-export(
-        EXPORT SEALTargets
-        NAMESPACE SEAL::
-        FILE ${SEAL_TARGETS_FILENAME})
-
-# Install header files of dependencies if SEAL_BUILD_DEPS is ON
-if(SEAL_BUILD_DEPS)
-    # MSGSL
-    if(SEAL_USE_MSGSL)
-        install(
-                DIRECTORY ${msgsl_SOURCE_DIR}/include/gsl
-                DESTINATION ${SEAL_INCLUDES_INSTALL_DIR})
-    endif()
-    # Intel HEXL
-    if(SEAL_USE_INTEL_HEXL)
-        install(
-                DIRECTORY ${hexl_SOURCE_DIR}/hexl/include/hexl
-                DESTINATION ${SEAL_INCLUDES_INSTALL_DIR})
-    endif()
-endif()
-
-##############
-# pkg-config #
-##############
-
-if(UNIX OR APPLE)
-    # Set the requirements according to the current configuration if SEAL_BUILD_DEPS=OFF
-    if(NOT SEAL_BUILD_DEPS)
-        if(SEAL_USE_MSGSL)
-            # Extract the include directories from Microsoft.GSL::GSL
-            get_target_property(
-                    SEAL_PKGCONFIG_MSGSL_INCLUDE_DIR
-                    Microsoft.GSL::GSL
-                    INTERFACE_INCLUDE_DIRECTORIES)
-
-            # Create the Microsoft GSL pkg-config file
-            configure_file(${SEAL_PKGCONFIG_MSGSL_IN_FILENAME} ${SEAL_PKGCONFIG_MSGSL_FILENAME} @ONLY)
-
-            set(SEAL_PKGCONFIG_MSGSL_REQUIRES_STRING "seal_msgsl >= ${Microsoft.GSL_VERSION_MAJOR}")
-        endif()
-        if(SEAL_USE_ZLIB)
-            set(SEAL_PKGCONFIG_ZLIB_REQUIRES_STRING "zlib = ${ZLIB_VERSION_STRING}")
-        endif()
-        if(SEAL_USE_ZSTD)
-            set(SEAL_PKGCONFIG_ZSTD_REQUIRES_STRING "libzstd >= ${zstd_VERSION_MAJOR}")
-        endif()
-        if(SEAL_USE_INTEL_HEXL)
-            set(SEAL_PKGCONFIG_INTEL_HEXL_REQUIRES_STRING "HEXL >= ${HEXL_VERSION_MAJOR}")
-            message(STATUS "Intel HEXL does not have a pkg-config file")
-        endif()
-    endif()
-
-    # Create the pkg-config file
-    if(TARGET seal)
-        configure_file(${SEAL_PKGCONFIG_IN_FILENAME} ${SEAL_PKGCONFIG_FILENAME} @ONLY)
-    endif()
-    if(TARGET seal_shared)
-        configure_file(${SEAL_PKGCONFIG_SHARED_IN_FILENAME} ${SEAL_PKGCONFIG_SHARED_FILENAME} @ONLY)
-    endif()
-
-    # Install the pkg-config files
-    if(EXISTS ${SEAL_PKGCONFIG_FILENAME})
-        install(
-                FILES ${SEAL_PKGCONFIG_FILENAME}
-                DESTINATION ${SEAL_PKGCONFIG_INSTALL_DIR})
-    endif()
-    if(EXISTS ${SEAL_PKGCONFIG_SHARED_FILENAME})
-        install(
-                FILES ${SEAL_PKGCONFIG_SHARED_FILENAME}
-                DESTINATION ${SEAL_PKGCONFIG_INSTALL_DIR})
-    endif()
-    if(EXISTS ${SEAL_PKGCONFIG_MSGSL_FILENAME})
-        install(
-                FILES ${SEAL_PKGCONFIG_MSGSL_FILENAME}
-                DESTINATION ${SEAL_PKGCONFIG_INSTALL_DIR})
-    endif()
-endif()
-
-#####################
-# SEAL C++ examples #
-#####################
-
-# [option] SEAL_BUILD_EXAMPLES
-set(SEAL_BUILD_EXAMPLES_OPTION_STR "Build C++ examples for Microsoft SEAL")
-option(SEAL_BUILD_EXAMPLES ${SEAL_BUILD_EXAMPLES_OPTION_STR} OFF)
-message(STATUS "SEAL_BUILD_EXAMPLES: ${SEAL_BUILD_EXAMPLES}")
-
-if(SEAL_BUILD_EXAMPLES)
-    add_subdirectory(native/examples)
-endif()
-
-##################
-# SEAL C++ tests #
-##################
-
-# [option] SEAL_BUILD_TESTS
-set(SEAL_BUILD_TESTS_OPTION_STR "Build C++ tests for Microsoft SEAL")
-option(SEAL_BUILD_TESTS ${SEAL_BUILD_TESTS_OPTION_STR} OFF)
-message(STATUS "SEAL_BUILD_TESTS: ${SEAL_BUILD_TESTS}")
-
-if(SEAL_BUILD_TESTS)
-    add_subdirectory(native/tests)
-endif()
-
-#######################
-# SEAL C++ benchmarks #
-#######################
-
-# [option] SEAL_BUILD_BENCH
-set(SEAL_BUILD_BENCH_OPTION_STR "Build C++ benchmarks for Microsoft SEAL")
-option(SEAL_BUILD_BENCH ${SEAL_BUILD_BENCH_OPTION_STR} OFF)
-message(STATUS "SEAL_BUILD_BENCH: ${SEAL_BUILD_BENCH}")
-
-if(SEAL_BUILD_BENCH)
-    add_subdirectory(native/bench)
-endif()
-
-#######################################
-# Configure SEALNet and NuGet package #
-#######################################
-
-# In Windows we will set the SEAL_C library path according to the CMake generator
-set(SEAL_WINDOWS_SEAL_C_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-get_property(SEAL_IS_MULTI_CONFIG_GENERATOR GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-if(SEAL_IS_MULTI_CONFIG_GENERATOR)
-    # Is this the Visual Studio generator? If so, the output path will contain the configuration.
-    # We shall use CMAKE_BUILD_TYPE here, which by default will be "Release". The user has the
-    # option of changing this by explicitly specifying CMAKE_BUILD_TYPE, which multi-config
-    # generators otherwise ignore.
-    set(SEAL_WINDOWS_SEAL_C_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
-endif()
-
-# Create SEALNet.csproj, SEALNetExamples.csproj, and SEALNetTest.csproj
-configure_file(
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/src/SEALNet.csproj.in
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/src/SEALNet.csproj
-        @ONLY)
-configure_file(
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/tests/SEALNetTest.csproj.in
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/tests/SEALNetTest.csproj
-        @ONLY)
-configure_file(
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/examples/SEALNetExamples.csproj.in
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/examples/SEALNetExamples.csproj
-        @ONLY)
-
-# Set the sealc dynamic library file names to be included in creating
-# the NuGet package. When building a multi-platform NuGet package, the
-# dynamic library paths need to be specified explicitly in the NuGet
-# command. See dotnet/nuget/SEALNet.nuspec.in.
-
-# Create SEALNet-multi.nuspec for a multi-platform NuGet package
-configure_file(
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet-multi.nuspec.in
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet-multi.nuspec
-        @ONLY)
-
-set(NUGET_WINDOWS_SEAL_C_PATH "")
-set(NUGET_LINUX_SEAL_C_PATH "")
-set(NUGET_MACOS_SEAL_C_PATH "")
-
-# Supporting local building of NuGet package
-if(WIN32)
-    set(NUGET_WINDOWS_SEAL_C_PATH ${SEAL_WINDOWS_SEAL_C_DIRECTORY}/sealc.dll)
-elseif(UNIX AND NOT APPLE)
-    set(NUGET_LINUX_SEAL_C_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libsealc.so)
-elseif(APPLE)
-    set(NUGET_MACOS_SEAL_C_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libsealc.dylib)
-endif()
-
-# Create SEALNet.nuspec for a local NuGet pack from SEALNet.nuspec.in
-configure_file(
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet.nuspec.in
-        ${CMAKE_CURRENT_LIST_DIR}/dotnet/nuget/SEALNet.nuspec
-        @ONLY)
+add_executable(demo_batch Demo_Afseal_batch.cpp)
+target_link_libraries(demo_batch PRIVATE seal)
