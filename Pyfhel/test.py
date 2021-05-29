@@ -83,13 +83,13 @@ class PyfhelTestCase(unittest.TestCase):
             ctxt4 = PyCtxt(copy_ctxt=ctxt3)
         except Exception as err:
             self.fail("PyCtxt() creation failed unexpectedly: ", err)
-        self.assertEqual(ctxt.size(), 2)
+        self.assertEqual(ctxt.size(), 0) #Changed: SEAL generates empty ciphertexts properly now
         self.assertEqual(ctxt._encoding, ENCODING_t.UNDEFINED)
         ctxt._encoding = ENCODING_t.FRACTIONAL
         self.assertEqual(ctxt._encoding, ENCODING_t.FRACTIONAL)
         del (ctxt._encoding)
         self.assertEqual(ctxt._encoding, ENCODING_t.UNDEFINED)
-        self.assertEqual(ctxt.size(), 2)
+        self.assertEqual(ctxt.size(), 0) #see above
         ctxt._pyfhel = pyfhel
         ctxt2._pyfhel = ctxt._pyfhel
         try:
@@ -343,9 +343,9 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertTrue(pyfhel.restorepublicKey("public_k.pypk"))
         self.assertTrue(pyfhel.restorerelinKey("relin_k.pyrlk"))
         self.assertTrue(pyfhel.restorerotateKey("rotate_k.pyrok"))
-        os.remove("context.pycon")
+        os.remove("../context.pycon")
         os.remove("secret_k.pysk")
-        os.remove("public_k.pypk")
+        os.remove("../public_k.pypk")
         os.remove("relin_k.pyrlk")
         os.remove("rotate_k.pyrok")
 
