@@ -1,3 +1,9 @@
+# Ignore cmake build dirs
+**/cmake-build*
+
+# Ignore IntelliJ/PyCharm files
+**/.idea
+
 # Compiled Object files
 **.o
 **.lo
