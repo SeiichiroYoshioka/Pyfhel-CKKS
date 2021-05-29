@@ -62,7 +62,7 @@ message(STATUS "Microsoft SEAL debug mode: ${SEAL_DEBUG}")
 # [option] SEAL_USE_CXX17 (default: ON)
 # Use C++17, use C++14 otherwise.
 set(SEAL_USE_CXX17_OPTION_STR "Use C++17")
-option(SEAL_USE_CXX17 ${SEAL_USE_CXX17_OPTION_STR} ON)
+option(SEAL_USE_CXX17 ${SEAL_USE_CXX17_OPTION_STR} OFF)
 message(STATUS "SEAL_USE_CXX17: ${SEAL_USE_CXX17}")
 
 # Enable features from C++17 if available, disable features if set to OFF.
@@ -866,7 +866,7 @@ add_library(seal
         ../SEAL/SEAL/seal/ztools.cpp
         ../SEAL/SEAL/seal/ztools.h
         )
-target_compile_features(seal PUBLIC cxx_std_17)
+target_compile_features(seal PUBLIC cxx_std_14)
 
 add_executable(demo_batch Demo_Afseal_batch.cpp)
 target_link_libraries(demo_batch PRIVATE seal)
