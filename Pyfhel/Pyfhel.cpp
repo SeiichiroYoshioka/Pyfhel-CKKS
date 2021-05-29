@@ -6552,14 +6552,14 @@ static PyObject *__pyx_pf_6Pyfhel_6Pyfhel_6Pyfhel_9flagBatch___get__(struct __py
 /* "Pyfhel/Pyfhel.pyx":182
  *     # =========================================================================
  * 
- *     cpdef contextGen(self, long p, long m=2048, bool flagBatching=False,             # <<<<<<<<<<<<<<
+ *     cpdef contextGen(self, long p, long m=4096, bool flagBatching=False,             # <<<<<<<<<<<<<<
  *                      long base=2, long sec=128, int intDigits=64,
  *                      int fracDigits = 32) except +:
  */
 
 static PyObject *__pyx_pw_6Pyfhel_6Pyfhel_6Pyfhel_13contextGen(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyObject *__pyx_f_6Pyfhel_6Pyfhel_6Pyfhel_contextGen(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *__pyx_v_self, long __pyx_v_p, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_contextGen *__pyx_optional_args) {
-  long __pyx_v_m = ((long)0x800);
+  long __pyx_v_m = ((long)0x1000);
   bool __pyx_v_flagBatching = ((bool)0);
   long __pyx_v_base = ((long)2);
   long __pyx_v_sec = ((long)0x80);
@@ -6741,7 +6741,7 @@ static PyObject *__pyx_f_6Pyfhel_6Pyfhel_6Pyfhel_contextGen(struct __pyx_obj_6Py
   /* "Pyfhel/Pyfhel.pyx":182
  *     # =========================================================================
  * 
- *     cpdef contextGen(self, long p, long m=2048, bool flagBatching=False,             # <<<<<<<<<<<<<<
+ *     cpdef contextGen(self, long p, long m=4096, bool flagBatching=False,             # <<<<<<<<<<<<<<
  *                      long base=2, long sec=128, int intDigits=64,
  *                      int fracDigits = 32) except +:
  */
@@ -6879,7 +6879,7 @@ static PyObject *__pyx_pw_6Pyfhel_6Pyfhel_6Pyfhel_13contextGen(PyObject *__pyx_v
     if (values[1]) {
       __pyx_v_m = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v_m == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 182, __pyx_L3_error)
     } else {
-      __pyx_v_m = ((long)0x800);
+      __pyx_v_m = ((long)0x1000);
     }
     if (values[2]) {
       __pyx_v_flagBatching = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_flagBatching == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(1, 182, __pyx_L3_error)
