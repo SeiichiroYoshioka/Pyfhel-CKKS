@@ -179,7 +179,7 @@ cdef class Pyfhel:
     # ============================ CRYPTOGRAPHY ===============================
     # =========================================================================
     
-    cpdef contextGen(self, long p, long m=2048, bool flagBatching=False,
+    cpdef contextGen(self, long p, long m=4096, bool flagBatching=False,
                      long base=2, long sec=128, int intDigits=64,
                      int fracDigits = 32) except +:
         """contextGen(int p, int m=2048, bool flagBatching=False, int base=2, int sec=128, int intDigits=64, int fracDigits = 32)
