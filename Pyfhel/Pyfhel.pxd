@@ -11,7 +11,7 @@ from libcpp cimport bool
 from numpy cimport int64_t, uint64_t
 
 # Import our own wrapper for iostream classes, used for I/O ops
-from Pyfhel.iostream cimport istream, ostream, ifstream, ofstream   
+from Pyfhel.iostream cimport istream, ostream, ifstream, ofstream,ostringstream, stringstream, binary
 
 from Pyfhel.Afhel cimport Plaintext
 from Pyfhel.Afhel cimport Ciphertext
@@ -79,21 +79,38 @@ cdef class Pyfhel:
 
     
     # ================================ I/O =====================================
-    cpdef bool saveContext(self, str fileName) except +
-    cpdef bool restoreContext(self, str fileName) except +
+    #FILES
+    cpdef bool saveContext(self, fileName) except +
+    cpdef bool restoreContext(self, fileName) except +
 
-    cpdef bool savepublicKey(self, str fileName) except +
-    cpdef bool restorepublicKey(self, str fileName) except +
+    cpdef bool savepublicKey(self, fileName) except +
+    cpdef bool restorepublicKey(self, fileName) except +
 
-    cpdef bool savesecretKey(self, str fileName) except +
-    cpdef bool restoresecretKey(self, str fileName) except +
+    cpdef bool savesecretKey(self, fileName) except +
+    cpdef bool restoresecretKey(self, fileName) except +
 
-    cpdef bool saverelinKey(self, str fileName) except +
-    cpdef bool restorerelinKey(self, str fileName) except +
+    cpdef bool saverelinKey(self, fileName) except +
+    cpdef bool restorerelinKey(self, fileName) except +
 
-    cpdef bool saverotateKey(self, str fileName) except +
-    cpdef bool restorerotateKey(self, str fileName) except +
+    cpdef bool saverotateKey(self, fileName) except +
+    cpdef bool restorerotateKey(self, fileName) except +
 
+
+    #BYTES
+    cpdef bytes to_bytes_context(self) except +
+    cpdef bool from_bytes_context(self, bytes content) except +
+
+    cpdef bytes to_bytes_publicKey(self) except +
+    cpdef bool from_bytes_publicKey(self, bytes content) except +
+
+    cpdef bytes to_bytes_secretKey(self) except +
+    cpdef bool from_bytes_secretKey(self, bytes content) except +
+
+    cpdef bytes to_bytes_relinKey(self) except +
+    cpdef bool from_bytes_relinKey(self, bytes content) except +
+
+    cpdef bytes to_bytes_rotateKey(self) except +
+    cpdef bool from_bytes_rotateKey(self, bytes content) except +
     
     # ============================== AUXILIARY =================================
     cpdef bool batchEnabled(self) except +
@@ -109,3 +126,13 @@ cdef class Pyfhel:
     cpdef int getfracDigits(self) except +
     cpdef bool getflagBatch(self) except +
     
+    cpdef bool is_secretKey_empty(self) except+
+    cpdef bool is_publicKey_empty(self) except+
+    cpdef bool is_rotKey_empty(self) except+
+    cpdef bool is_relinKey_empty(self) except+
+    cpdef bool is_context_empty(self) except+
+
+
+# --------------------------------- UTILS --------------------------------------
+cpdef to_ENCODING_t(encoding) except +
+cpdef str _to_valid_file_str(fileName, bool check=*) except +

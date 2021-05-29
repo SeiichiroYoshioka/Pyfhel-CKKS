@@ -868,5 +868,6 @@ add_library(seal
         )
 target_compile_features(seal PUBLIC cxx_std_14)
 
-add_executable(demo_batch Demo_Afseal_batch.cpp)
+add_executable(demo_batch Demos/Demo_Afseal_batch.cpp)
+target_include_directories(demo_batch PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(demo_batch PRIVATE seal)

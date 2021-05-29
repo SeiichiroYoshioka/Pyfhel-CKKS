@@ -145,6 +145,21 @@ cdef extern from "Afhel/Afseal.h" nogil:
         bool saverotateKey(string fileName) except +
         bool restorerotateKey(string fileName) except +
 
+        bool ssaveContext(ostream& contextFile) except +
+        bool srestoreContext(istream& contextFile) except +
+        
+        bool ssavepublicKey(ostream& keyFile) except +
+        bool srestorepublicKey(istream& keyFile) except +
+        
+        bool ssavesecretKey(ostream& keyFile) except +
+        bool srestoresecretKey(istream& keyFile) except +
+        
+        bool ssaverelinKey(ostream& keyFile) except +
+        bool srestorerelinKey(istream& keyFile) except +
+        
+        bool ssaverotateKey(ostream& keyFile) except +
+        bool srestorerotateKey(istream& keyFile) except +
+
         # ----------------------------- AUXILIARY -----------------------------
         bool batchEnabled() except +
         long relinBitCount() except +
@@ -158,3 +173,9 @@ cdef extern from "Afhel/Afseal.h" nogil:
         int getintDigits() except +
         int getfracDigits() except +
         bool getflagBatch() except +
+        bool is_secretKey_empty() except+
+        bool is_publicKey_empty() except+
+        bool is_rotKey_empty() except+
+        bool is_relinKey_empty() except+
+        bool is_context_empty() except+
+
