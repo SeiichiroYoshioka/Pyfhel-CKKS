@@ -61,7 +61,7 @@ SEAL_PATH = PYFHEL_PATH / 'SEAL' / 'SEAL' / 'seal'
 def scan_cpp(dir, files=[]):
     for file in os.listdir(dir):
         path = os.path.join(dir, file)
-        if os.path.isfile(path) and path.endswith(".cpp"):
+        if os.path.isfile(path) and (path.endswith(".cpp") or path.endswith(".c")):
             files.append(str(path))
     return files
 
