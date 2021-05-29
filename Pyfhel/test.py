@@ -138,6 +138,7 @@ class PyfhelTestCase(unittest.TestCase):
     def test_Pyfhel_2_ENCODING(self):
         pass
 
+    @unittest.skip("Integer Encoding no longer supported")
     def test_Pyfhel_2a_encode_decode_int(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=65537)
@@ -153,6 +154,7 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertEqual(pyfhel.decodeInt(ptxt), -2)
         self.assertEqual(pyfhel.decodeInt(ptxt2), 127)
 
+    @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_2b_encode_decode_float(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=65537, m=8192, base=2, intDigits=80, fracDigits=20)
@@ -187,6 +189,7 @@ class PyfhelTestCase(unittest.TestCase):
     def test_Pyfhel_3_ENCRYPTING(self):
         pass
 
+    @unittest.skip("Integer Encoding no longer supported")
     def test_Pyfhel_3a_encrypt_decrypt_int(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=65537)
@@ -199,6 +202,7 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertEqual(pyfhel.decryptInt(ctxt), -2)
         self.assertEqual(pyfhel.decryptInt(ctxt2), 127)
 
+    @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_3b_encrypt_decrypt_float(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=65537, m=8192, base=2, intDigits=80, fracDigits=20)
@@ -233,6 +237,7 @@ class PyfhelTestCase(unittest.TestCase):
     def test_Pyfhel_4_OPERATIONS(self):
         pass
 
+    @unittest.skip("Integer Encoding no longer supported")
     def test_Pyfhel_4a_operations_integer(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, base=3, sec=192)
@@ -256,6 +261,7 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertEqual(pyfhel.decryptInt(ctxt_mult), -254)
         self.assertEqual(pyfhel.decryptInt(ctxt_mult2), 381)
 
+    @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_4b_operations_frac(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, base=3, sec=192)
@@ -315,6 +321,7 @@ class PyfhelTestCase(unittest.TestCase):
     def test_Pyfhel_5_IO_SAVE_RESTORE(self):
         pass
 
+    @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5a_save_objects(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
@@ -328,6 +335,7 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertTrue(pyfhel.saverelinKey("relin_k.pyrlk"))
         self.assertTrue(pyfhel.saverotateKey("rotate_k.pyrok"))
 
+    @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5b_restore_objects(self):
         pyfhel = Pyfhel()
         self.assertTrue(pyfhel.restoreContext("context.pycon"))
@@ -341,6 +349,7 @@ class PyfhelTestCase(unittest.TestCase):
         os.remove("relin_k.pyrlk")
         os.remove("rotate_k.pyrok")
 
+    @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5c_save_restore_all(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
@@ -391,6 +400,7 @@ class PyfhelTestCase(unittest.TestCase):
         )
         tmp_dir.cleanup()
 
+    @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5d_save_restore_int(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
@@ -409,6 +419,7 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertEqual(pyfhel.decryptInt(loaded), 42)
         tmp_dir.cleanup()
 
+    @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5e_save_restore_float(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
@@ -427,6 +438,7 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertEqual(pyfhel.decryptFrac(loaded), 3.125)
         tmp_dir.cleanup()
 
+    @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5f_save_restore_batch(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
@@ -469,9 +481,11 @@ class PyfhelTestCase(unittest.TestCase):
     def test_Pyfhel_6g_demo_simd(self):
         execfile(EXAMPLES_FOLDER / 'Demo_SIMD.py')
 
+    @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_6h_demo_ClientServer(self):
         execfile(EXAMPLES_FOLDER / 'Demo_ClientServer.py')
 
+    @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_6i_demo_MultDepth_n_relin(self):
         execfile(EXAMPLES_FOLDER / 'Demo_MultDepth_n_relin.py')
         
