@@ -460,21 +460,27 @@ class PyfhelTestCase(unittest.TestCase):
     def test_Pyfhel_6_DEMOS(self):
         pass
 
+    @unittest.skip("Integer Encoding no longer supported")
     def test_Pyfhel_6a_demo_helloworld(self):
         execfile(EXAMPLES_FOLDER / 'Demo_HelloWorld.py')
-    
+
+    @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_6b_demo_float(self):
         execfile(EXAMPLES_FOLDER / 'Demo_Float.py')
 
+    @unittest.skip("Integer Encoding no longer supported")
     def test_Pyfhel_6c_demo_encoding(self):
         execfile(EXAMPLES_FOLDER / 'Demo_Encoding.py')
 
+    @unittest.skip("Integer Encoding no longer supported")
     def test_Pyfhel_6d_demo_encrypting(self):
         execfile(EXAMPLES_FOLDER / 'Demo_Encrypting.py')
 
+    @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_6e_demo_numpy(self):
         execfile(EXAMPLES_FOLDER / 'Demo_Numpy.py')
 
+    @unittest.skip("IO temporarily removed")
     def test_Pyfhel_6f_demo_SaveNRestore(self):
         execfile(EXAMPLES_FOLDER / 'Demo_SaveNRestore.py')
 
