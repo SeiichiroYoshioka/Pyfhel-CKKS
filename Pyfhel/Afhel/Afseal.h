@@ -38,7 +38,7 @@
 #include <thread>	/* memory pools, multithread*/
 #include <memory>	/* Smart Pointers*/
 
-#include <../SEAL/SEAL/seal/seal.h>
+#include "../SEAL/SEAL/seal/seal.h"
 
 using namespace std;
 using namespace seal;
@@ -57,21 +57,18 @@ class Afseal{
         // --------------------------- ATTRIBUTES -----------------------------
         
         shared_ptr<SEALContext> context=NULL;           /**< Context. Used for init*/
-  
-        shared_ptr<IntegerEncoder> intEncoder=NULL;     /**< Integer Encoding.*/
-        shared_ptr<FractionalEncoder> fracEncoder=NULL; /**< Fractional Encoding.*/
-
+  		//TODO: Declare Encoder Ptr
         shared_ptr<KeyGenerator> keyGenObj=NULL;        /**< Key Generator Object.*/
         shared_ptr<SecretKey> secretKey=NULL;           /**< Secret key.*/
         shared_ptr<PublicKey> publicKey=NULL;           /**< Public key.*/
-        shared_ptr<EvaluationKeys> relinKey=NULL;       /**< Relinearization object*/
+        shared_ptr<RelinKeys> relinKey=NULL;           /**< Relinearization object*/
         shared_ptr<GaloisKeys> rotateKeys=NULL;         /**< Galois key for batching*/
 
         shared_ptr<Encryptor> encryptor=NULL;           /**< Requires a Public Key.*/
         shared_ptr<Evaluator> evaluator=NULL;           /**< Requires a context.*/
         shared_ptr<Decryptor> decryptor=NULL;           /**< Requires a Secret Key.*/
 
-        shared_ptr<PolyCRTBuilder> crtBuilder=NULL;     /**< Rotation in Batching. */
+        shared_ptr<BatchEncoder> batchEncoder=NULL;     /**< Rotation in Batching. */
 
 
         long p;                          /**< All operations are modulo p^r */
@@ -386,7 +383,7 @@ class Afseal{
         // GETTERS
         SecretKey getsecretKey(); 
         PublicKey getpublicKey();
-        EvaluationKeys getrelinKey(); 
+        RelinKeys getrelinKey();
         GaloisKeys getrotateKeys();  
         int getnSlots();  
         int getp();
@@ -402,8 +399,8 @@ class Afseal{
             {this->publicKey = make_shared<PublicKey> (pubKey);}
         void setsecretKey(SecretKey& secKey)
             {this->secretKey = make_shared<SecretKey> (secKey);}
-        void setrelinKey(EvaluationKeys& relKey)
-            {this->relinKey = make_shared<EvaluationKeys>(relKey);}
+        void setrelinKey(RelinKeys& relKey)
+            {this->relinKey = make_shared<RelinKeys>(relKey);}
 
 };
 #endif
