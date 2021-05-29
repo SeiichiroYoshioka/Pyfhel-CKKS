@@ -83,13 +83,14 @@ cdef class PyPtxt:
             fileName: (:obj:`str`) File where the ciphertext will be stored.
 
         """
-        cdef ofstream outputter
-        cdef string bFileName = fileName.encode('utf8')
-        outputter.open(bFileName)
-        try:
-            self._ptr_ptxt.save(outputter)
-        finally:
-            outputter.close()
+        raise Exception("Serialization disabled.")  #TODO: Re-enable Serialization
+        # cdef ofstream outputter
+        # cdef string bFileName = fileName.encode('utf8')
+        # outputter.open(bFileName)
+        # try:
+        #     self._ptr_ptxt.save(outputter)
+        # finally:
+        #     outputter.close()
 
     cpdef void load(self, str fileName):
         """Load the plaintext from a file.
@@ -98,10 +99,11 @@ cdef class PyPtxt:
             fileName: (:obj:`str`) File where the plaintext is retrieved from.
 
         """
-        cdef ifstream inputter
-        cdef string bFileName = fileName.encode('utf8')
-        inputter.open(bFileName)
-        try:
-            self._ptr_ptxt.load(inputter)
-        finally:
-            inputter.close()
+        raise Exception("Serialization disabled.") #TODO: Re-enable Serialization
+        # cdef ifstream inputter
+        # cdef string bFileName = fileName.encode('utf8')
+        # inputter.open(bFileName)
+        # try:
+        #     self._ptr_ptxt.load(inputter)
+        # finally:
+        #     inputter.close()

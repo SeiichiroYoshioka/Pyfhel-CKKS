@@ -84,21 +84,22 @@ cdef class PyCtxt:
             fileName: (:obj:`str`) File where the ciphertext will be stored.
 
         """
-        cdef ofstream outputter
-        cdef string bFileName = fileName.encode('utf8')
-        outputter.open(bFileName)
-        try:
-            self._ptr_ctxt.save(outputter)
-        finally:
-            outputter.close()
+        raise Exception("Serialization disabled.")  #TODO: Re-enable Serialization
+        # cdef ofstream outputter
+        # cdef string bFileName = fileName.encode('utf8')
+        # outputter.open(bFileName)
+        # try:
+        #     self._ptr_ctxt.save(outputter)
+        # finally:
+        #     outputter.close()
 
     cpdef string savem(self):
-
-        cdef ostringstream outputter
-
-        self._ptr_ctxt.save(outputter)
-
-        return outputter.str()
+        raise Exception("Serialization disabled.")  #TODO: Re-enable Serialization
+        # cdef ostringstream outputter
+        #
+        # self._ptr_ctxt.save(outputter)
+        #
+        # return outputter.str()
 
     cpdef void load(self, str fileName, str encoding='int'):
         """Load the ciphertext from a file.
@@ -110,37 +111,38 @@ cdef class PyCtxt:
                 FractionalEncoding, 'array'/'batch'/'matrix' for BatchEncoding
 
         """
-        cdef ifstream inputter
-        cdef string bFileName = fileName.encode('utf8')
-        inputter.open(bFileName)
-        try:
-            self._ptr_ctxt.load(inputter)
-            if encoding.lower()[0] == 'i':
-                self._encoding = ENCODING_T.INTEGER
-            elif encoding.lower()[0] in 'fd':
-                self._encoding = ENCODING_T.FRACTIONAL
-            elif encoding.lower()[0] in 'abm':
-                self._encoding = ENCODING_T.BATCH
-            else:
-                raise ValueError('Given encoding is unknown')
-        finally:
-            inputter.close()
+        raise Exception("Serialization disabled.")  #TODO: Re-enable Serialization
+        # cdef ifstream inputter
+        # cdef string bFileName = fileName.encode('utf8')
+        # inputter.open(bFileName)
+        # try:
+        #     self._ptr_ctxt.load(inputter)
+        #     if encoding.lower()[0] == 'i':
+        #         self._encoding = ENCODING_T.INTEGER
+        #     elif encoding.lower()[0] in 'fd':
+        #         self._encoding = ENCODING_T.FRACTIONAL
+        #     elif encoding.lower()[0] in 'abm':
+        #         self._encoding = ENCODING_T.BATCH
+        #     else:
+        #         raise ValueError('Given encoding is unknown')
+        # finally:
+        #     inputter.close()
 
     cpdef void loadm(self, bytes content, str encoding='int'):
-
-        cdef stringstream inputter;
-
-        inputter.write(content,len(content))
-
-        self._ptr_ctxt.load(inputter)
-        if encoding.lower()[0] == 'i':
-            self._encoding = ENCODING_T.INTEGER
-        elif encoding.lower()[0] in 'fd':
-            self._encoding = ENCODING_T.FRACTIONAL
-        elif encoding.lower()[0] in 'abm':
-            self._encoding = ENCODING_T.BATCH
-        else:
-            raise ValueError('Given encoding is unknown')
+        raise Exception("Serialization disabled.")  #TODO: Re-enable Serialization
+        # cdef stringstream inputter;
+        #
+        # inputter.write(content,len(content))
+        #
+        # self._ptr_ctxt.load(inputter)
+        # if encoding.lower()[0] == 'i':
+        #     self._encoding = ENCODING_T.INTEGER
+        # elif encoding.lower()[0] in 'fd':
+        #     self._encoding = ENCODING_T.FRACTIONAL
+        # elif encoding.lower()[0] in 'abm':
+        #     self._encoding = ENCODING_T.BATCH
+        # else:
+        #     raise ValueError('Given encoding is unknown')
 
             
     # =========================================================================
