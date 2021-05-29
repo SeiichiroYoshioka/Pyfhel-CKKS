@@ -7,4 +7,4 @@
 
 [submodule "SEAL"]
 	path = Pyfhel/SEAL
-	url = https://github.com/ibarrond/SEAL4Pyfhel
+	url = https://github.com/MarbleHE/SEAL4Pyfhel
