@@ -73,7 +73,7 @@ void Afseal::ContextGen(long new_p, long new_m, bool new_flagBatch,
                         long new_base, long new_sec, int new_intDigits,
                         int new_fracDigits) {
 
-  EncryptionParameters parms;
+  EncryptionParameters parms(scheme_type::bfv);
   this->p = new_p;
   this->m = new_m;
   this->base = new_base;
@@ -460,7 +460,7 @@ bool Afseal::saveContext(string fileName) {
 }
 
 bool Afseal::restoreContext(string fileName) {
-  EncryptionParameters parms;
+  EncryptionParameters parms(scheme_type::bfv);
   bool res = true;
   try {
     fstream contextFile(fileName, fstream::in | fstream::binary);
