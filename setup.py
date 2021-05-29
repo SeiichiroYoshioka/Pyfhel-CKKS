@@ -45,7 +45,7 @@ v_init_regex = r'\"([0-9]+\.[0-9]+\.[0-9a-z]+)\"'
 with open('Pyfhel/__init__.py') as f:
     s = f.read()
 with open('Pyfhel/__init__.py', 'w') as f:
-    f.write(re.sub(v_init_regex, '"%s"'.format(VERSION), s))
+    f.write(re.sub(v_init_regex, VERSION, s))
 
 # Including Readme in the module as long description.
 with open("README.md", "r") as fh:
@@ -123,7 +123,7 @@ ext_modules = [
              define_macros=define_macros,
              language=language,
              extra_compile_args=extra_compile_flags,
-         ),   
+         ),
 ]
 if CYTHONIZE:
     from Cython.Build import cythonize
@@ -150,7 +150,7 @@ class FlushCommand(Command):
                 print('removing %s' % os.path.relpath(path))
                 shutil.rmtree(path)
 
-                
+
 # ---------------------------------- NUMPY ------------------------------------
 # We need to know the headers of numpy for compilation. For this, we use
 #  our own build_ext function (https://stackoverflow.com/questions/54117786)
@@ -179,7 +179,7 @@ setup(
     long_description_content_type="text/markdown",
     keywords        = "homomorphic encryption cython cryptography",
     license         = "GNU GPLv3",
-    url             = "https://github.com/ibarrond/Pyfhel",     
+    url             = "https://github.com/ibarrond/Pyfhel",
     setup_requires  =["setuptools>=45.0",
                       "numpy>=1.16.0"],
     install_requires=requirements,
@@ -202,7 +202,7 @@ setup(
     ],
     zip_safe=False,
     packages=find_packages(),
-    ext_modules=ext_modules,  
+    ext_modules=ext_modules,
     test_suite=str(PYFHEL_PATH / "test.py"),
     libraries=[cpplibraries],
     cmdclass={'flush': FlushCommand,
