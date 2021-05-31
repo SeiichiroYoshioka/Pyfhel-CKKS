@@ -270,7 +270,7 @@ cdef class PyPtxt:
         See Also:
             :func:`~Pyfhel.Pyfhel.encode`
         """
-        self._pyfhel.encode(value, self)
+        self._pyfhel.encodeVector(value, self)
     
     def decode(self):
         """decode()

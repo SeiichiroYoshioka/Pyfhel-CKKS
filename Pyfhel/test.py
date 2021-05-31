@@ -112,12 +112,12 @@ class PyfhelTestCase(unittest.TestCase):
 
     def test_Pyfhel_1b_context_n_key_generation(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(65537)
+        pyfhel.contextGen()
         pyfhel.keyGen()
 
     def test_Pyfhel_1c_rotate_key_generation(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(65537)
+        pyfhel.contextGen()
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(30)
         pyfhel.rotateKeyGen(1)
@@ -127,7 +127,7 @@ class PyfhelTestCase(unittest.TestCase):
 
     def test_Pyfhel_1d_relin_key_generation(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(65537)
+        pyfhel.contextGen()
         pyfhel.keyGen()
         pyfhel.relinKeyGen(30, 5)
         pyfhel.relinKeyGen(1, 5)
@@ -166,15 +166,17 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertEqual(ptxt.to_poly_string(), b"1x^8190 + 10000x^1")
         self.assertEqual(round(pyfhel.decodeFrac(ptxt), 2), -2.25)
 
+    @unittest.skip("Batch Encoding no longer supported")
     def test_Pyfhel_2c_encode_decode_batch(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
+        pyfhel.contextGen(m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         self.assertTrue(pyfhel.batchEnabled())
         ptxt = pyfhel.encodeBatch([1, 2, 3, 4, 5, 6])
         self.assertEqual(pyfhel.getnSlots(), 8192)
         self.assertEqual(pyfhel.decodeBatch(ptxt)[:6], [1, 2, 3, 4, 5, 6])
 
+    @unittest.skip("Array Encoding no longer supported")
     def test_Pyfhel_2d_encode_decode_array(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
@@ -212,6 +214,7 @@ class PyfhelTestCase(unittest.TestCase):
         pyfhel.encryptFrac(-2.25, ctxt)
         self.assertEqual(round(pyfhel.decryptFrac(ctxt), 2), -2.25)
 
+    @unittest.skip("Old Batch Encoding no longer supported")
     def test_Pyfhel_3c_encrypt_decrypt_batch(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
@@ -223,6 +226,7 @@ class PyfhelTestCase(unittest.TestCase):
 
         # print(self.ptxt.to_string())
 
+    @unittest.skip("Array Encoding no longer supported")
     def test_Pyfhel_3d_encrypt_decrypt_array(self):
         pyfhel = Pyfhel()
         pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
@@ -285,14 +289,15 @@ class PyfhelTestCase(unittest.TestCase):
         self.assertEqual(round(pyfhel.decryptFrac(ctxt_mult), 2), -43.58)
         self.assertEqual(round(pyfhel.decryptFrac(ctxt_mult2), 2), 60.43)
 
+    @unittest.skip("Batch Encoding no longer supported")
     def test_Pyfhel_4c_operations_batch_array(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
+        pyfhel.contextGen(n=2*8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(60)
-        ctxti = pyfhel.encryptBatch([1, 2, 3, 4, 5, 6])
-        ctxti2 = pyfhel.encryptArray(np.array([-6, -5, -4, -3, -2, -1], dtype=np.int64))
-        ptxti = pyfhel.encodeArray(np.array([12, 15, 18, 21, 24, 27], dtype=np.int64))
+        ptxti = pyfhel.encodeVector([1.2, 2.4, 3.7, 4.7, 5.1, 6.5], 2**30)
+        ctxti = pyfhel.encrypt(ptxti)
+        ctxti2 = pyfhel.encrypt(ptxti)
 
         ctxt_add = pyfhel.add(ctxti, ctxti2, in_new_ctxt=True)
         ctxt_add2 = pyfhel.add_plain(ctxti, ptxti, in_new_ctxt=True)
@@ -484,6 +489,7 @@ class PyfhelTestCase(unittest.TestCase):
     def test_Pyfhel_6f_demo_SaveNRestore(self):
         execfile(EXAMPLES_FOLDER / 'Demo_SaveNRestore.py')
 
+    @unittest.skip("Can no longer set p")
     def test_Pyfhel_6g_demo_simd(self):
         execfile(EXAMPLES_FOLDER / 'Demo_SIMD.py')
 
@@ -494,7 +500,8 @@ class PyfhelTestCase(unittest.TestCase):
     @unittest.skip("Fractional Encoding no longer supported")
     def test_Pyfhel_6i_demo_MultDepth_n_relin(self):
         execfile(EXAMPLES_FOLDER / 'Demo_MultDepth_n_relin.py')
-        
+
+    @unittest.skip("Old Encodings no longer supported")
     def test_Pyfhel_6j_demo_ContextParameters(self):
         execfile(EXAMPLES_FOLDER / 'Demo_ContextParameters.py')
 

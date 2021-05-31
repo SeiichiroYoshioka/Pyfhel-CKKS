@@ -320,12 +320,12 @@ void Afseal::multiply(vector<Ciphertext> &cipherV, Ciphertext &cipherOut) {
 void Afseal::rotate(Ciphertext &cipher1, int &k) {
   if (rotateKeys==NULL) { throw std::logic_error("Rotation keys not initialized"); }
   if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
-  evaluator->rotate_rows_inplace(cipher1, k, *rotateKeys);
+  evaluator->rotate_vector_inplace(cipher1, k, *rotateKeys);
 }
 void Afseal::rotate(vector<Ciphertext> &cipherV, int &k) {
   if (rotateKeys==NULL) { throw std::logic_error("Rotation keys not initialized"); }
   if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
-  for (Ciphertext &c:cipherV) { evaluator->rotate_rows_inplace(c, k, *rotateKeys); }
+  for (Ciphertext &c:cipherV) { evaluator->rotate_vector_inplace(c, k, *rotateKeys); }
 }
 
 // POLYNOMIALS
