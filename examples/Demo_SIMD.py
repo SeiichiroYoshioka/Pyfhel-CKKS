@@ -31,7 +31,7 @@ m = 8192
 assert((p-1)%(2*m) == 0)
 if (sympy_installed):
     assert (isprime(p))
-HE.contextGen(p=p,m=m, base=2, sec=192, flagBatching=True)
+HE.contextGen(p=p, m=m, flagBatching=True, base=2, sec=192)
 HE.keyGen()             # Key Generation.
 print("   We use Pyfhel.batchEnabled() to check if the current context allows batching, and getnSlots() to get the total number of integers that fit in a single ciphertext row (should be equal to m)")
 

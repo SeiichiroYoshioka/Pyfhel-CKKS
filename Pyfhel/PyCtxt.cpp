@@ -1328,7 +1328,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel__to_valid_file_str;
  * 
  *     # =========================== CRYPTOGRAPHY =================================
  *     cpdef contextGen(self, long p, long m=*, bool flagBatching=*, long base=*,             # <<<<<<<<<<<<<<
- *                      long sec=*, int intDigits=*, int fracDigits=*) except +
+ *                      long sec=*, int intDigits=*, int fracDigits=*, vector[int] qs=*, int scale_bits=*) except +
  *     cpdef void keyGen(self) except +
  */
 struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_contextGen {
@@ -1339,6 +1339,8 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_contextGen {
   long sec;
   int intDigits;
   int fracDigits;
+  std::vector<int>  qs;
+  int scale_bits;
 };
 
 /* "Pyfhel/Pyfhel.pxd":39
@@ -1402,8 +1404,8 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encryptPtxt {
 };
 
 /* "Pyfhel/Pyfhel.pxd":49
- *     cpdef vector[int64_t] decryptBatch(self, PyCtxt ctxt) except +
- *     cpdef int64_t[::1] decryptArray(self, PyCtxt ctxt) except +
+ *     cpdef vector[double] decryptBatch(self, PyCtxt ctxt) except +
+ *     cpdef double[::1] decryptArray(self, PyCtxt ctxt) except +
  *     cpdef PyPtxt decryptPtxt(self, PyCtxt ctxt, PyPtxt ptxt=*) except +             # <<<<<<<<<<<<<<
  * 
  *     cpdef void relinearize(self, PyCtxt ctxt) except +
@@ -1779,8 +1781,8 @@ struct __pyx_vtabstruct_6Pyfhel_6Pyfhel_Pyfhel {
   struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *(*encryptArray)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, __Pyx_memviewslice, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encryptArray *__pyx_optional_args);
   struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *(*encryptPtxt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encryptPtxt *__pyx_optional_args);
   __pyx_t_5numpy_int64_t (*decryptInt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
-  double (*decryptFrac)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
-  std::vector<__pyx_t_5numpy_int64_t>  (*decryptBatch)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
+  std::vector<double>  (*decryptFrac)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
+  std::vector<double>  (*decryptBatch)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
   __Pyx_memviewslice (*decryptArray)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *(*decryptPtxt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_decryptPtxt *__pyx_optional_args);
   void (*relinearize)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
@@ -1790,8 +1792,8 @@ struct __pyx_vtabstruct_6Pyfhel_6Pyfhel_Pyfhel {
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *(*encodeBatch)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, std::vector<__pyx_t_5numpy_int64_t> , int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encodeBatch *__pyx_optional_args);
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *(*encodeArray)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, __Pyx_memviewslice, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encodeArray *__pyx_optional_args);
   __pyx_t_5numpy_int64_t (*decodeInt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch);
-  double (*decodeFrac)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch);
-  std::vector<__pyx_t_5numpy_int64_t>  (*decodeBatch)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch);
+  std::vector<double>  (*decodeFrac)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch);
+  std::vector<double>  (*decodeBatch)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch);
   __Pyx_memviewslice (*decodeArray)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch);
   struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *(*square)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_square *__pyx_optional_args);
   struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *(*negate)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_negate *__pyx_optional_args);

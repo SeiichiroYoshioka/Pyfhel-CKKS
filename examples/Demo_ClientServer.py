@@ -19,8 +19,8 @@ contx_file = sec_con / "mycontx.con"
 
 ##### CLIENT
 #HE Object Creation, including the public and private keys
-HE = Pyfhel()    
-HE.contextGen(p=65537, m=2**12) 
+HE = Pyfhel()
+HE.contextGen(p=65537, m=2 ** 12)
 HE.keyGen() # Generates both a public and a private key
 
 # Saving only the public key and the context

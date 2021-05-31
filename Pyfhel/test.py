@@ -168,7 +168,7 @@ class PyfhelTestCase(unittest.TestCase):
 
     def test_Pyfhel_2c_encode_decode_batch(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         self.assertTrue(pyfhel.batchEnabled())
         ptxt = pyfhel.encodeBatch([1, 2, 3, 4, 5, 6])
@@ -177,7 +177,7 @@ class PyfhelTestCase(unittest.TestCase):
 
     def test_Pyfhel_2d_encode_decode_array(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         self.assertTrue(pyfhel.batchEnabled())
         ptxt = pyfhel.encodeArray(np.array([1, 2, 3, 4, 5, 6], dtype=np.int64))
@@ -214,7 +214,7 @@ class PyfhelTestCase(unittest.TestCase):
 
     def test_Pyfhel_3c_encrypt_decrypt_batch(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         self.assertTrue(pyfhel.batchEnabled())
         ctxt = pyfhel.encryptBatch([1, 2, 3, 4, 5, 6])
@@ -225,7 +225,7 @@ class PyfhelTestCase(unittest.TestCase):
 
     def test_Pyfhel_3d_encrypt_decrypt_array(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         self.assertTrue(pyfhel.batchEnabled())
         ctxt = pyfhel.encryptArray(np.array([1, 2, 3, 4, 5, 6], dtype=np.int64))
@@ -287,7 +287,7 @@ class PyfhelTestCase(unittest.TestCase):
 
     def test_Pyfhel_4c_operations_batch_array(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(60)
         ctxti = pyfhel.encryptBatch([1, 2, 3, 4, 5, 6])
@@ -324,7 +324,7 @@ class PyfhelTestCase(unittest.TestCase):
     @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5a_save_objects(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(60)
         pyfhel.relinKeyGen(60,3)
@@ -352,7 +352,7 @@ class PyfhelTestCase(unittest.TestCase):
     @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5c_save_restore_all(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(60)
         pyfhel.relinKeyGen(60, 4)
@@ -365,7 +365,7 @@ class PyfhelTestCase(unittest.TestCase):
         pyfhel.saverotateKey(tmp_dir.name + "/rotate.key")
         # restore all keys
         pyfhel2 = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel2.restoreContext(tmp_dir.name + "/context")
         pyfhel2.restorepublicKey(tmp_dir.name + "/pub.key")
         pyfhel2.restoresecretKey(tmp_dir.name + "/sec.key")
@@ -403,7 +403,7 @@ class PyfhelTestCase(unittest.TestCase):
     @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5d_save_restore_int(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(60)
         pyfhel.relinKeyGen(60, 4)
@@ -422,7 +422,7 @@ class PyfhelTestCase(unittest.TestCase):
     @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5e_save_restore_float(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(60)
         pyfhel.relinKeyGen(60, 4)
@@ -441,7 +441,7 @@ class PyfhelTestCase(unittest.TestCase):
     @unittest.skip("IO temporarily removed")
     def test_Pyfhel_5f_save_restore_batch(self):
         pyfhel = Pyfhel()
-        pyfhel.contextGen(p=1964769281, m=8192, base=2, sec=192, flagBatching=True)
+        pyfhel.contextGen(p=1964769281, m=8192, flagBatching=True, base=2, sec=192)
         pyfhel.keyGen()
         pyfhel.rotateKeyGen(60)
         pyfhel.relinKeyGen(60, 4)

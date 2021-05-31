@@ -16,7 +16,7 @@ print("==============================================================")
 
 print("1. Creating Context and KeyGen in a Pyfhel Object ")
 HE = Pyfhel()                                       # Creating empty Pyfhel object
-HE.contextGen(p=65537, m=1024, flagBatching=True)   # Generating context. 
+HE.contextGen(p=65537, m=1024, flagBatching=True)  # Generating context.
 # The values of p and m are chosen to enable batching (see Demo_Batching_SIMD.py)
 HE.keyGen()                                         # Key Generation.
 

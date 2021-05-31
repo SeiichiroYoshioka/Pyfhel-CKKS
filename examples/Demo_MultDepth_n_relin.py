@@ -31,7 +31,7 @@ from Pyfhel import Pyfhel, PyPtxt, PyCtxt
 print("1. Creating Context and KeyGen in a Pyfhel Object. Using 64 ")
 print("     bits for integer part and 32 bits for decimal part.")
 HE = Pyfhel()           # Creating empty Pyfhel object
-HE.contextGen(p=65537, base=2, intDigits=64, fracDigits = 32) 
+HE.contextGen(p=65537, base=2, intDigits=64, fracDigits=32)
                         # Generating context. The value of p is important.
                         #  There are many configurable parameters on this step
                         #  More info in Demo_ContextParameters.py, and

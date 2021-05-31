@@ -31,7 +31,7 @@ cdef class Pyfhel:
     
     # =========================== CRYPTOGRAPHY =================================
     cpdef contextGen(self, long p, long m=*, bool flagBatching=*, long base=*,
-                     long sec=*, int intDigits=*, int fracDigits=*) except +
+                     long sec=*, int intDigits=*, int fracDigits=*, vector[int] qs=*, int scale_bits=*) except +
     cpdef void keyGen(self) except +
     cpdef void rotateKeyGen(self, int bitCount) except +
     cpdef void relinKeyGen(self, int bitCount, int size) except +
@@ -43,9 +43,9 @@ cdef class Pyfhel:
     cpdef PyCtxt encryptPtxt(self, PyPtxt ptxt, PyCtxt ctxt=*) except +
     
     cpdef int64_t decryptInt(self, PyCtxt ctxt) except +
-    cpdef double decryptFrac(self, PyCtxt ctxt) except +
-    cpdef vector[int64_t] decryptBatch(self, PyCtxt ctxt) except +
-    cpdef int64_t[::1] decryptArray(self, PyCtxt ctxt) except +
+    cpdef vector[double] decryptFrac(self, PyCtxt ctxt) except +
+    cpdef vector[double] decryptBatch(self, PyCtxt ctxt) except +
+    cpdef double[::1] decryptArray(self, PyCtxt ctxt) except +
     cpdef PyPtxt decryptPtxt(self, PyCtxt ctxt, PyPtxt ptxt=*) except +
     
     cpdef void relinearize(self, PyCtxt ctxt) except +
@@ -59,9 +59,9 @@ cdef class Pyfhel:
     cpdef PyPtxt encodeArray(self, int64_t[::1] arr, PyPtxt ptxt=*) except +
     
     cpdef int64_t decodeInt(self, PyPtxt ptxt) except +
-    cpdef double decodeFrac(self, PyPtxt ptxt) except +
-    cpdef vector[int64_t] decodeBatch(self, PyPtxt ptxt) except +
-    cpdef int64_t[::1] decodeArray(self, PyPtxt ptxt) except +
+    cpdef vector[double] decodeFrac(self, PyPtxt ptxt) except +
+    cpdef vector[double] decodeBatch(self, PyPtxt ptxt) except +
+    cpdef double[::1] decodeArray(self, PyPtxt ptxt) except +
     
     # ============================ OPERATIONS ==================================
     cpdef PyCtxt square(self, PyCtxt ctxt, bool in_new_ctxt=*) except +
