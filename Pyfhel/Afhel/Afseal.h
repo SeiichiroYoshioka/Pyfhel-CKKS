@@ -68,7 +68,7 @@ class Afseal{
         shared_ptr<Evaluator> evaluator=NULL;           /**< Requires a context.*/
         shared_ptr<Decryptor> decryptor=NULL;           /**< Requires a Secret Key.*/
 
-        shared_ptr<BatchEncoder> batchEncoder=NULL;     /**< Rotation in Batching. */
+        shared_ptr<CKKSEncoder> ckksEncoder=NULL;     /**< Batch Encoder for BFV. */
 
 
         long p;                          /**< All operations are modulo p^r */
@@ -78,6 +78,7 @@ class Afseal{
         long sec;
         int intDigits;
         int fracDigits;
+        int scale_bits;
         
         bool flagBatch = false;         /**< Whether to use batching or not */
 
@@ -139,12 +140,18 @@ class Afseal{
          * @param[in] p ciphertext space base.
          * @param[in] r ciphertext space lifting .
          * @param[in] m m'th cyclotomic polynomial. Power of 2. Default 2048
-         * @param[in] 
+         * @param[in] qs list of coefficient moduli bit sizes
          * @return Void.
          */
-        void ContextGen(long p, long m = 2048, bool flagBatching=false,
-                        long base = 2, long sec=128, int intDigits = 64,
-                        int fracDigits = 32);
+        void ContextGen(long p,
+                        long m = 16384,
+                        bool flagBatching = false,
+                        long base = 2,
+                        long sec = 128,
+                        int intDigits = 64,
+                        int fracDigits = 32,
+                        std::vector<int> qs = {30, 30, 30, 30, 30},
+                        int scale_bits = 30);
 
         // KEY GENERATION
         /**
@@ -166,7 +173,7 @@ class Afseal{
         Ciphertext encrypt(int64_t& value1);
         Ciphertext encrypt(vector<int64_t>& valueV);
         vector<Ciphertext> encrypt(vector<int64_t>& valueV, bool& dummy_NoBatch);
-        vector<Ciphertext> encrypt(vector<double>& valueV);
+        Ciphertext encrypt(vector<double>& valueV);
         /**
          * @brief Enctypts a provided plaintext vector and stored in the
          *      provided ciphertext. The encryption is carried out with SEAL. 
@@ -179,7 +186,7 @@ class Afseal{
         void encrypt(int64_t& value1, Ciphertext& cipherOut);
         void encrypt(vector<int64_t>& valueV, Ciphertext& cipherOut);
         void encrypt(vector<int64_t>& valueV, vector<Ciphertext>& cipherOut);
-        void encrypt(vector<double>& valueV, vector<Ciphertext>& cipherOut);
+        void encrypt(vector<double>& valueV, Ciphertext &cipherOut);
 
         // DECRYPTION
         /**
@@ -188,7 +195,7 @@ class Afseal{
          * @param[in] cipher1 a Ciphertext object from SEAL.
          * @return Plaintext the resulting of decrypting the ciphertext, a plaintext.
          */
-        vector<int64_t> decrypt(Ciphertext& cipher1);
+        vector<double> decrypt(Ciphertext& cipher1);
         /**
          * @brief Decrypts the ciphertext using secKey as secret key and stores
          *         it in a provided Plaintext.
@@ -199,10 +206,9 @@ class Afseal{
          */
         void decrypt(Ciphertext& cipher1, Plaintext& plainOut);
         void decrypt(Ciphertext& cipher1, int64_t& valueOut); 
-        void decrypt(Ciphertext& cipher1, double& valueOut);
+        void decrypt_and_decode(Ciphertext& cipher1, vector<double> &valueOut);
         void decrypt(Ciphertext& cipher1, vector<int64_t>& valueVOut); 
         void decrypt(vector<Ciphertext>& cipherV, vector<int64_t>& valueVOut);
-        void decrypt(vector<Ciphertext>& cipherV, vector<double>& valueVOut);
 
 
         // NOISE MEASUREMENT
@@ -214,21 +220,19 @@ class Afseal{
         Plaintext encode(double& value1);
         Plaintext encode(vector<int64_t> &values);
         vector<Plaintext> encode(vector<int64_t> &values, bool dummy_NoBatch);
-        vector<Plaintext> encode(vector<double> &values);
+        Plaintext encode(vector<double> &values);
 
         void encode(int64_t& value1, Plaintext& plainOut);
         void encode(double& value1, Plaintext& plainOut);
         void encode(vector<int64_t> &values, Plaintext& plainOut);
         void encode(vector<int64_t> &values, vector<Plaintext>& plainVOut);
-        void encode(vector<double> &values, vector<Plaintext>& plainVOut);
+        void encode(vector<double> &values, Plaintext &plainOut);
         
         // DECODE 
-        vector<int64_t> decode(Plaintext& plain1);
+        vector<double> decode(Plaintext& plain1);
 		void decode(Plaintext& plain1, int64_t& valOut);
-        void decode(Plaintext& plain1, double& valOut);
-        void decode(Plaintext& plain1, vector<int64_t> &valueVOut);
+        void decode(Plaintext& plain1, vector<double> &valueVOut);
         void decode(vector<Plaintext>& plain1, vector<int64_t> &valueVOut);
-        void decode(vector<Plaintext>& plain1, vector<double> &valueVOut);
 
 
         // -------------------------- RELINEARIZATION -------------------------
@@ -238,6 +242,9 @@ class Afseal{
 
 
         // ---------------------- HOMOMORPHIC OPERATIONS ----------------------
+
+        void rescale_to_next(Ciphertext& cipher1);
+
         // SQUARE
         /**
          * @brief Square ciphertext values.

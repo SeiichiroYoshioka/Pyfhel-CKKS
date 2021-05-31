@@ -54,7 +54,7 @@ Afseal::Afseal(const Afseal &otherAfseal) {
   this->evaluator = make_shared<Evaluator>(*context);
   this->decryptor = make_shared<Decryptor>(*context, *secretKey);
 
-  this->batchEncoder = make_shared<BatchEncoder>(*context);
+  this->ckksEncoder = make_shared<CKKSEncoder>(*context);
 
   this->m = otherAfseal.m;
   this->p = otherAfseal.p;
@@ -63,36 +63,37 @@ Afseal::Afseal(const Afseal &otherAfseal) {
   this->intDigits = otherAfseal.intDigits;
   this->fracDigits = otherAfseal.fracDigits;
   this->flagBatch = otherAfseal.flagBatch;
+  this->scale_bits = otherAfseal.scale_bits;
 }
 
 Afseal::~Afseal() {}
 
 // ------------------------------ CRYPTOGRAPHY --------------------------------
 // CONTEXT GENERATION
-void Afseal::ContextGen(long new_p, long new_m, bool new_flagBatch,
-                        long new_base, long new_sec, int new_intDigits,
-                        int new_fracDigits) {
+void Afseal::ContextGen(long p,
+                        long m,
+                        bool flagBatching,
+                        long base,
+                        long sec,
+                        int intDigits,
+                        int fracDigits,
+                        std::vector<int> qs,
+                        int scale_bits) {
 
-  EncryptionParameters parms(scheme_type::bfv);
-  this->p = new_p;
-  this->m = new_m;
-  this->base = new_base;
-  this->sec = new_sec;
-  this->intDigits = new_intDigits;
-  this->fracDigits = new_fracDigits;
-  this->flagBatch = new_flagBatch;
+  EncryptionParameters parms(scheme_type::ckks);
+  this->p = p;
+  this->m = m;
+  this->base = base;
+  this->sec = sec;
+  this->intDigits = intDigits;
+  this->fracDigits = fracDigits;
+  this->flagBatch = flagBatching;
+  this->scale_bits = scale_bits;
 
   // Context generation
   parms.set_poly_modulus_degree(m);
-  if (sec==128) { parms.set_coeff_modulus(CoeffModulus::BFVDefault(m, sec_level_type::tc128)); }
-  else if (sec==192) { parms.set_coeff_modulus(CoeffModulus::BFVDefault(m, sec_level_type::tc192)); }
-  else if (sec==256) { parms.set_coeff_modulus(CoeffModulus::BFVDefault(m, sec_level_type::tc256)); }
-  else { throw invalid_argument("sec must be 128 or 192 or 256 bits."); }
-  parms.set_plain_modulus(p);
+  parms.set_coeff_modulus(CoeffModulus::Create(m, qs));
   this->context = make_shared<SEALContext>(parms);
-
-  // Codec
-  //TODO: Generate Encoder
 
   // Create Evaluator Key
   this->evaluator = make_shared<Evaluator>(*context);
@@ -100,7 +101,7 @@ void Afseal::ContextGen(long new_p, long new_m, bool new_flagBatch,
     if (!context->first_context_data()->qualifiers().using_batching) {
       throw invalid_argument("p not prime or p-1 not multiple 2*m");
     }
-    this->batchEncoder = make_shared<BatchEncoder>(*context);
+    this->ckksEncoder = make_shared<CKKSEncoder>(*context);
   }
 }
 
@@ -125,25 +126,27 @@ Ciphertext Afseal::encrypt(Plaintext &plain1) {
   return cipher1;
 }
 Ciphertext Afseal::encrypt(double &value1) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+  Plaintext ptxt;
+  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), ptxt);
+  Ciphertext ctxt;
+  encryptor->encrypt(ptxt, ctxt);
+  return ctxt;
 }
 Ciphertext Afseal::encrypt(int64_t &value1) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
 Ciphertext Afseal::encrypt(vector<int64_t> &valueV) {
-  if (encryptor==NULL) { throw std::logic_error("Missing a Public Key"); }
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  Ciphertext cipher1;
-  Plaintext plain1;
-  batchEncoder->encode(valueV, plain1);
-  encryptor->encrypt(plain1, cipher1);
-  return cipher1;
+  throw std::logic_error("Must encode as double or complex for CKKS");
 }
 vector<Ciphertext> Afseal::encrypt(vector<int64_t> &valueV, bool &dummy_NoBatch) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
-vector<Ciphertext> Afseal::encrypt(vector<double> &valueV) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+Ciphertext Afseal::encrypt(vector<double> &valueV) {
+  Plaintext ptxt;
+  ckksEncoder->encode(valueV, std::pow(2.0, scale_bits), ptxt);
+  Ciphertext ctxt;
+  encryptor->encrypt(ptxt, ctxt);
+  return ctxt;
 }
 
 void Afseal::encrypt(Plaintext &plain1, Ciphertext &cipher1) {
@@ -151,33 +154,33 @@ void Afseal::encrypt(Plaintext &plain1, Ciphertext &cipher1) {
   encryptor->encrypt(plain1, cipher1);
 }
 void Afseal::encrypt(double &value1, Ciphertext &cipher1) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+  Plaintext ptxt;
+  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), ptxt);
+  encryptor->encrypt(ptxt, cipher1);
 }
 void Afseal::encrypt(int64_t &value1, Ciphertext &cipher1) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
 void Afseal::encrypt(vector<int64_t> &valueV, Ciphertext &cipherOut) {
-  if (encryptor==NULL) { throw std::logic_error("Missing a Public Key"); }
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  Plaintext plain1;
-  batchEncoder->encode(valueV, plain1);
-  encryptor->encrypt(plain1, cipherOut);
+  throw std::logic_error("Must encode as double or complex for CKKS");
 }
 void Afseal::encrypt(vector<int64_t> &valueV, vector<Ciphertext> &cipherOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
-void Afseal::encrypt(vector<double> &valueV, vector<Ciphertext> &cipherOut) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+void Afseal::encrypt(vector<double> &valueV, Ciphertext &cipherOut) {
+  Plaintext ptxt;
+  ckksEncoder->encode(valueV, std::pow(2.0, scale_bits), ptxt);
+  encryptor->encrypt(ptxt, cipherOut);
 }
 
 //DECRYPTION
-vector<int64_t> Afseal::decrypt(Ciphertext &cipher1) {
+vector<double> Afseal::decrypt(Ciphertext &cipher1) {
   if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
+  if (ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
   Plaintext plain1;
-  vector<int64_t> valueVOut;
+  vector<double> valueVOut;
   decryptor->decrypt(cipher1, plain1);
-  batchEncoder->decode(plain1, valueVOut);
+  ckksEncoder->decode(plain1, valueVOut);
   return valueVOut;
 }
 void Afseal::decrypt(Ciphertext &cipher1, Plaintext &plain1) {
@@ -185,88 +188,75 @@ void Afseal::decrypt(Ciphertext &cipher1, Plaintext &plain1) {
   decryptor->decrypt(cipher1, plain1);
 }
 void Afseal::decrypt(Ciphertext &cipher1, int64_t &valueOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
-void Afseal::decrypt(Ciphertext &cipher1, double &valueOut) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+void Afseal::decrypt_and_decode(Ciphertext &cipher1, vector<double> &valueOut) {
+  if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }
+  Plaintext ptxt;
+  decryptor->decrypt(cipher1, ptxt);
+  ckksEncoder->decode(ptxt, valueOut);
 }
 void Afseal::decrypt(vector<Ciphertext> &cipherV, vector<int64_t> &valueVOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
-}
-void Afseal::decrypt(vector<Ciphertext> &cipherV, vector<double> &valueVOut) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
 void Afseal::decrypt(Ciphertext &cipher1, vector<int64_t> &valueVOut) {
-  if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  Plaintext plain1;
-  decryptor->decrypt(cipher1, plain1);
-  batchEncoder->decode(plain1, valueVOut);
+  throw std::logic_error("Must encode as double or complex for CKKS");
 }
 
 // ---------------------------------- CODEC -----------------------------------
 // ENCODE
 Plaintext Afseal::encode(int64_t &value1) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
 Plaintext Afseal::encode(double &value1) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+  Plaintext ptxt;
+  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), ptxt);
+  return ptxt;
 }
 Plaintext Afseal::encode(vector<int64_t> &values) { // Batching
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  Plaintext plain1;
-  batchEncoder->encode(values, plain1);
-  return plain1;
+  throw std::logic_error("Must encode as double or complex for CKKS");
 }
 vector<Plaintext> Afseal::encode(vector<int64_t> &values, bool dummy_notUsed) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
-vector<Plaintext> Afseal::encode(vector<double> &values) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+Plaintext Afseal::encode(vector<double> &values) {
+  Plaintext ptxt;
+  ckksEncoder->encode(values, std::pow(2.0, scale_bits), ptxt);
+  return ptxt;
 }
 
 void Afseal::encode(int64_t &value1, Plaintext &plainOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
 void Afseal::encode(double &value1, Plaintext &plainOut) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), plainOut);
 }
 void Afseal::encode(vector<int64_t> &values, Plaintext &plainOut) {
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  if (values.size() > this->batchEncoder->slot_count()) {
-    throw range_error("Data vector size is bigger than nSlots");
-  }
-  batchEncoder->encode(values, plainOut);
+  throw std::logic_error("Must encode as double or complex for CKKS");
 }
 void Afseal::encode(vector<int64_t> &values, vector<Plaintext> &plainVOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
-void Afseal::encode(vector<double> &values, vector<Plaintext> &plainVOut) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+void Afseal::encode(vector<double> &values, Plaintext &plainOut) {
+  ckksEncoder->encode(values, std::pow(2.0, scale_bits), plainOut);
 }
 
 // DECODE
-vector<int64_t> Afseal::decode(Plaintext &plain1) {
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  vector<int64_t> valueVOut;
-  batchEncoder->decode(plain1, valueVOut);
+vector<double> Afseal::decode(Plaintext &plain1) {
+  if (ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
+  vector<double> valueVOut;
+  ckksEncoder->decode(plain1, valueVOut);
   return valueVOut;
 }
 void Afseal::decode(Plaintext &plain1, int64_t &valueOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
-void Afseal::decode(Plaintext &plain1, double &valueOut) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
-}
-void Afseal::decode(Plaintext &plain1, vector<int64_t> &valueVOut) {
-  if (batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  batchEncoder->decode(plain1, valueVOut);
+void Afseal::decode(Plaintext &plain1, vector<double> &valueVOut) {
+  if (ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
+  ckksEncoder->decode(plain1, valueVOut);
 }
 void Afseal::decode(vector<Plaintext> &plainV, vector<int64_t> &valueVOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported in BFV");
-}
-void Afseal::decode(vector<Plaintext> &plainV, vector<double> &valueVOut) {
-  throw std::logic_error("Fractional Encoding no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
 
 // NOISE MEASUREMENT
@@ -306,6 +296,11 @@ void Afseal::negate(vector<Ciphertext> &cipherV) {
   if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
   for (Ciphertext &c:cipherV) { evaluator->negate_inplace(c); }
 }
+void Afseal::rescale_to_next(Ciphertext &cipher1) {
+  if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
+  evaluator->rescale_to_next_inplace(cipher1);
+}
+
 // SQUARE
 void Afseal::square(Ciphertext &cipher1) {
   if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
@@ -428,11 +423,11 @@ void Afseal::exponentiate(vector<Ciphertext> &cipherV, uint64_t &expon) {
 }
 
 void Afseal::polyEval(Ciphertext &cipher1, vector<int64_t> &coeffPoly) {
- throw std::logic_error("Non-Batched Integer Encoder no longer supported in BFV");
+  throw std::logic_error("Non-Batched Integer Encoder no longer supported");
 }
 
 void Afseal::polyEval(Ciphertext &cipher1, vector<double> &coeffPoly) {
-  throw std::logic_error("Fractional Encoder no longer supported in BFV");
+  throw std::logic_error("Fractional Encoder no longer supported");
 }
 
 // ------------------------------------- I/O ----------------------------------
@@ -449,6 +444,7 @@ bool Afseal::saveContext(string fileName) {
     contextFile << intDigits << endl;
     contextFile << fracDigits << endl;
     contextFile << flagBatch << endl;
+    contextFile << scale_bits << endl;
 
     contextFile.close();
   }
@@ -471,6 +467,7 @@ bool Afseal::restoreContext(string fileName) {
     contextFile >> intDigits;
     contextFile >> fracDigits;
     contextFile >> flagBatch;
+    contextFile >> scale_bits;
     contextFile.close();
 
     this->context = make_shared<SEALContext>(parms);
@@ -482,7 +479,7 @@ bool Afseal::restoreContext(string fileName) {
         throw invalid_argument("p not prime | p-1 not multiple 2*m");
       }
       this->flagBatch = true;
-      this->batchEncoder = make_shared<BatchEncoder>(*context);
+      this->ckksEncoder = make_shared<CKKSEncoder>(*context);
     }
   }
   catch (exception &e) {
@@ -643,7 +640,7 @@ bool Afseal::restorerotateKey(string fileName) {
 
 // ++++ FROM STREAMS ++++
 // SAVE/RESTORE CONTEXT
-bool Afseal::ssaveContext(ostream& contextFile){
+bool Afseal::ssaveContext(ostream &contextFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  if(context==NULL){throw std::logic_error("Context not initialized");}
@@ -663,7 +660,7 @@ bool Afseal::ssaveContext(ostream& contextFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::srestoreContext(istream& contextFile){
+bool Afseal::srestoreContext(istream &contextFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  EncryptionParameters parms;
@@ -698,7 +695,7 @@ bool Afseal::srestoreContext(istream& contextFile){
 }
 
 // SAVE/RESTORE KEYS
-bool Afseal::ssavepublicKey(ostream& keyFile){
+bool Afseal::ssavepublicKey(ostream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  if(publicKey==NULL){throw std::logic_error("Public Key not initialized");}
@@ -713,7 +710,7 @@ bool Afseal::ssavepublicKey(ostream& keyFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::srestorepublicKey(istream& keyFile){
+bool Afseal::srestorepublicKey(istream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  bool res=true;
@@ -729,7 +726,7 @@ bool Afseal::srestorepublicKey(istream& keyFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::ssavesecretKey(ostream& keyFile){
+bool Afseal::ssavesecretKey(ostream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  if(publicKey==NULL){throw std::logic_error("Secret Key not initialized");}
@@ -744,7 +741,7 @@ bool Afseal::ssavesecretKey(ostream& keyFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::srestoresecretKey(istream& keyFile){
+bool Afseal::srestoresecretKey(istream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  bool res=true;
@@ -760,7 +757,7 @@ bool Afseal::srestoresecretKey(istream& keyFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::ssaverelinKey(ostream& keyFile){
+bool Afseal::ssaverelinKey(ostream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  if(relinKey==NULL){throw std::logic_error("Relinearization Key not initialized");}
@@ -775,7 +772,7 @@ bool Afseal::ssaverelinKey(ostream& keyFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::srestorerelinKey(istream& keyFile){
+bool Afseal::srestorerelinKey(istream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  bool res=true;
@@ -790,7 +787,7 @@ bool Afseal::srestorerelinKey(istream& keyFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::ssaverotateKey(ostream& keyFile){
+bool Afseal::ssaverotateKey(ostream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  if(rotateKeys==NULL){throw std::logic_error("Rotation Key not initialized");}
@@ -805,7 +802,7 @@ bool Afseal::ssaverotateKey(ostream& keyFile){
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
 
-bool Afseal::srestorerotateKey(istream& keyFile){
+bool Afseal::srestorerotateKey(istream &keyFile) {
   throw std::logic_error("Serialization Support Removed Temporarily");
   //TODO: Add Serialization support
 //  bool res=true;
@@ -819,7 +816,6 @@ bool Afseal::srestorerotateKey(istream& keyFile){
 //  }
 //  return res;                                 // 1 if all OK, 0 otherwise
 }
-
 
 // ----------------------------- AUXILIARY ----------------------------
 bool Afseal::batchEnabled() {
@@ -848,8 +844,8 @@ GaloisKeys Afseal::getrotateKeys() {
   return *(this->rotateKeys);
 }
 int Afseal::getnSlots() {
-  if (this->batchEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
-  return this->batchEncoder->slot_count();
+  if (this->ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
+  return this->ckksEncoder->slot_count();
 }
 int Afseal::getp() {
   if (this->context==NULL) { throw std::logic_error("Context not initialized"); }

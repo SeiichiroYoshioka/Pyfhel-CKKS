@@ -46,7 +46,8 @@ int main(int argc, char **argv)
 	bool flagBatching=true;
 
 	std::cout << " Afseal - Creating Context" << endl;
-	{timer t(ctx, "contextgen");he.ContextGen(p, m, flagBatching, base, sec);}
+	{timer t(ctx, "contextgen");
+      he.ContextGen(p, m, flagBatching, base, sec, {}, 30);}
 	std::cout << " Afseal - Context CREATED" << endl;
 
 	//TODO: print parameters
@@ -55,15 +56,15 @@ int main(int argc, char **argv)
     {timer t(ctx, "keygen"); he.KeyGen();}
 	std::cout << " Afseal - Keys Generated" << endl;
     
-	vector<int64_t> v1;
-    vector<int64_t> v2;
-    vector<int64_t> vRes;
+	vector<double> v1;
+    vector<double> v2;
+    vector<double> vRes;
 	Ciphertext k1, k2;
 
-    for(int64_t i=0; i<1000; i++){
+    for(double i=0; i<1000; i++){
         if(i<VECTOR_SIZE)   { v1.push_back(i);  }
         else                { v1.push_back(0);  }}
-    for(int64_t i=0; i<1000; i++){
+    for(double i=0; i<1000; i++){
         if(i<VECTOR_SIZE)   { v2.push_back(2);  }
         else                { v2.push_back(0);  }}
 	for (auto i: v1)

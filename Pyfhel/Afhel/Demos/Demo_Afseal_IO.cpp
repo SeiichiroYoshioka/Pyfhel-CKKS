@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     long sec = 192;
 	bool flagBatching=false;
 
-	he.ContextGen(p, m, flagBatching, base, sec);
+  he.ContextGen(p, m, flagBatching, base, sec, {}, 30);
 	std::cout << " Afseal - Contextcreated" << endl;
     he.KeyGen();
 	std::cout << " Afseal - Keys Generated" << endl;

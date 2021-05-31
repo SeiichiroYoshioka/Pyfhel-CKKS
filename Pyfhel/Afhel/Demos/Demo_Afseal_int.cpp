@@ -45,7 +45,8 @@ int main(int argc, char **argv)
 	bool flagBatching=false;
 
 	std::cout << " Afseal - Creating Context" << endl;
-	{timer t(ctx, "contextgen");he.ContextGen(p, m, flagBatching, base, sec);}
+	{timer t(ctx, "contextgen");
+      he.ContextGen(p, m, flagBatching, base, sec, {}, 30);}
 	std::cout << " Afseal - Context CREATED" << endl;
 
 	//TODO: print parameters
