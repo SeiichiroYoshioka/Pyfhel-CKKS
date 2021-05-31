@@ -205,7 +205,8 @@ class Afseal{
         Plaintext encode(vector<std::complex<double>> &values, double scale);
 
         void encode(double& value1, double scale, Plaintext& plainOut);
-        void encodeVector(vector<double> &values, double scale, Plaintext &plainOut);
+        void encode(vector<double> &values, double scale, Plaintext &plainOut);
+        void encode(vector<std::complex<double>> &values, double scale, Plaintext &plainOut);
 
         // DECODE
         vector<double> decode(Plaintext& plain1);
@@ -213,6 +214,9 @@ class Afseal{
         void decode(Plaintext& plain1, vector<double> &valueVOut);
         void decode(Plaintext& plain1, vector<complex<double>> &valueVOut);
         void decode(vector<Plaintext>& plain1, vector<int64_t> &valueVOut);
+
+        // Individial Parts
+        uint64_t* data(Ciphertext& ctxt, int index);
 
 
         // -------------------------- RELINEARIZATION -------------------------

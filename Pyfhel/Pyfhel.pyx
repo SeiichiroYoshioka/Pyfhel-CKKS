@@ -454,7 +454,32 @@ cdef class Pyfhel:
         """
         if ptxt is None:
             ptxt = PyPtxt()
-        self.afseal.encodeVector(vec, scale, deref(ptxt._ptr_ptxt))
+        self.afseal.encode(vec, scale, deref(ptxt._ptr_ptxt))
+        ptxt._encoding = ENCODING_T.BATCH
+        return ptxt
+
+    cpdef PyPtxt encodeComplexVector(self, vector[cpp_complex[double]]& vec, double scale, PyPtxt ptxt=None) except +:
+        """encodeVector(vector[double]& vec, double scale, PyPtxt ptxt=None)
+
+        Encodes a 1D list of doubles into a PyPtxt plaintext.
+
+        Encodes a 1D vector of floats based on the current context.
+        Plaintext must be a 1D vector of integers. Requires batch mode.
+        In Numpy the vector needs to be in 'contiguous' or 'c' mode.
+        If provided a plaintext, encodes the vector inside it. 
+        Maximum size of the vector defined by parameter 'm' from context.
+
+        Args:
+            vec (list[int]): vector to encode.
+            scale (float): scale to use.
+            ptxt (PyPtxt, optional): Optional destination plaintext.  
+
+        Return:
+            PyPtxt: the plaintext containing the encoded vector.
+        """
+        if ptxt is None:
+            ptxt = PyPtxt()
+        self.afseal.encode(vec, scale, deref(ptxt._ptr_ptxt))
         ptxt._encoding = ENCODING_T.BATCH
         return ptxt
 

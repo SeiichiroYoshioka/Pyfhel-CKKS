@@ -52,6 +52,7 @@ cdef class Pyfhel:
     # ============================= ENCODING ===================================
     cpdef PyPtxt encode(self, double value, double scale, PyPtxt ptxt=*) except +
     cpdef PyPtxt encodeVector(self, vector[double]& vec, double scale,  PyPtxt ptxt=*) except +
+    cpdef PyPtxt encodeComplexVector(self, vector[cpp_complex[double]]& vec, double scale, PyPtxt ptxt= *) except +
     
     cpdef vector[double] decode(self, PyPtxt ptxt) except +
     cpdef vector[cpp_complex[double]] decodeComplex(self, PyPtxt ptxt) except +

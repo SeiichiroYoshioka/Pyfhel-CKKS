@@ -156,7 +156,11 @@ void Afseal::encode(double &value1, double scale, Plaintext &plainOut) {
   ckksEncoder->encode(value1, scale, plainOut);
 }
 
-void Afseal::encodeVector(vector<double> &values, double scale, Plaintext &plainOut) {
+void Afseal::encode(vector<double> &values, double scale, Plaintext &plainOut) {
+  ckksEncoder->encode(values, scale, plainOut);
+}
+
+void Afseal::encode(vector<complex<double>> &values, double scale, Plaintext &plainOut) {
   ckksEncoder->encode(values, scale, plainOut);
 }
 
@@ -180,6 +184,9 @@ void Afseal::decode(Plaintext &plain1, vector<std::complex<double>> &valueVOut) 
 }
 void Afseal::decode(vector<Plaintext> &plainV, vector<int64_t> &valueVOut) {
   throw std::logic_error("Non-Batched Integer Encoding no longer supported");
+}
+uint64_t* Afseal::data(Ciphertext &ctxt, int index) {
+  return ctxt.data(index);
 }
 
 // NOISE MEASUREMENT

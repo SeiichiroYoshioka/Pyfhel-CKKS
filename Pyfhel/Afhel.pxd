@@ -64,14 +64,19 @@ cdef extern from "Afhel/Afseal.h" nogil:
         # ENCODE
         Plaintext encode(double& value1, double scale) except +
         Plaintext encode(vector[double] & values, double scale) except +
+        Plaintext encode(vector[cpp_complex[double]] & values, double scale) except +
         void encode(double& value1, double scale, Plaintext& plainOut) except +
-        void encodeVector(vector[double] & values, double scale, Plaintext& plainVOut) except +
+        void encode(vector[double] & values, double scale, Plaintext& plainVOut) except +
+        void encode(vector[cpp_complex[double]] & values, double scale, Plaintext& plainVOut) except +
 
         # DECODE 
         vector[double] decode(Plaintext& plain1) except +
         void decode(Plaintext& plain1,  vector[cpp_complex[double]] ) except +;
         void decode(Plaintext& plain1, vector[double] & valueVOut) except +
         void decode(vector[Plaintext]& plain1, vector[int64_t] & valueVOut) except +
+
+        # Parts
+        uint64_t* data(Ciphertext& ctxt, int index) except +
 
         # -------------------------- OTHER OPERATIONS -------------------------
         void rotateKeyGen(int& bitCount) except +

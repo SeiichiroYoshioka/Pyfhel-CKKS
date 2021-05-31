@@ -710,3 +710,6 @@ cdef class PyCtxt:
 
     def set_scale(self, double scale):
         return self._pyfhel.set_scale(self, scale)
+
+    def data(self, int index):
+        return self._pyfhel.data(self, index)

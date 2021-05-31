@@ -54,7 +54,7 @@ def module2():
     # **************************************************
 
     # First we encode the decrypted floating point numbers back into polynomials
-    # ptxt_enc = HE.encode(val_res, 2**log_scale)
+    ptxt_enc = HE.encode(val_res, 2**log_scale)
 
     #  Then we get some useful parameters used in the scheme#
     #  auto small_ntt_tables = context_data->small_ntt_tables();
