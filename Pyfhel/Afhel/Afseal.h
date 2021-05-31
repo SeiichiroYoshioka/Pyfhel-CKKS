@@ -202,6 +202,7 @@ class Afseal{
         // ENCODE
         Plaintext encode(double& value1, double scale);
         Plaintext encode(vector<double> &values, double scale);
+        Plaintext encode(vector<std::complex<double>> &values, double scale);
 
         void encode(double& value1, double scale, Plaintext& plainOut);
         void encodeVector(vector<double> &values, double scale, Plaintext &plainOut);

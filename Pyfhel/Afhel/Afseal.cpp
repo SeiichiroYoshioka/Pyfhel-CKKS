@@ -146,6 +146,11 @@ Plaintext Afseal::encode(vector<double> &values, double scale) {
   ckksEncoder->encode(values, scale, ptxt);
   return ptxt;
 }
+Plaintext Afseal::encode(vector<std::complex<double>> &values, double scale) {
+  Plaintext ptxt;
+  ckksEncoder->encode(values, scale, ptxt);
+  return ptxt;
+}
 
 void Afseal::encode(double &value1, double scale, Plaintext &plainOut) {
   ckksEncoder->encode(value1, scale, plainOut);

@@ -49,49 +49,26 @@ def module2():
     # decode into a vector of complex
     val_res = HE.decodeComplex(ptxt_res)
 
-    # // Decryption
-    # Plaintext ptxt_res;
-    # decryptor.decrypt(ctxt_res, ptxt_res); // approx decryption
-    #
-    # // Decode the plaintext polynomial
-    # std::vector<std::complex<double>> val_res;
-    # encoder.decode(ptxt_res, val_res);    // decode to an array of complex
-    #
-    # // Check computation errors
-    # std::vector<std::complex<double>> pt_res(slot_count);
-    # pt_res = val_input; // Since we performed no homomorphic computation
-    # std::cout << "computation error = " << maxDiff(pt_res, val_res)
-    #           << ", relative error = " << relError(pt_res, val_res) << std::endl;
-    #
-    # // **************************************************
-    # // Key recovery attack
-    # // **************************************************
-    #
-    # // First we encode the decrypted floating point numbers back into polynomials
-    # Plaintext ptxt_enc;
-    # encoder.encode(val_res, ctxt_res.parms_id(), ctxt_res.scale(), ptxt_enc);
-    #
-    # // Then we get some useful parameters used in the scheme
-    # auto context_data = context.get_context_data(ctxt_res.parms_id());
-    # auto small_ntt_tables = context_data->small_ntt_tables();
-    # auto &ciphertext_parms = context_data->parms();
-    # auto &coeff_modulus = ciphertext_parms.coeff_modulus();
-    # size_t coeff_mod_count = coeff_modulus.size();
-    # size_t coeff_count = ciphertext_parms.poly_modulus_degree();
-    #
-    # // Check encoding error
-    # Plaintext ptxt_diff;
-    # ptxt_diff.parms_id() = parms_id_zero;
-    # ptxt_diff.resize(util::mul_safe(coeff_count, coeff_modulus.size()));
-    # sub(ptxt_enc.data(), ptxt_res.data(), coeff_count, coeff_modulus, ptxt_diff.data());
-    # to_coeff_rep(ptxt_diff.data(), coeff_count, coeff_mod_count, small_ntt_tables);
-    # long double err_norm = infty_norm(ptxt_diff.data(), context_data.get());
-    # std::cout << "encoding error = " << err_norm << std::endl;
-    #
-    # std::cout << "key recovery ..." << std::endl;
+    # **************************************************
+    # Key recovery attack
+    # **************************************************
+
+    # First we encode the decrypted floating point numbers back into polynomials
+    # ptxt_enc = HE.encode(val_res, 2**log_scale)
+
+    #  Then we get some useful parameters used in the scheme#
+    #  auto small_ntt_tables = context_data->small_ntt_tables();
+    #  auto &ciphertext_parms = context_data->parms();
+    #  auto &coeff_modulus = ciphertext_parms.coeff_modulus();
+    #  size_t coeff_mod_count = coeff_modulus.size();
+    #  size_t coeff_count = ciphertext_parms.poly_modulus_degree();
     # MemoryPoolHandle pool = MemoryManager::GetPool();
-    # // rhs = ptxt_enc - ciphertext.b
+
+
+    # rhs = ptxt_enc - ciphertext.b
     # seal::util::Pointer<unsigned long, void> rhs = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
+    # rhs = util.zero_poly()
+    # util.sub(ptxt_en
     # sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
     #
     # auto ca =  util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
