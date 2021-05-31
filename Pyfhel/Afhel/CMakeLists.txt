@@ -755,6 +755,7 @@ install(
 add_library(seal
         afhel.h
         afseal.cpp
+        utils.cpp
 
         # Instead of linking against the global SEAL install, grab all the files from the SEAL4Pyfhel "flattened" version
         ../SEAL/SEAL/seal/batchencoder.cpp

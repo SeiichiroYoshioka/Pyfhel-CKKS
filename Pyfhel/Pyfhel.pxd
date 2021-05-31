@@ -8,6 +8,7 @@ cimport numpy as np
 # Import from Cython libs required C/C++ types for the Afhel API
 from libcpp.vector cimport vector
 from libcpp cimport bool
+from libcpp.complex cimport complex as cpp_complex
 from numpy cimport int64_t, uint64_t
 
 # Import our own wrapper for iostream classes, used for I/O ops
@@ -53,7 +54,8 @@ cdef class Pyfhel:
     cpdef PyPtxt encodeVector(self, vector[double]& vec, double scale,  PyPtxt ptxt=*) except +
     
     cpdef vector[double] decode(self, PyPtxt ptxt) except +
-    
+    cpdef vector[cpp_complex[double]] decodeComplex(self, PyPtxt ptxt) except +
+
     # ============================ OPERATIONS ==================================
     cpdef PyCtxt square(self, PyCtxt ctxt, bool in_new_ctxt=*) except +
     cpdef PyCtxt negate(self, PyCtxt ctxt, bool in_new_ctxt=*) except +
@@ -105,6 +107,7 @@ cdef class Pyfhel:
     
     # ============================== AUXILIARY =================================
     cpdef long relinBitCount(self) except +
+    cpdef long maxBitCount(self, long n, int sec_level) except +
     cpdef double scale(self, PyCtxt ctxt) except +
     cpdef void set_scale(self, PyCtxt ctxt, double scale) except +
 

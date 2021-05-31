@@ -169,6 +169,10 @@ void Afseal::decode(Plaintext &plain1, vector<double> &valueVOut) {
   if (ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
   ckksEncoder->decode(plain1, valueVOut);
 }
+void Afseal::decode(Plaintext &plain1, vector<std::complex<double>> &valueVOut) {
+  if (ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
+  ckksEncoder->decode(plain1, valueVOut);
+}
 void Afseal::decode(vector<Plaintext> &plainV, vector<int64_t> &valueVOut) {
   throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
@@ -744,7 +748,11 @@ bool Afseal::batchEnabled() {
 long Afseal::relinBitCount() {
   throw std::logic_error("relinBitCount is potentially no longer exposed");
 }
-
+long Afseal::maxBitCount(long poly_modulus_degree, int sec_level) {
+  auto
+      s = sec_level <= 128 ? sec_level_type::tc128 : (sec_level >= 256 ? sec_level_type::tc256 : sec_level_type::tc256);
+  return CoeffModulus::MaxBitCount(poly_modulus_degree, s);
+}
 double Afseal::scale(Ciphertext &ctxt) {
   return ctxt.scale();
 }

@@ -210,6 +210,7 @@ class Afseal{
         vector<double> decode(Plaintext& plain1);
 		void decode(Plaintext& plain1, int64_t& valOut);
         void decode(Plaintext& plain1, vector<double> &valueVOut);
+        void decode(Plaintext& plain1, vector<complex<double>> &valueVOut);
         void decode(vector<Plaintext>& plain1, vector<int64_t> &valueVOut);
 
 
@@ -379,6 +380,7 @@ class Afseal{
         // ----------------------------- AUXILIARY ----------------------------
         bool batchEnabled();
         long relinBitCount();
+        long maxBitCount(long poly_modulus_degree, int sec_level );
         double scale(Ciphertext& ctxt);
         void override_scale(Ciphertext& ctxt, double scale);
 

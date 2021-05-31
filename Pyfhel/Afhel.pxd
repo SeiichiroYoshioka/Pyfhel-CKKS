@@ -7,6 +7,7 @@
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libcpp cimport bool
+from libcpp.complex cimport complex as cpp_complex
 from numpy cimport int64_t, uint64_t
 
 # Import our own wrapper for iostream classes, used for I/O ops
@@ -68,11 +69,7 @@ cdef extern from "Afhel/Afseal.h" nogil:
 
         # DECODE 
         vector[double] decode(Plaintext& plain1) except +
-
-        void decode(Plaintext& plain1, int64_t
-
-
-        & valOut) except +
+        void decode(Plaintext& plain1,  vector[cpp_complex[double]] ) except +;
         void decode(Plaintext& plain1, vector[double] & valueVOut) except +
         void decode(vector[Plaintext]& plain1, vector[int64_t] & valueVOut) except +
 
@@ -144,6 +141,7 @@ cdef extern from "Afhel/Afseal.h" nogil:
         # ----------------------------- AUXILIARY -----------------------------
         bool batchEnabled() except +
         long relinBitCount() except +
+        long maxBitCount(long n, int sec_level)
         double scale(Ciphertext& ctxt) except +
         void override_scale(Ciphertext& ctxt, double scale)
 

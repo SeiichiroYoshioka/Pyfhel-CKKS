@@ -33,7 +33,7 @@ from numbers import Number
 
 # Dereferencing pointers in Cython in a secure way
 from cython.operator cimport dereference as deref
-
+from libcpp.complex cimport complex as cpp_complex
 # Importing it for the fused types
 cimport cython
 
@@ -476,6 +476,25 @@ cdef class Pyfhel:
             
         """
         cdef vector[double] output_value = [0]
+        self.afseal.decode(deref(ptxt._ptr_ptxt), output_value)
+        return output_value
+
+    cpdef vector[cpp_complex[double]] decodeComplex(self, PyPtxt ptxt) except +:
+        """decode(PyPtxt ptxt)
+
+        Decodes a PyPtxt plaintext into a vector of float values.
+
+        Decodes a PyPtxt plaintext into a vector of float value based on
+        the current context.
+
+        Args:
+            ptxt (PyPtxt): plaintext to decode.
+
+        Return:
+            list[float]: the decoded float values
+
+        """
+        cdef vector[cpp_complex[double]] output_value =  vector[cpp_complex[double]](0)
         self.afseal.decode(deref(ptxt._ptr_ptxt), output_value)
         return output_value
 
@@ -1136,6 +1155,16 @@ cdef class Pyfhel:
             int: [1-60], based on relinKeyGen parameter.
         """
         return self.afseal.relinBitCount()
+
+    cpdef long maxBitCount(self, long n, int sec_level) except +:
+        """maxBitCount()
+
+        Maximum number of bits in all qi's that we can have with degree n and sec_level bit security
+
+        Return:
+            long
+        """
+        return self.afseal.maxBitCount(n, sec_level)
 
     cpdef double scale(self, PyCtxt ctxt) except +:
         return self.afseal.scale(deref(ctxt._ptr_ctxt))
