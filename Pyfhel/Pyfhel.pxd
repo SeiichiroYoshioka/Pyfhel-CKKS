@@ -103,6 +103,7 @@ cdef class Pyfhel:
     
     # ============================== AUXILIARY =================================
     cpdef long relinBitCount(self) except +
+    cpdef double scale(self, PyCtxt ctxt) except +
 
     # GETTERS
     cpdef int getnSlots(self) except +

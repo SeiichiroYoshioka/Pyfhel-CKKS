@@ -1114,6 +1114,9 @@ cdef class Pyfhel:
         """
         return self.afseal.relinBitCount()
 
+    cpdef double scale(self, PyCtxt ctxt) except +:
+        return self.afseal.scale(deref(ctxt._ptr_ctxt))
+
     # GETTERS
     cpdef int getnSlots(self) except +:
         """Maximum number of slots fitting in a ciphertext in BATCH mode.

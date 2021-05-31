@@ -91,12 +91,8 @@ void Afseal::ContextGen(long m,
 
   // Create Evaluator Key
   this->evaluator = make_shared<Evaluator>(*context);
-  if (this->flagBatch) {
-    if (!context->first_context_data()->qualifiers().using_batching) {
-      throw invalid_argument("p not prime or p-1 not multiple 2*m");
-    }
-    this->ckksEncoder = make_shared<CKKSEncoder>(*context);
-  }
+  this->ckksEncoder = make_shared<CKKSEncoder>(*context);
+
 }
 
 // KEY GENERATION

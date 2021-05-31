@@ -346,7 +346,7 @@ cdef class PyCtxt:
         elif isinstance(other, PyPtxt):
             self._pyfhel.add_plain(self, other, in_new_ctxt=False)
         elif isinstance(other, (int, float)):
-            other = self._pyfhel.encode(float(other), self._pyfhel.scale(self))
+            other = self._pyfhel.encode(float(other), self.scale())
             self._pyfhel.add_plain(self, other, in_new_ctxt=False)
         else:
             raise TypeError("<Pyfhel ERROR> other summand must be either PyCtxt or PyPtxt")
@@ -402,7 +402,7 @@ cdef class PyCtxt:
         elif isinstance(other, PyPtxt):
             self._pyfhel.sub_plain(self, other, in_new_ctxt=False)
         elif isinstance(other, (int, float)):
-            other = self._pyfhel.encode(float(other), self._pyfhel.scale(self))
+            other = self._pyfhel.encode(float(other), self.scale())
             self._pyfhel.sub_plain(self, other, in_new_ctxt=False)
         else:
             raise TypeError("<Pyfhel ERROR> substrahend must be either PyCtxt or PyPtxt")
@@ -432,12 +432,8 @@ cdef class PyCtxt:
         elif isinstance(other, PyPtxt):
             return self._pyfhel.multiply_plain(self, other, in_new_ctxt=True)
         elif isinstance(other, (int, float)):
-            if self._encoding == ENCODING_t.INTEGER:
-                other = self._pyfhel.encodeInt(int(other))
-                return self._pyfhel.multiply_plain(self, other, in_new_ctxt=True)
-            elif self._encoding == ENCODING_t.FRACTIONAL:
-                other = self._pyfhel.encode(float(other))
-                return self._pyfhel.multiply_plain(self, other, in_new_ctxt=True)
+            other = self._pyfhel.encode(float(other), self.scale())
+            self._pyfhel.multiply_plain(self, other, in_new_ctxt=False)
         else:
             raise TypeError("<Pyfhel ERROR> multiplicand must be either PyCtxt, PyPtxt or int|float"
                             "(is %s instead)"%(type(other)))
@@ -462,7 +458,7 @@ cdef class PyCtxt:
         elif isinstance(other, PyPtxt):
             self._pyfhel.multiply_plain(self, other, in_new_ctxt=False)
         elif isinstance(other, (int, float)):
-            other = self._pyfhel.encode(float(other), self._pyfhel.scale(self))
+            other = self._pyfhel.encode(float(other), self.scale())
             self._pyfhel.multiply_plain(self, other, in_new_ctxt=False)
         else:
             raise TypeError("<Pyfhel ERROR> multiplicand must be either PyCtxt, PyPtxt or int|float"
@@ -534,7 +530,7 @@ cdef class PyCtxt:
             inversePtxt = self._pyfhel.encodeInt(inverse)
         elif self._encoding == ENCODING_t.FRACTIONAL: # float. Standard inverse
             inverse = 1/float(divisor)
-            inversePtxt = self._pyfhel.encode(inverse, self._pyfhel.scale(self))
+            inversePtxt = self._pyfhel.encode(inverse, self.scale())
         else:
             raise TypeError("<Pyfhel ERROR> dividend encoding doesn't support"
                             "division (%s)"%(self._encoding))
@@ -702,3 +698,16 @@ cdef class PyCtxt:
             :func:`~Pyfhel.Pyfhel.decrypt`
         """
         return self._pyfhel.decrypt(self)
+
+    def scale(self):
+        """scale()
+
+        Returns the scale of the ciphertext
+
+         Arguments:
+            None
+
+        Return:
+            float: scale
+        """
+        return self._pyfhel.scale(self)
