@@ -2181,7 +2181,6 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_stri
 static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &); /*proto*/
-static std::vector<double>  __pyx_convert_vector_from_py_double(PyObject *); /*proto*/
 #define __Pyx_MODULE_NAME "Pyfhel.PyPtxt"
 extern int __pyx_module_is_main_Pyfhel__PyPtxt;
 int __pyx_module_is_main_Pyfhel__PyPtxt = 0;
@@ -2308,10 +2307,9 @@ static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_20from_bytes(struct __pyx_obj_
 static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_22__int__(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_24__float__(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_26__repr__(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_28encode(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30decode(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_32__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_34__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_28decode(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_32__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_6Pyfhel_6PyPtxt_PyPtxt(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
@@ -5130,7 +5128,7 @@ static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_26__repr__(struct __pyx_obj_6P
  *                 ENCODING_t(self._encoding).name,
  *                 str(self.to_poly_string())[:25] + ('...' if len(str(self.to_poly_string()))>25 else ''))             # <<<<<<<<<<<<<<
  * 
- *     def encode(self, value):
+ *     # def encode(self, value):
  */
   try {
     __pyx_t_7 = ((struct __pyx_vtabstruct_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self->__pyx_vtab)->to_poly_string(__pyx_v_self, 0);
@@ -5248,81 +5246,8 @@ static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_26__repr__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pyfhel/PyPtxt.pyx":259
- *                 str(self.to_poly_string())[:25] + ('...' if len(str(self.to_poly_string()))>25 else ''))
- * 
- *     def encode(self, value):             # <<<<<<<<<<<<<<
- *         """encode(value)
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_29encode(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static char __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_28encode[] = "encode(value)\n        \n        Encodes the given value using _pyfhel.\n        \n        Arguments:\n            value (int, float, np.array): Encodes accordingly to the tipe\n            \n        Return:\n            None\n            \n        See Also:\n            :func:`~Pyfhel.Pyfhel.encode`\n        ";
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_29encode(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("encode (wrapper)", 0);
-  __pyx_r = __pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_28encode(((struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self), ((PyObject *)__pyx_v_value));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_28encode(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self, PyObject *__pyx_v_value) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  std::vector<double>  __pyx_t_1;
-  double __pyx_t_2;
-  PyObject *__pyx_t_3 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("encode", 0);
-
-  /* "Pyfhel/PyPtxt.pyx":273
- *             :func:`~Pyfhel.Pyfhel.encode`
- *         """
- *         self._pyfhel.encodeVector(value, self)             # <<<<<<<<<<<<<<
- * 
- *     def decode(self):
- */
-  __pyx_t_1 = __pyx_convert_vector_from_py_double(__pyx_v_value); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 273, __pyx_L1_error)
-  __pyx_t_2 = __pyx_PyFloat_AsDouble(((PyObject *)__pyx_v_self)); if (unlikely((__pyx_t_2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 273, __pyx_L1_error)
-  try {
-    __pyx_t_3 = ((PyObject *)((struct __pyx_vtabstruct_6Pyfhel_6Pyfhel_Pyfhel *)__pyx_v_self->_pyfhel->__pyx_vtab)->encodeVector(__pyx_v_self->_pyfhel, __pyx_t_1, __pyx_t_2, 0, NULL));
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
-  } catch(...) {
-    __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 273, __pyx_L1_error)
-  }
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "Pyfhel/PyPtxt.pyx":259
- *                 str(self.to_poly_string())[:25] + ('...' if len(str(self.to_poly_string()))>25 else ''))
- * 
- *     def encode(self, value):             # <<<<<<<<<<<<<<
- *         """encode(value)
- * 
- */
-
-  /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("Pyfhel.PyPtxt.PyPtxt.encode", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "Pyfhel/PyPtxt.pyx":275
- *         self._pyfhel.encodeVector(value, self)
+ *     #     self._pyfhel.encodeVector(value, self)
  * 
  *     def decode(self):             # <<<<<<<<<<<<<<
  *         """decode()
@@ -5330,20 +5255,20 @@ static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_28encode(struct __pyx_obj_6Pyf
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_31decode(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_30decode[] = "decode()\n        \n        Decodes itself using _pyfhel.\n        \n        Arguments:\n            None\n            \n        Return:\n            int, float, np.array: value decrypted.\n   \n        See Also:\n            :func:`~Pyfhel.Pyfhel.decode`\n        ";
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_31decode(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_29decode(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_28decode[] = "decode()\n        \n        Decodes itself using _pyfhel.\n        \n        Arguments:\n            None\n            \n        Return:\n            int, float, np.array: value decrypted.\n   \n        See Also:\n            :func:`~Pyfhel.Pyfhel.decode`\n        ";
+static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_29decode(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("decode (wrapper)", 0);
-  __pyx_r = __pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30decode(((struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_28decode(((struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30decode(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self) {
+static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_28decode(struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
@@ -5364,7 +5289,7 @@ static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30decode(struct __pyx_obj_6Pyf
   }
 
   /* "Pyfhel/PyPtxt.pyx":275
- *         self._pyfhel.encodeVector(value, self)
+ *     #     self._pyfhel.encodeVector(value, self)
  * 
  *     def decode(self):             # <<<<<<<<<<<<<<
  *         """decode()
@@ -5390,19 +5315,19 @@ static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30decode(struct __pyx_obj_6Pyf
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_33__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_33__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_31__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_31__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_32__reduce_cython__(((struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30__reduce_cython__(((struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_32__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self) {
+static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_30__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5447,19 +5372,19 @@ static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_32__reduce_cython__(CYTHON_UNU
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_35__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_35__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_33__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_33__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_34__setstate_cython__(((struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_32__setstate_cython__(((struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_34__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_6Pyfhel_6PyPtxt_6PyPtxt_32__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6826,128 +6751,6 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_st
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-
-/* "vector.from_py":45
- * 
- * @cname("__pyx_convert_vector_from_py_double")
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:             # <<<<<<<<<<<<<<
- *     cdef vector[X] v
- *     for item in o:
- */
-
-static std::vector<double>  __pyx_convert_vector_from_py_double(PyObject *__pyx_v_o) {
-  std::vector<double>  __pyx_v_v;
-  PyObject *__pyx_v_item = NULL;
-  std::vector<double>  __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  Py_ssize_t __pyx_t_2;
-  PyObject *(*__pyx_t_3)(PyObject *);
-  PyObject *__pyx_t_4 = NULL;
-  double __pyx_t_5;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_convert_vector_from_py_double", 0);
-
-  /* "vector.from_py":47
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:
- *     cdef vector[X] v
- *     for item in o:             # <<<<<<<<<<<<<<
- *         v.push_back(<X>item)
- *     return v
- */
-  if (likely(PyList_CheckExact(__pyx_v_o)) || PyTuple_CheckExact(__pyx_v_o)) {
-    __pyx_t_1 = __pyx_v_o; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
-    __pyx_t_3 = NULL;
-  } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_o); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 47, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 47, __pyx_L1_error)
-  }
-  for (;;) {
-    if (likely(!__pyx_t_3)) {
-      if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(1, 47, __pyx_L1_error)
-        #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 47, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        #endif
-      } else {
-        if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(1, 47, __pyx_L1_error)
-        #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 47, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        #endif
-      }
-    } else {
-      __pyx_t_4 = __pyx_t_3(__pyx_t_1);
-      if (unlikely(!__pyx_t_4)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(1, 47, __pyx_L1_error)
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_4);
-    }
-    __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_4);
-    __pyx_t_4 = 0;
-
-    /* "vector.from_py":48
- *     cdef vector[X] v
- *     for item in o:
- *         v.push_back(<X>item)             # <<<<<<<<<<<<<<
- *     return v
- * 
- */
-    __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_item); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 48, __pyx_L1_error)
-    __pyx_v_v.push_back(((double)__pyx_t_5));
-
-    /* "vector.from_py":47
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:
- *     cdef vector[X] v
- *     for item in o:             # <<<<<<<<<<<<<<
- *         v.push_back(<X>item)
- *     return v
- */
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "vector.from_py":49
- *     for item in o:
- *         v.push_back(<X>item)
- *     return v             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __pyx_r = __pyx_v_v;
-  goto __pyx_L0;
-
-  /* "vector.from_py":45
- * 
- * @cname("__pyx_convert_vector_from_py_double")
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:             # <<<<<<<<<<<<<<
- *     cdef vector[X] v
- *     for item in o:
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("vector.from_py.__pyx_convert_vector_from_py_double", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_pretend_to_initialize(&__pyx_r);
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_item);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
 static struct __pyx_vtabstruct_6Pyfhel_6PyPtxt_PyPtxt __pyx_vtable_6Pyfhel_6PyPtxt_PyPtxt;
 
 static PyObject *__pyx_tp_new_6Pyfhel_6PyPtxt_PyPtxt(PyTypeObject *t, PyObject *a, PyObject *k) {
@@ -7043,10 +6846,9 @@ static PyMethodDef __pyx_methods_6Pyfhel_6PyPtxt_PyPtxt[] = {
   {"from_file", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_17from_file, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_16from_file},
   {"load", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_19load, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_18load},
   {"from_bytes", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_21from_bytes, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_20from_bytes},
-  {"encode", (PyCFunction)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_29encode, METH_O, __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_28encode},
-  {"decode", (PyCFunction)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_31decode, METH_NOARGS, __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_30decode},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_33__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_35__setstate_cython__, METH_O, 0},
+  {"decode", (PyCFunction)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_29decode, METH_NOARGS, __pyx_doc_6Pyfhel_6PyPtxt_6PyPtxt_28decode},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_31__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_6Pyfhel_6PyPtxt_6PyPtxt_33__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -7827,12 +7629,12 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "vector.from_py":45
+  /* "string.to_py":55
  * 
- * @cname("__pyx_convert_vector_from_py_double")
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:             # <<<<<<<<<<<<<<
- *     cdef vector[X] v
- *     for item in o:
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
+ * 
  */
 
   /*--- Wrapped vars code ---*/

@@ -90,6 +90,15 @@ int main(int argc, char **argv)
 	  std::cout << vRes[i] << ' ';
 	}
 
+    // Plaintext Multiplication
+    std::cout << " Afseal - PTXT MULT" << endl;
+    {timer t(ctx, "encr21");k1 = he.encrypt(p1);}
+    {timer t(ctx, "mult");he.multiply(k1, p2);}
+    {timer t(ctx, "decr2"); Plaintext p = he.decrypt(k1); vRes = he.decode(p);}
+    for(int64_t i=0; i<1000; i++){
+      std::cout << vRes[i] << ' ';
+    }
+
     // Multiplication
     std::cout << " Afseal - MULT" << endl;
     {timer t(ctx, "encr21");k1 = he.encrypt(p1);}

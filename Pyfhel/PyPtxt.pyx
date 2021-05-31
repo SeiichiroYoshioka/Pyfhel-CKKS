@@ -256,21 +256,21 @@ cdef class PyPtxt:
                 ENCODING_t(self._encoding).name,
                 str(self.to_poly_string())[:25] + ('...' if len(str(self.to_poly_string()))>25 else ''))
 
-    def encode(self, value):
-        """encode(value)
-        
-        Encodes the given value using _pyfhel.
-        
-        Arguments:
-            value (int, float, np.array): Encodes accordingly to the tipe
-            
-        Return:
-            None
-            
-        See Also:
-            :func:`~Pyfhel.Pyfhel.encode`
-        """
-        self._pyfhel.encodeVector(value, self)
+    # def encode(self, value):
+    #     """encode(value)
+    #
+    #     Encodes the given value using _pyfhel.
+    #
+    #     Arguments:
+    #         value (int, float, np.array): Encodes accordingly to the tipe
+    #
+    #     Return:
+    #         None
+    #
+    #     See Also:
+    #         :func:`~Pyfhel.Pyfhel.encode`
+    #     """
+    #     self._pyfhel.encodeVector(value, self)
     
     def decode(self):
         """decode()
