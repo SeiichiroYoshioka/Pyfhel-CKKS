@@ -1,5 +1,5 @@
 # =============================== SETUP.PY =====================================
-# This file installs Pyfhel in your Python3 distribution. Use one of the two:
+# This file installs Pyfhel-CKKS in your Python3 distribution. Use one of the two:
 #   > python3 setup.py install
 #   > python3 -m pip install .
 # PYPI -> https://packaging.python.org/tutorials/packaging-projects/
@@ -12,7 +12,7 @@ import shutil, glob, fileinput, re, os, sys, sysconfig, platform
 # Check that Python version is 3.5+
 v_maj, v_min = sys.version_info[:2]
 assert (v_maj, v_min) >= (3,5),\
-    "Pyfhel requires Python 3.5+ (your version is {}.{}).".format(v_maj, v_min)
+    "Pyfhel-CKKS requires Python 3.5+ (your version is {}.{}).".format(v_maj, v_min)
 
 from pathlib import Path
 
@@ -170,16 +170,16 @@ def my_build_ext(pars):
 
 # -------------------------------- INSTALLER ----------------------------------
 setup(
-    name            = "Pyfhel",
+    name            = "Pyfhel-CKKS",
     version         = VERSION,
-    author          = "Alberto Ibarrondo",
-    author_email    = "ibarrond@eurecom.fr",
+    author          = "Alberto Ibarrondo, Alexander Viand",
+    author_email    = "ibarrond@eurecom.fr, alexander.viand@inf.ethz.ch",
     description     = "Python for Homomorphic Encryption Libraries",
     long_description= long_description,
     long_description_content_type="text/markdown",
     keywords        = "homomorphic encryption cython cryptography",
     license         = "GNU GPLv3",
-    url             = "https://github.com/ibarrond/Pyfhel",
+    url             = "https://github.com/MarbleHE/Pyfhel-CKKS",
     setup_requires  =["setuptools>=45.0",
                       "numpy>=1.16.0"],
     install_requires=requirements,
