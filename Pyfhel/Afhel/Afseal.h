@@ -31,7 +31,7 @@
 
 #ifndef AFSEAL_H
 #define AFSEAL_H
- 
+
 #include <iostream>	/* Print in std::cout */
 #include <string>	/* String class */
 #include <vector>	/* Vectorizing all operations */
@@ -51,11 +51,11 @@ using namespace seal;
 *  addition, multiplication, scalar product and others.
 *
 */
-class Afseal{ 
+class Afseal{
 
-    private: 
+    private:
         // --------------------------- ATTRIBUTES -----------------------------
-        
+
         shared_ptr<SEALContext> context=NULL;           /**< Context. Used for init*/
   		//TODO: Declare Encoder Ptr
         shared_ptr<KeyGenerator> keyGenObj=NULL;        /**< Key Generator Object.*/
@@ -71,15 +71,13 @@ class Afseal{
         shared_ptr<CKKSEncoder> ckksEncoder=NULL;     /**< Batch Encoder for BFV. */
 
 
-        long p;                          /**< All operations are modulo p^r */
         long m;                          /**< Cyclotomic index */
 
         long base;
         long sec;
         int intDigits;
         int fracDigits;
-        int scale_bits;
-        
+
         bool flagBatch = false;         /**< Whether to use batching or not */
 
 
@@ -94,7 +92,7 @@ class Afseal{
         friend ostream& operator<< (ostream& outs, Afseal const& af);
 
         /**
-         * @brief An input stream operator, reading the parsed Afseal object 
+         * @brief An input stream operator, reading the parsed Afseal object
          *        from a string stream.
          * @param[in] ins input stream where to extract the Afseal object
          * @param[out] af Afseal object to contain the parsed one
@@ -117,7 +115,7 @@ class Afseal{
          */
         Afseal(const Afseal &otherAfseal);
         /**
-         * @brief Overwrites current Afseal instance by a deep copy of a 
+         * @brief Overwrites current Afseal instance by a deep copy of a
          *          given instance.
          * @param[in] assign The Afseal instance to overwrite current instance
          */
@@ -143,15 +141,13 @@ class Afseal{
          * @param[in] qs list of coefficient moduli bit sizes
          * @return Void.
          */
-        void ContextGen(long p,
-                        long m = 16384,
+        void ContextGen(long m = 16384,
                         bool flagBatching = false,
                         long base = 2,
                         long sec = 128,
                         int intDigits = 64,
                         int fracDigits = 32,
-                        std::vector<int> qs = {30, 30, 30, 30, 30},
-                        int scale_bits = 30);
+                        std::vector<int> qs = {30, 30, 30, 30, 30});
 
         // KEY GENERATION
         /**
@@ -165,28 +161,19 @@ class Afseal{
         /**
          * @brief Enctypts a provided plaintext vector using pubKey as public key.
          *        The encryption is carried out with SEAL.
-         * @param[in] plain1 plaintext vector to encrypt.
+         * @param[in] plain1 plaintext vector to encode_and_encrypt.
          * @return ciphertext the SEAL encrypted ciphertext.
          */
         Ciphertext encrypt(Plaintext& plain1);
-        Ciphertext encrypt(double& value1);
-        Ciphertext encrypt(int64_t& value1);
-        Ciphertext encrypt(vector<int64_t>& valueV);
-        vector<Ciphertext> encrypt(vector<int64_t>& valueV, bool& dummy_NoBatch);
-        Ciphertext encrypt(vector<double>& valueV);
+
         /**
          * @brief Enctypts a provided plaintext vector and stored in the
-         *      provided ciphertext. The encryption is carried out with SEAL. 
-         * @param[in] plain1 plaintext vector to encrypt.
+         *      provided ciphertext. The encryption is carried out with SEAL.
+         * @param[in] plain1 plaintext vector to encode_and_encrypt.
          * @param[in, out] cipher1 ciphertext to hold the result of encryption.
          * @return ciphertext the SEAL encrypted ciphertext.
          */
         void encrypt(Plaintext& plain1, Ciphertext& cipherOut);
-        void encrypt(double& value1, Ciphertext& cipherOut);
-        void encrypt(int64_t& value1, Ciphertext& cipherOut);
-        void encrypt(vector<int64_t>& valueV, Ciphertext& cipherOut);
-        void encrypt(vector<int64_t>& valueV, vector<Ciphertext>& cipherOut);
-        void encrypt(vector<double>& valueV, Ciphertext &cipherOut);
 
         // DECRYPTION
         /**
@@ -195,7 +182,8 @@ class Afseal{
          * @param[in] cipher1 a Ciphertext object from SEAL.
          * @return Plaintext the resulting of decrypting the ciphertext, a plaintext.
          */
-        vector<double> decrypt(Ciphertext& cipher1);
+        Plaintext decrypt(Ciphertext& cipher1);
+
         /**
          * @brief Decrypts the ciphertext using secKey as secret key and stores
          *         it in a provided Plaintext.
@@ -205,30 +193,20 @@ class Afseal{
          * @return Void.
          */
         void decrypt(Ciphertext& cipher1, Plaintext& plainOut);
-        void decrypt(Ciphertext& cipher1, int64_t& valueOut); 
-        void decrypt_and_decode(Ciphertext& cipher1, vector<double> &valueOut);
-        void decrypt(Ciphertext& cipher1, vector<int64_t>& valueVOut); 
-        void decrypt(vector<Ciphertext>& cipherV, vector<int64_t>& valueVOut);
 
 
         // NOISE MEASUREMENT
         int noiseLevel(Ciphertext& cipher1);
 
         // ------------------------------ CODEC -------------------------------
-        // ENCODE 
-        Plaintext encode(int64_t& value1);
-        Plaintext encode(double& value1);
-        Plaintext encode(vector<int64_t> &values);
-        vector<Plaintext> encode(vector<int64_t> &values, bool dummy_NoBatch);
-        Plaintext encode(vector<double> &values);
+        // ENCODE
+        Plaintext encode(double& value1, double scale);
+        Plaintext encode(vector<double> &values, double scale);
 
-        void encode(int64_t& value1, Plaintext& plainOut);
-        void encode(double& value1, Plaintext& plainOut);
-        void encode(vector<int64_t> &values, Plaintext& plainOut);
-        void encode(vector<int64_t> &values, vector<Plaintext>& plainVOut);
-        void encode(vector<double> &values, Plaintext &plainOut);
-        
-        // DECODE 
+        void encode(double& value1, double scale, Plaintext& plainOut);
+        void encodeVector(vector<double> &values, double scale, Plaintext &plainOut);
+
+        // DECODE
         vector<double> decode(Plaintext& plain1);
 		void decode(Plaintext& plain1, int64_t& valOut);
         void decode(Plaintext& plain1, vector<double> &valueVOut);
@@ -262,7 +240,7 @@ class Afseal{
         void negate(Ciphertext& cipher1);
         void negate(vector<Ciphertext>& cipherV);
 
-        
+
         // ADDITION
         /**
          * @brief Add second ciphertext to the first ciphertext.
@@ -287,7 +265,7 @@ class Afseal{
         void sub(Ciphertext& cipher1, Plaintext& plain2);
         void sub(vector<Ciphertext>& cipherVInOut, vector<Ciphertext>& cipherV2);
         void sub(vector<Ciphertext>& cipherVInOut, vector<Plaintext>& plainV2);
-        
+
 
         // MULTIPLICATION
         /**
@@ -397,19 +375,21 @@ class Afseal{
         // ----------------------------- AUXILIARY ----------------------------
         bool batchEnabled();
         long relinBitCount();
+        double scale(Ciphertext& ctxt);
+        void override_scale(Ciphertext& ctxt, double scale);
+
         // GETTERS
-        SecretKey getsecretKey(); 
+        SecretKey getsecretKey();
         PublicKey getpublicKey();
         RelinKeys getrelinKey();
-        GaloisKeys getrotateKeys();  
-        int getnSlots();  
-        int getp();
+        GaloisKeys getrotateKeys();
+        int getnSlots();
         int getm();
         int getbase();
         int getsec();
-        int getintDigits();  
-        int getfracDigits();  
-        bool getflagBatch(); 
+        int getintDigits();
+        int getfracDigits();
+        bool getflagBatch();
 
 	bool is_secretKey_empty()
 		{return secretKey==NULL;}
@@ -421,8 +401,8 @@ class Afseal{
 		{ return relinKey==NULL;}
 	bool is_context_empty()
 		{ return context==NULL;}
-	
-	
+
+
         //SETTERS
         void setpublicKey(PublicKey& pubKey)
             {this->publicKey = make_shared<PublicKey> (pubKey);}

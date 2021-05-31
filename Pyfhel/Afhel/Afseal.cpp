@@ -57,38 +57,32 @@ Afseal::Afseal(const Afseal &otherAfseal) {
   this->ckksEncoder = make_shared<CKKSEncoder>(*context);
 
   this->m = otherAfseal.m;
-  this->p = otherAfseal.p;
   this->base = otherAfseal.base;
   this->sec = otherAfseal.sec;
   this->intDigits = otherAfseal.intDigits;
   this->fracDigits = otherAfseal.fracDigits;
   this->flagBatch = otherAfseal.flagBatch;
-  this->scale_bits = otherAfseal.scale_bits;
 }
 
 Afseal::~Afseal() {}
 
 // ------------------------------ CRYPTOGRAPHY --------------------------------
 // CONTEXT GENERATION
-void Afseal::ContextGen(long p,
-                        long m,
+void Afseal::ContextGen(long m,
                         bool flagBatching,
                         long base,
                         long sec,
                         int intDigits,
                         int fracDigits,
-                        std::vector<int> qs,
-                        int scale_bits) {
+                        std::vector<int> qs) {
 
   EncryptionParameters parms(scheme_type::ckks);
-  this->p = p;
   this->m = m;
   this->base = base;
   this->sec = sec;
   this->intDigits = intDigits;
   this->fracDigits = fracDigits;
   this->flagBatch = flagBatching;
-  this->scale_bits = scale_bits;
 
   // Context generation
   parms.set_poly_modulus_degree(m);
@@ -125,120 +119,44 @@ Ciphertext Afseal::encrypt(Plaintext &plain1) {
   encryptor->encrypt(plain1, cipher1);
   return cipher1;
 }
-Ciphertext Afseal::encrypt(double &value1) {
-  Plaintext ptxt;
-  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), ptxt);
-  Ciphertext ctxt;
-  encryptor->encrypt(ptxt, ctxt);
-  return ctxt;
-}
-Ciphertext Afseal::encrypt(int64_t &value1) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-Ciphertext Afseal::encrypt(vector<int64_t> &valueV) {
-  throw std::logic_error("Must encode as double or complex for CKKS");
-}
-vector<Ciphertext> Afseal::encrypt(vector<int64_t> &valueV, bool &dummy_NoBatch) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-Ciphertext Afseal::encrypt(vector<double> &valueV) {
-  Plaintext ptxt;
-  ckksEncoder->encode(valueV, std::pow(2.0, scale_bits), ptxt);
-  Ciphertext ctxt;
-  encryptor->encrypt(ptxt, ctxt);
-  return ctxt;
-}
 
 void Afseal::encrypt(Plaintext &plain1, Ciphertext &cipher1) {
   if (encryptor==NULL) { throw std::logic_error("Missing a Public Key"); }
   encryptor->encrypt(plain1, cipher1);
 }
-void Afseal::encrypt(double &value1, Ciphertext &cipher1) {
-  Plaintext ptxt;
-  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), ptxt);
-  encryptor->encrypt(ptxt, cipher1);
-}
-void Afseal::encrypt(int64_t &value1, Ciphertext &cipher1) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-void Afseal::encrypt(vector<int64_t> &valueV, Ciphertext &cipherOut) {
-  throw std::logic_error("Must encode as double or complex for CKKS");
-}
-void Afseal::encrypt(vector<int64_t> &valueV, vector<Ciphertext> &cipherOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-void Afseal::encrypt(vector<double> &valueV, Ciphertext &cipherOut) {
-  Plaintext ptxt;
-  ckksEncoder->encode(valueV, std::pow(2.0, scale_bits), ptxt);
-  encryptor->encrypt(ptxt, cipherOut);
-}
 
 //DECRYPTION
-vector<double> Afseal::decrypt(Ciphertext &cipher1) {
+Plaintext Afseal::decrypt(Ciphertext &cipher1) {
   if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }
-  if (ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
   Plaintext plain1;
-  vector<double> valueVOut;
   decryptor->decrypt(cipher1, plain1);
-  ckksEncoder->decode(plain1, valueVOut);
-  return valueVOut;
+  return plain1;
 }
-void Afseal::decrypt(Ciphertext &cipher1, Plaintext &plain1) {
+
+void Afseal::decrypt(Ciphertext &cipher1, Plaintext& plainOut) {
   if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }
-  decryptor->decrypt(cipher1, plain1);
-}
-void Afseal::decrypt(Ciphertext &cipher1, int64_t &valueOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-void Afseal::decrypt_and_decode(Ciphertext &cipher1, vector<double> &valueOut) {
-  if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }
-  Plaintext ptxt;
-  decryptor->decrypt(cipher1, ptxt);
-  ckksEncoder->decode(ptxt, valueOut);
-}
-void Afseal::decrypt(vector<Ciphertext> &cipherV, vector<int64_t> &valueVOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-void Afseal::decrypt(Ciphertext &cipher1, vector<int64_t> &valueVOut) {
-  throw std::logic_error("Must encode as double or complex for CKKS");
+  decryptor->decrypt(cipher1, plainOut);
 }
 
 // ---------------------------------- CODEC -----------------------------------
 // ENCODE
-Plaintext Afseal::encode(int64_t &value1) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-Plaintext Afseal::encode(double &value1) {
+Plaintext Afseal::encode(double &value1, double scale) {
   Plaintext ptxt;
-  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), ptxt);
+  ckksEncoder->encode(value1, scale, ptxt);
   return ptxt;
 }
-Plaintext Afseal::encode(vector<int64_t> &values) { // Batching
-  throw std::logic_error("Must encode as double or complex for CKKS");
-}
-vector<Plaintext> Afseal::encode(vector<int64_t> &values, bool dummy_notUsed) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-Plaintext Afseal::encode(vector<double> &values) {
+Plaintext Afseal::encode(vector<double> &values, double scale) {
   Plaintext ptxt;
-  ckksEncoder->encode(values, std::pow(2.0, scale_bits), ptxt);
+  ckksEncoder->encode(values, scale, ptxt);
   return ptxt;
 }
 
-void Afseal::encode(int64_t &value1, Plaintext &plainOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
+void Afseal::encode(double &value1, double scale, Plaintext &plainOut) {
+  ckksEncoder->encode(value1, scale, plainOut);
 }
-void Afseal::encode(double &value1, Plaintext &plainOut) {
-  ckksEncoder->encode(value1, std::pow(2.0, scale_bits), plainOut);
-}
-void Afseal::encode(vector<int64_t> &values, Plaintext &plainOut) {
-  throw std::logic_error("Must encode as double or complex for CKKS");
-}
-void Afseal::encode(vector<int64_t> &values, vector<Plaintext> &plainVOut) {
-  throw std::logic_error("Non-Batched Integer Encoding no longer supported");
-}
-void Afseal::encode(vector<double> &values, Plaintext &plainOut) {
-  ckksEncoder->encode(values, std::pow(2.0, scale_bits), plainOut);
+
+void Afseal::encodeVector(vector<double> &values,double scale, Plaintext &plainOut) {
+  ckksEncoder->encode(values, scale, plainOut);
 }
 
 // DECODE
@@ -444,7 +362,6 @@ bool Afseal::saveContext(string fileName) {
     contextFile << intDigits << endl;
     contextFile << fracDigits << endl;
     contextFile << flagBatch << endl;
-    contextFile << scale_bits << endl;
 
     contextFile.close();
   }
@@ -467,7 +384,6 @@ bool Afseal::restoreContext(string fileName) {
     contextFile >> intDigits;
     contextFile >> fracDigits;
     contextFile >> flagBatch;
-    contextFile >> scale_bits;
     contextFile.close();
 
     this->context = make_shared<SEALContext>(parms);
@@ -826,6 +742,12 @@ long Afseal::relinBitCount() {
   throw std::logic_error("relinBitCount is potentially no longer exposed");
 }
 
+double Afseal::scale(Ciphertext &ctxt) {
+  return ctxt.scale();
+}
+void Afseal::override_scale(Ciphertext& ctxt, double scale) {
+  ctxt.scale() = scale;
+}
 // GETTERS
 SecretKey Afseal::getsecretKey() {
   if (this->secretKey==NULL) { throw std::logic_error("Secret Key not initialized"); }
@@ -846,10 +768,6 @@ GaloisKeys Afseal::getrotateKeys() {
 int Afseal::getnSlots() {
   if (this->ckksEncoder==NULL) { throw std::logic_error("Context not initialized with BATCH support"); }
   return this->ckksEncoder->slot_count();
-}
-int Afseal::getp() {
-  if (this->context==NULL) { throw std::logic_error("Context not initialized"); }
-  return this->p;
 }
 int Afseal::getm() {
   if (this->context==NULL) { throw std::logic_error("Context not initialized"); }
