@@ -45,7 +45,7 @@ cdef extern from "Afhel/Afseal.h" nogil:
         # -------------------------- CRYPTOGRAPHY -----------------------------
         # CONTEXT & KEY GENERATION
         void ContextGen(long p, long m, bool flagBatching, long base,
-                 long sec, int intDigits, int fracDigits) except +
+                 long sec, int intDigits, int fracDigits, vector[int] qs, int scale_bits) except +
         void KeyGen() except +
 
         # ENCRYPTION
@@ -54,24 +54,23 @@ cdef extern from "Afhel/Afseal.h" nogil:
         Ciphertext encrypt(int64_t& value1) except +
         Ciphertext encrypt(vector[int64_t]& valueV) except +
         vector[Ciphertext] encrypt(vector[int64_t]& valueV, bool& dummy_NoBatch) except +
-        vector[Ciphertext] encrypt(vector[double]& valueV) except +
+        Ciphertext encrypt(vector[double]& valueV) except +
         
         void encrypt(Plaintext& plain1, Ciphertext& cipherOut) except +
         void encrypt(double& value1, Ciphertext& cipherOut) except +
         void encrypt(int64_t& value1, Ciphertext& cipherOut) except +
         void encrypt(vector[int64_t]& valueV, Ciphertext& cipherOut) except +
         void encrypt(vector[int64_t]& valueV, vector[Ciphertext]& cipherOut) except +
-        void encrypt(vector[double]& valueV, vector[Ciphertext]& cipherOut) except +
+        void encrypt(vector[double]& valueV, Ciphertext& cipherOut) except +
 
         # DECRYPTION
-        vector[int64_t] decrypt(Ciphertext& cipher1) except +
+        vector[double] decrypt(Ciphertext& cipher1) except +
 
         void decrypt(Ciphertext& cipher1, Plaintext& plainOut) except +
         void decrypt(Ciphertext& cipher1, int64_t& valueOut) except + 
-        void decrypt(Ciphertext& cipher1, double& valueOut) except +
+        void decrypt_and_decode(Ciphertext& cipher1, vector[double]& valueOut) except +
         void decrypt(Ciphertext& cipher1, vector[int64_t]& valueVOut) except + 
         void decrypt(vector[Ciphertext]& cipherV, vector[int64_t]& valueVOut) except +
-        void decrypt(vector[Ciphertext]& cipherV, vector[double]& valueVOut) except +
 
         # NOISE LEVEL
         int noiseLevel(Ciphertext& cipher1) except +
@@ -82,7 +81,7 @@ cdef extern from "Afhel/Afseal.h" nogil:
         Plaintext encode(double& value1) except +
         Plaintext encode(vector[int64_t] &values) except +
         vector[Plaintext] encode(vector[int64_t] &values, bool dummy_NoBatch) except +
-        vector[Plaintext] encode(vector[double] &values) except +
+        Plaintext encode(vector[double] &values) except +
 
         void encode(int64_t& value1, Plaintext& plainOut) except +
         void encode(double& value1, Plaintext& plainOut) except +
@@ -91,12 +90,11 @@ cdef extern from "Afhel/Afseal.h" nogil:
         void encode(vector[double] &values, vector[Plaintext]& plainVOut) except +
         
         # DECODE 
-        vector[int64_t] decode(Plaintext& plain1) except +
+        vector[double] decode(Plaintext& plain1) except +
         
-        void decode(Plaintext& plain1, double& valOut) except +
-        void decode(Plaintext& plain1, vector[int64_t] &valueVOut) except +
+        void decode(Plaintext& plain1, int64_t& valOut) except +
+        void decode(Plaintext& plain1, vector[double] &valueVOut) except +
         void decode(vector[Plaintext]& plain1, vector[int64_t] &valueVOut) except +
-        void decode(vector[Plaintext]& plain1, vector[double] &valueVOut) except +
 
         # -------------------------- OTHER OPERATIONS -------------------------
         void rotateKeyGen(int& bitCount) except +
@@ -104,6 +102,7 @@ cdef extern from "Afhel/Afseal.h" nogil:
         void relinearize(Ciphertext& cipher1) except +
 
         # ---------------------- HOMOMORPHIC OPERATIONS -----------------------
+        void rescale(Ciphertext& cipher1) except +
         void square(Ciphertext& cipher1) except +
         void square(vector[Ciphertext]& cipherV) except +
         void negate(Ciphertext& cipher1) except +
