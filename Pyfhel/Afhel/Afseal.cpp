@@ -129,7 +129,7 @@ Plaintext Afseal::decrypt(Ciphertext &cipher1) {
   return plain1;
 }
 
-void Afseal::decrypt(Ciphertext &cipher1, Plaintext& plainOut) {
+void Afseal::decrypt(Ciphertext &cipher1, Plaintext &plainOut) {
   if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }
   decryptor->decrypt(cipher1, plainOut);
 }
@@ -151,7 +151,7 @@ void Afseal::encode(double &value1, double scale, Plaintext &plainOut) {
   ckksEncoder->encode(value1, scale, plainOut);
 }
 
-void Afseal::encodeVector(vector<double> &values,double scale, Plaintext &plainOut) {
+void Afseal::encodeVector(vector<double> &values, double scale, Plaintext &plainOut) {
   ckksEncoder->encode(values, scale, plainOut);
 }
 
@@ -180,10 +180,7 @@ int Afseal::noiseLevel(Ciphertext &cipher1) {
 }
 
 // ------------------------------ RELINEARIZATION -----------------------------
-void Afseal::relinKeyGen(int &bitCount, int &size) {
-  if (keyGenObj==NULL) { throw std::logic_error("Context not initialized"); }
-  if (bitCount > 60) { throw invalid_argument("bitCount must be =< 60"); }
-  if (bitCount < 1) { throw invalid_argument("bitCount must be >= 1"); }
+void Afseal::relinKeyGen() {
   this->relinKey = std::make_shared<RelinKeys>();
   keyGenObj->create_relin_keys(*relinKey);
 }
@@ -213,6 +210,16 @@ void Afseal::negate(vector<Ciphertext> &cipherV) {
 void Afseal::rescale_to_next(Ciphertext &cipher1) {
   if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
   evaluator->rescale_to_next_inplace(cipher1);
+}
+
+void Afseal::mod_switch_to_next(Ciphertext &cipher1) {
+  if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
+  evaluator->mod_switch_to_next_inplace(cipher1);
+}
+
+void Afseal::mod_switch_to_next(Plaintext &ptxt) {
+  if (evaluator==NULL) { throw std::logic_error("Context not initialized"); }
+  evaluator->mod_switch_to_next_inplace(ptxt);
 }
 
 // SQUARE
@@ -741,7 +748,7 @@ long Afseal::relinBitCount() {
 double Afseal::scale(Ciphertext &ctxt) {
   return ctxt.scale();
 }
-void Afseal::override_scale(Ciphertext& ctxt, double scale) {
+void Afseal::override_scale(Ciphertext &ctxt, double scale) {
   ctxt.scale() = scale;
 }
 // GETTERS

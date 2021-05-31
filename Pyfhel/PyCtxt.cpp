@@ -1221,7 +1221,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_contextGen {
 };
 
 /* "Pyfhel/Pyfhel.pxd":39
- *     cpdef void relinKeyGen(self, int bitCount, int size) except +
+ *     cpdef void relinKeyGen(self) except +
  * 
  *     cpdef PyCtxt encrypt(self, PyPtxt ptxt, PyCtxt ctxt=*) except +             # <<<<<<<<<<<<<<
  * 
@@ -1244,7 +1244,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_decrypt {
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *ptxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":50
+/* "Pyfhel/Pyfhel.pxd":52
  * 
  *     # ============================= ENCODING ===================================
  *     cpdef PyPtxt encode(self, double value, double scale, PyPtxt ptxt=*) except +             # <<<<<<<<<<<<<<
@@ -1256,7 +1256,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encode {
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *ptxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":51
+/* "Pyfhel/Pyfhel.pxd":53
  *     # ============================= ENCODING ===================================
  *     cpdef PyPtxt encode(self, double value, double scale, PyPtxt ptxt=*) except +
  *     cpdef PyPtxt encodeVector(self, vector[double]& vec, double scale,  PyPtxt ptxt=*) except +             # <<<<<<<<<<<<<<
@@ -1268,7 +1268,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encodeVector {
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *ptxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":56
+/* "Pyfhel/Pyfhel.pxd":58
  * 
  *     # ============================ OPERATIONS ==================================
  *     cpdef PyCtxt square(self, PyCtxt ctxt, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1280,7 +1280,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_square {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":57
+/* "Pyfhel/Pyfhel.pxd":59
  *     # ============================ OPERATIONS ==================================
  *     cpdef PyCtxt square(self, PyCtxt ctxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt negate(self, PyCtxt ctxt, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1292,7 +1292,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_negate {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":58
+/* "Pyfhel/Pyfhel.pxd":60
  *     cpdef PyCtxt square(self, PyCtxt ctxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt negate(self, PyCtxt ctxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt add(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1304,7 +1304,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_add {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":59
+/* "Pyfhel/Pyfhel.pxd":61
  *     cpdef PyCtxt negate(self, PyCtxt ctxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt add(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt add_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1316,7 +1316,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_add_plain {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":60
+/* "Pyfhel/Pyfhel.pxd":62
  *     cpdef PyCtxt add(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt add_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt sub(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1328,7 +1328,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_sub {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":61
+/* "Pyfhel/Pyfhel.pxd":63
  *     cpdef PyCtxt add_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt sub(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt sub_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1340,7 +1340,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_sub_plain {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":62
+/* "Pyfhel/Pyfhel.pxd":64
  *     cpdef PyCtxt sub(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt sub_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt multiply(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1352,7 +1352,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_multiply {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":63
+/* "Pyfhel/Pyfhel.pxd":65
  *     cpdef PyCtxt sub_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt multiply(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt multiply_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1364,7 +1364,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_multiply_plain {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":64
+/* "Pyfhel/Pyfhel.pxd":66
  *     cpdef PyCtxt multiply(self, PyCtxt ctxt, PyCtxt ctxt_other, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt multiply_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt rotate(self, PyCtxt ctxt, int k, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1376,7 +1376,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_rotate {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":65
+/* "Pyfhel/Pyfhel.pxd":67
  *     cpdef PyCtxt multiply_plain(self, PyCtxt ctxt, PyPtxt ptxt, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt rotate(self, PyCtxt ctxt, int k, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt power(self, PyCtxt ctxt, uint64_t expon, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1388,7 +1388,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_power {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":66
+/* "Pyfhel/Pyfhel.pxd":68
  *     cpdef PyCtxt rotate(self, PyCtxt ctxt, int k, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt power(self, PyCtxt ctxt, uint64_t expon, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt polyEval(self, PyCtxt ctxt, vector[int64_t] coeffPoly, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1400,7 +1400,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_polyEval {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":67
+/* "Pyfhel/Pyfhel.pxd":69
  *     cpdef PyCtxt power(self, PyCtxt ctxt, uint64_t expon, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt polyEval(self, PyCtxt ctxt, vector[int64_t] coeffPoly, bool in_new_ctxt=*) except +
  *     cpdef PyCtxt polyEval_double (self, PyCtxt ctxt, vector[double] coeffPoly, bool in_new_ctxt=*) except +             # <<<<<<<<<<<<<<
@@ -1412,7 +1412,7 @@ struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_polyEval_double {
   bool in_new_ctxt;
 };
 
-/* "Pyfhel/Pyfhel.pxd":126
+/* "Pyfhel/Pyfhel.pxd":129
  * # --------------------------------- UTILS --------------------------------------
  * cpdef to_ENCODING_t(encoding) except +
  * cpdef str _to_valid_file_str(fileName, bool check=*) except +             # <<<<<<<<<<<<<<
@@ -1502,11 +1502,13 @@ struct __pyx_vtabstruct_6Pyfhel_6Pyfhel_Pyfhel {
   PyObject *(*contextGen)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_contextGen *__pyx_optional_args);
   void (*keyGen)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int __pyx_skip_dispatch);
   void (*rotateKeyGen)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int, int __pyx_skip_dispatch);
-  void (*relinKeyGen)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int, int, int __pyx_skip_dispatch);
+  void (*relinKeyGen)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int __pyx_skip_dispatch);
   struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *(*encrypt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encrypt *__pyx_optional_args);
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *(*decrypt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_decrypt *__pyx_optional_args);
   void (*relinearize)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
   void (*rescale_to_next)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
+  void (*mod_switch_to_nextCtxt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
+  void (*mod_switch_to_nextPtxt)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *, int __pyx_skip_dispatch);
   int (*noiseLevel)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *(*encode)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, double, double, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encode *__pyx_optional_args);
   struct __pyx_obj_6Pyfhel_6PyPtxt_PyPtxt *(*encodeVector)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, std::vector<double>  &, double, int __pyx_skip_dispatch, struct __pyx_opt_args_6Pyfhel_6Pyfhel_6Pyfhel_encodeVector *__pyx_optional_args);
@@ -1545,6 +1547,7 @@ struct __pyx_vtabstruct_6Pyfhel_6Pyfhel_Pyfhel {
   bool (*from_bytes_rotateKey)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, PyObject *, int __pyx_skip_dispatch);
   long (*relinBitCount)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int __pyx_skip_dispatch);
   double (*scale)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, int __pyx_skip_dispatch);
+  void (*set_scale)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *, double, int __pyx_skip_dispatch);
   int (*getnSlots)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int __pyx_skip_dispatch);
   int (*getm)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int __pyx_skip_dispatch);
   int (*getbase)(struct __pyx_obj_6Pyfhel_6Pyfhel_Pyfhel *, int __pyx_skip_dispatch);
@@ -2404,6 +2407,7 @@ static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_66__bytes__(struct __pyx_obj_6
 static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_68encrypt(struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_70decrypt(struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_72scale(struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_74set_scale(struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *__pyx_v_self, double __pyx_v_scale); /* proto */
 static PyObject *__pyx_tp_new_6Pyfhel_6PyCtxt_PyCtxt(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_2;
 static PyObject *__pyx_tuple_;
@@ -9780,6 +9784,8 @@ static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_72scale(struct __pyx_obj_6Pyfh
  *             float: scale
  *         """
  *         return self._pyfhel.scale(self)             # <<<<<<<<<<<<<<
+ * 
+ *     def set_scale(self, double scale):
  */
   __Pyx_XDECREF(__pyx_r);
   try {
@@ -9806,6 +9812,84 @@ static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_72scale(struct __pyx_obj_6Pyfh
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("Pyfhel.PyCtxt.PyCtxt.scale", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "Pyfhel/PyCtxt.pyx":711
+ *         return self._pyfhel.scale(self)
+ * 
+ *     def set_scale(self, double scale):             # <<<<<<<<<<<<<<
+ *         return self._pyfhel.set_scale(self, scale)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6Pyfhel_6PyCtxt_6PyCtxt_75set_scale(PyObject *__pyx_v_self, PyObject *__pyx_arg_scale); /*proto*/
+static PyObject *__pyx_pw_6Pyfhel_6PyCtxt_6PyCtxt_75set_scale(PyObject *__pyx_v_self, PyObject *__pyx_arg_scale) {
+  double __pyx_v_scale;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_scale (wrapper)", 0);
+  assert(__pyx_arg_scale); {
+    __pyx_v_scale = __pyx_PyFloat_AsDouble(__pyx_arg_scale); if (unlikely((__pyx_v_scale == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 711, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("Pyfhel.PyCtxt.PyCtxt.set_scale", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_74set_scale(((struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *)__pyx_v_self), ((double)__pyx_v_scale));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6Pyfhel_6PyCtxt_6PyCtxt_74set_scale(struct __pyx_obj_6Pyfhel_6PyCtxt_PyCtxt *__pyx_v_self, double __pyx_v_scale) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("set_scale", 0);
+
+  /* "Pyfhel/PyCtxt.pyx":712
+ * 
+ *     def set_scale(self, double scale):
+ *         return self._pyfhel.set_scale(self, scale)             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  try {
+    ((struct __pyx_vtabstruct_6Pyfhel_6Pyfhel_Pyfhel *)__pyx_v_self->_pyfhel->__pyx_vtab)->set_scale(__pyx_v_self->_pyfhel, __pyx_v_self, __pyx_v_scale, 0);
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    __PYX_ERR(0, 712, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_void_to_None(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 712, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "Pyfhel/PyCtxt.pyx":711
+ *         return self._pyfhel.scale(self)
+ * 
+ *     def set_scale(self, double scale):             # <<<<<<<<<<<<<<
+ *         return self._pyfhel.set_scale(self, scale)
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("Pyfhel.PyCtxt.PyCtxt.set_scale", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -10944,6 +11028,7 @@ static PyMethodDef __pyx_methods_6Pyfhel_6PyCtxt_PyCtxt[] = {
   {"encrypt", (PyCFunction)__pyx_pw_6Pyfhel_6PyCtxt_6PyCtxt_69encrypt, METH_O, __pyx_doc_6Pyfhel_6PyCtxt_6PyCtxt_68encrypt},
   {"decrypt", (PyCFunction)__pyx_pw_6Pyfhel_6PyCtxt_6PyCtxt_71decrypt, METH_NOARGS, __pyx_doc_6Pyfhel_6PyCtxt_6PyCtxt_70decrypt},
   {"scale", (PyCFunction)__pyx_pw_6Pyfhel_6PyCtxt_6PyCtxt_73scale, METH_NOARGS, __pyx_doc_6Pyfhel_6PyCtxt_6PyCtxt_72scale},
+  {"set_scale", (PyCFunction)__pyx_pw_6Pyfhel_6PyCtxt_6PyCtxt_75set_scale, METH_O, 0},
   {0, 0, 0, 0}
 };
 

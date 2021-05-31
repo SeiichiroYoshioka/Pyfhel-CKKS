@@ -215,13 +215,17 @@ class Afseal{
 
         // -------------------------- RELINEARIZATION -------------------------
         void rotateKeyGen(int& bitCount);
-        void relinKeyGen(int& bitCount, int& size);
+        void relinKeyGen();
         void relinearize(Ciphertext& cipher1);
 
 
         // ---------------------- HOMOMORPHIC OPERATIONS ----------------------
 
         void rescale_to_next(Ciphertext& cipher1);
+
+        void mod_switch_to_next(Ciphertext& cipher1);
+
+        void mod_switch_to_next(Plaintext& ptxt);
 
         // SQUARE
         /**

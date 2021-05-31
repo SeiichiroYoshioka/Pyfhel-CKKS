@@ -34,7 +34,7 @@ cdef class Pyfhel:
                      long sec=*, int intDigits=*, int fracDigits=*, vector[int] qs=*) except +
     cpdef void keyGen(self) except +
     cpdef void rotateKeyGen(self, int bitCount) except +
-    cpdef void relinKeyGen(self, int bitCount, int size) except +
+    cpdef void relinKeyGen(self) except +
 
     cpdef PyCtxt encrypt(self, PyPtxt ptxt, PyCtxt ctxt=*) except +
     
@@ -43,6 +43,8 @@ cdef class Pyfhel:
     cpdef void relinearize(self, PyCtxt ctxt) except +
 
     cpdef void rescale_to_next(self, PyCtxt ctxt) except +
+    cpdef void mod_switch_to_nextCtxt(self, PyCtxt ctxt) except +
+    cpdef void mod_switch_to_nextPtxt(self, PyPtxt ptxt) except +
     
     cpdef int noiseLevel(self, PyCtxt ctxt) except +
     
@@ -104,6 +106,7 @@ cdef class Pyfhel:
     # ============================== AUXILIARY =================================
     cpdef long relinBitCount(self) except +
     cpdef double scale(self, PyCtxt ctxt) except +
+    cpdef void set_scale(self, PyCtxt ctxt, double scale) except +
 
     # GETTERS
     cpdef int getnSlots(self) except +

@@ -707,3 +707,6 @@ cdef class PyCtxt:
             float: scale
         """
         return self._pyfhel.scale(self)
+
+    def set_scale(self, double scale):
+        return self._pyfhel.set_scale(self, scale)

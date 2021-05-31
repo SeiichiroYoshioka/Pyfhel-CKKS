@@ -78,11 +78,13 @@ cdef extern from "Afhel/Afseal.h" nogil:
 
         # -------------------------- OTHER OPERATIONS -------------------------
         void rotateKeyGen(int& bitCount) except +
-        void relinKeyGen(int& bitCount, int& size) except +
+        void relinKeyGen() except +
         void relinearize(Ciphertext& cipher1) except +
 
         # ---------------------- HOMOMORPHIC OPERATIONS -----------------------
         void rescale_to_next(Ciphertext& cipher1) except +
+        void mod_switch_to_next(Ciphertext& cipher1) except +
+        void mod_switch_to_next(Plaintext& ptxt) except +
         void square(Ciphertext& cipher1) except +
         void square(vector[Ciphertext]& cipherV) except +
         void negate(Ciphertext& cipher1) except +

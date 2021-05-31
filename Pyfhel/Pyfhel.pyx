@@ -324,8 +324,8 @@ cdef class Pyfhel:
         """
         self.afseal.rotateKeyGen(bitCount)
 
-    cpdef void relinKeyGen(self, int bitCount, int size) except +:
-        """relinKeyGen(int bitCount, int size)
+    cpdef void relinKeyGen(self) except +:
+        """relinKeyGen()
 
         Generates a relinearization Key.
         
@@ -334,19 +334,12 @@ cdef class Pyfhel:
         due to the fact that ciphertexts grow in size after encrypted
         mults/exponentiations.
         
-        Based on the current context, initializes one relinearization key. 
+        Based on the current context, initializes one relinearization key.        
         
-        Args:
-            bitCount (int): Bigger means faster but noisier (bigger
-                decrease in noise budget of the relinearized ciphertexts).
-                Needs to be within [1, 60].
-            size (int): Number of keys created internally. There should be
-                equal or more than the size of the ciphertexts to relinearize.
-
         Return:
             None
         """
-        self.afseal.relinKeyGen(bitCount, size)
+        self.afseal.relinKeyGen()
 
     cpdef void relinearize(self, PyCtxt ctxt) except +:
         """relinearize(PyCtxt ctxt)
@@ -382,6 +375,36 @@ cdef class Pyfhel:
             None
         """
         self.afseal.rescale_to_next(deref(ctxt._ptr_ctxt))
+
+    cpdef void mod_switch_to_nextCtxt(self, PyCtxt ctxt) except +:
+        """mod_switch_to_next(PyCtxt ctxt)
+
+        Rescales a ciphertext to the next scale
+
+        Rescales a ciphertext.           
+
+        Return:
+            None
+        """
+        self.afseal.mod_switch_to_next(deref(ctxt._ptr_ctxt))
+
+    cpdef void mod_switch_to_nextPtxt(self, PyPtxt ptxt) except +:
+        """mod_switch_to_next(PyPtxt ptxt)
+
+        Rescales a ciphertext to the next scale
+
+        Rescales a ciphertext.           
+
+        Return:
+            None
+        """
+        self.afseal.mod_switch_to_next(deref(ptxt._ptr_ptxt))
+
+    def mod_switch_to_next(self, other):
+        if isinstance(other, PyCtxt):
+           self.mod_switch_to_nextCtxt(other)
+        elif isinstance(other, PyPtxt):
+            self.mod_switch_to_nextPtxt(other)
 
     # =========================================================================
     # ============================== ENCODING =================================
@@ -1116,6 +1139,9 @@ cdef class Pyfhel:
 
     cpdef double scale(self, PyCtxt ctxt) except +:
         return self.afseal.scale(deref(ctxt._ptr_ctxt))
+
+    cpdef void set_scale(self, PyCtxt ctxt, double scale) except +:
+        self.afseal.override_scale(deref(ctxt._ptr_ctxt), scale)
 
     # GETTERS
     cpdef int getnSlots(self) except +:
