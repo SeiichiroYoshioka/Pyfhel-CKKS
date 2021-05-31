@@ -1,15 +1,15 @@
 <img width="70%" align="left"  src="/docs/static/logo_title.png"><img width="17%" height="17%" align="right"  src="/docs/static/logo.png">
 
 [![Build Status](https://travis-ci.org/ibarrond/Pyfhel.svg?branch=master)](https://travis-ci.org/ibarrond/Pyfhel)
-[![Documentation Status](https://readthedocs.org/projects/pyfhel/badge/?version=latest)](https://pyfhel.readthedocs.io/en/latest/?badge=latest)
-[![PyPI version](https://badge.fury.io/py/Pyfhel.svg)](https://badge.fury.io/py/Pyfhel)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://GitHub.com/ibarrond/Pyfhel/graphs/commit-activity)
-[![GitHub issues](https://img.shields.io/github/issues/ibarrond/Pyfhel.svg)](https://github.com/ibarrond/Pyfhel/issues)
+[![Documentation Status](https://readthedocs.org/projects/pyfhel-ckks/badge/?version=latest)](https://pyfhel-ckks.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/Pyfhel-CKKS.svg)](https://badge.fury.io/py/Pyfhel-CKKS)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)](https://GitHub.com/ibarrond/Pyfhel/graphs/commit-activity)
+[![GitHub issues](https://img.shields.io/github/issues/MarbleHE/Pyfhel-CKKS.svg)](https://github.com/ibarrond/Pyfhel/issues)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 
 
-**Pyfhel**: **PY**thon **F**or **H**omomorphic **E**ncryption **L**ibraries.
+**Pyfhel-CKKS**: **PY**thon **F**or **H**omomorphic **E**ncryption **L**ibraries (CKKS Port).
 
 * **_Version_**: [_v3.0.0_]
 * **_Status_**: STABLE
@@ -27,16 +27,17 @@
    3. ~~[HElib](https://github.com/shaih/HElib) (depends on [GMP](http://www.gmplib.org) & [NTL](http://www.shoup.net/ntl/download.html)) DROPPED~~
 
 ## Summary
-**PY**thon **F**or **H**momorphic **E**ncryption **L**ibraries, **Pyfhel** implements functionalities of multiple Homomorphic Encryption libraries such as addition, multiplication, exponentiation or scalar product in Python. **Pyfhel** uses a syntax similar to normal arithmetics (+,-,\*). This library is useful both for simple Homomorphic Encryption Demos as well as for complex problems such as Machine Learning algorithms.
+
+This is a port of **PY**thon **F**or **H**momorphic **E**ncryption **L**ibraries, **Pyfhel** implements functionalities of multiple Homomorphic Encryption libraries such as addition, multiplication, exponentiation or scalar product in Python. **Pyfhel** uses a syntax similar to normal arithmetics (+,-,\*). This library is useful both for simple Homomorphic Encryption Demos as well as for complex problems such as Machine Learning algorithms.
 
 **Pyfhel** is built on top of **Afhel**, an **A**bstraction **H**momorphic **E**ncryption **L**ibraries in C++. **Afhel** serves as common API for all backends. Additionally, this project contains a large series of Demos & Tests for **HElib**(no longer in use), **SEAL**, **Afhel** & **Pyfhel**.
 
 Last but not least, we include Makefiles to compile and install **HElib**, **SEAL** and **Afhel** as shared libraries in Ubuntu, which can then be linked to other C++ programs using the tags `-lhelib`, `-lseal` and `-lafhel`.
 
 ## Install & Uninstall
-This project has been uploaded to [PyPI](https://pypi.org/project/Pyfhel/). In order to install it from source (*WARNING! it takes several minutes to compile, be patient!*), run:
+This project has been uploaded to [PyPI](https://pypi.org/project/Pyfhel-CKKS/). In order to install it from source (*WARNING! it takes several minutes to compile, be patient!*), run:
 
-	   > pip install Pyfhel
+	   > pip install Pyfhel-CKKS
 
 Locally, you can clone this repository (use [`--recursive`](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules) to download all submodules) and install it by running:
 
@@ -45,7 +46,7 @@ Locally, you can clone this repository (use [`--recursive`](https://stackoverflo
 
 To uninstall, just run:
 	
-	   > pip uninstall Pyfhel
+	   > pip uninstall Pyfhel-CKKS
        
 ### Contribute/Development notice
 This is the process to develop/contribute to Pyfhel:
