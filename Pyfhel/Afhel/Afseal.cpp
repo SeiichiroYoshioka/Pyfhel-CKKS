@@ -62,6 +62,8 @@ Afseal::Afseal(const Afseal &otherAfseal) {
   this->intDigits = otherAfseal.intDigits;
   this->fracDigits = otherAfseal.fracDigits;
   this->flagBatch = otherAfseal.flagBatch;
+
+  this->pool = otherAfseal.pool;
 }
 
 Afseal::~Afseal() {}
@@ -185,10 +187,17 @@ void Afseal::decode(Plaintext &plain1, vector<std::complex<double>> &valueVOut) 
 void Afseal::decode(vector<Plaintext> &plainV, vector<int64_t> &valueVOut) {
   throw std::logic_error("Non-Batched Integer Encoding no longer supported");
 }
-uint64_t* Afseal::data(Ciphertext &ctxt, int index) {
-  return ctxt.data(index);
+void Afseal::data(Ciphertext &ctxt, int index, uint64_t *dest) {
+  dest = ctxt.data(index);
 }
 
+void Afseal::data(Plaintext &ptxt, uint64_t *dest) {
+  dest = ptxt.data();
+}
+
+void Afseal::allocate_zero_poly(uint64_t n, uint64_t coeff_mod_count, uint64_t *dest) {
+  dest = &util::allocate_zero_poly(n, coeff_mod_count, pool)[0];
+}
 // NOISE MEASUREMENT
 int Afseal::noiseLevel(Ciphertext &cipher1) {
   if (decryptor==NULL) { throw std::logic_error("Missing a Private Key"); }

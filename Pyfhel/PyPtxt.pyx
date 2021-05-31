@@ -287,3 +287,6 @@ cdef class PyPtxt:
             :func:`~Pyfhel.Pyfhel.decode`
         """
         self._pyfhel.decode(self)
+
+    def data(self):
+        return self._pyfhel.data(self)

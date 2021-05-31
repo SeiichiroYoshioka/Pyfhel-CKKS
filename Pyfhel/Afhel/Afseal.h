@@ -70,6 +70,8 @@ class Afseal{
 
         shared_ptr<CKKSEncoder> ckksEncoder=NULL;     /**< Batch Encoder for BFV. */
 
+        MemoryPoolHandle pool = MemoryManager::GetPool();
+
 
         long m;                          /**< Cyclotomic index */
 
@@ -216,7 +218,9 @@ class Afseal{
         void decode(vector<Plaintext>& plain1, vector<int64_t> &valueVOut);
 
         // Individial Parts
-        uint64_t* data(Ciphertext& ctxt, int index);
+        void data(Ciphertext& ctxt, int index, uint64_t* dest);
+        void data(Plaintext& ptxt, uint64_t* dest);
+        void allocate_zero_poly(uint64_t  n, uint64_t coeff_mod_count, uint64_t* dest);
 
 
         // -------------------------- RELINEARIZATION -------------------------

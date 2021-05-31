@@ -124,6 +124,14 @@ ext_modules = [
              language=language,
              extra_compile_args=extra_compile_flags,
          ),
+        Extension(
+            name="Pyfhel.PyPolyPtr",
+            sources=[str(PYFHEL_PATH / ("PyPolyPtr" + ext))],
+            include_dirs=include_dirs,
+            define_macros=define_macros,
+            language=language,
+            extra_compile_args=extra_compile_flags,
+        ),
 ]
 if CYTHONIZE:
     from Cython.Build import cythonize

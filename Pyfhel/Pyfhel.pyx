@@ -179,10 +179,10 @@ cdef class Pyfhel:
     # =========================================================================
     # ============================ CRYPTOGRAPHY ===============================
     # =========================================================================
-    
+
     cpdef contextGen(self, long n=16384, bool flagBatching=False,
                      long base=2, long sec=128, int intDigits=64,
-                     int fracDigits = 32, vector[int] qs=vector[int](5,30)) except +:
+                     int fracDigits = 32, vector[int] qs=vector[int](5, 30)) except +:
         """contextGen(int p, int m=2048, bool flagBatching=False, int base=2, int sec=128, int intDigits=64, int fracDigits = 32)
         
         Generates Homomorphic Encryption context based on parameters.
@@ -402,7 +402,7 @@ cdef class Pyfhel:
 
     def mod_switch_to_next(self, other):
         if isinstance(other, PyCtxt):
-           self.mod_switch_to_nextCtxt(other)
+            self.mod_switch_to_nextCtxt(other)
         elif isinstance(other, PyPtxt):
             self.mod_switch_to_nextPtxt(other)
 
@@ -519,7 +519,7 @@ cdef class Pyfhel:
             list[float]: the decoded float values
 
         """
-        cdef vector[cpp_complex[double]] output_value =  vector[cpp_complex[double]](0)
+        cdef vector[cpp_complex[double]] output_value = vector[cpp_complex[double]](0)
         self.afseal.decode(deref(ptxt._ptr_ptxt), output_value)
         return output_value
 

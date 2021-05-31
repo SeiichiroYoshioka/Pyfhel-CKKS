@@ -76,7 +76,9 @@ cdef extern from "Afhel/Afseal.h" nogil:
         void decode(vector[Plaintext]& plain1, vector[int64_t] & valueVOut) except +
 
         # Parts
-        uint64_t* data(Ciphertext& ctxt, int index) except +
+        void data(Ciphertext& ctxt, int index, uint64_t* dest) except +
+        void data(Plaintext& ptxt, uint64_t* dest) except +
+        void allocate_zero_poly(uint64_t  n, uint64_t coeff_mod_count, uint64_t* dest) except +
 
         # -------------------------- OTHER OPERATIONS -------------------------
         void rotateKeyGen(int& bitCount) except +

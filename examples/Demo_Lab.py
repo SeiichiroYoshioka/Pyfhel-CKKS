@@ -5,7 +5,7 @@ Applied Cryptography - FHE Lab
 The present demo displays the use of Pyfhel-CKKS for the FHE lab
 """
 # Local module
-from Pyfhel import PyCtxt, Pyfhel, PyPtxt
+from Pyfhel import PyCtxt, Pyfhel, PyPtxt, PyPolyPtr
 
 
 # Pyfhel class contains most of the functions.
@@ -13,6 +13,9 @@ from Pyfhel import PyCtxt, Pyfhel, PyPtxt
 # PyCtxt is the ciphertext class
 
 # ================================ MODULE 2 =====================================
+from Pyfhel.PyPolyPtr import PyPolyPtr
+
+
 def module2():
     print("\n\n MODULE 2:")
     print("1. Creating Context and encrypt 0")
@@ -54,7 +57,7 @@ def module2():
     # **************************************************
 
     # First we encode the decrypted floating point numbers back into polynomials
-    ptxt_enc = HE.encode(val_res, 2**log_scale)
+    ptxt_enc = HE.encodeComplexVector(val_res, 2**log_scale)
 
     #  Then we get some useful parameters used in the scheme#
     #  auto small_ntt_tables = context_data->small_ntt_tables();
@@ -62,14 +65,14 @@ def module2():
     #  auto &coeff_modulus = ciphertext_parms.coeff_modulus();
     #  size_t coeff_mod_count = coeff_modulus.size();
     #  size_t coeff_count = ciphertext_parms.poly_modulus_degree();
-    # MemoryPoolHandle pool = MemoryManager::GetPool();
+    # ;
 
 
     # rhs = ptxt_enc - ciphertext.b
     # seal::util::Pointer<unsigned long, void> rhs = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
-    # rhs = util.zero_poly()
+    rhs = PyPolyPtr(HE).allocate_zero_poly(n, coeff_mod_count)
     # util.sub(ptxt_en
-    # sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
+    sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
     #
     # auto ca =  util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
     # copy(ctxt_res.data(1), coeff_count, coeff_modulus.size(), ca.get());
