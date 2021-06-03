@@ -38,6 +38,9 @@ cdef extern from "SEAL/SEAL/seal/ciphertext.h" namespace "seal" nogil:
 # Afseal class to abstract SEAL
 cdef extern from "Afhel/Afseal.h" nogil:
     cdef cppclass Afseal:
+
+        void initialize_poly(string name, size_t poly_modulus_degree, size_t coeff_mod_count);
+
         # ----------------------- OBJECT MANAGEMENT ---------------------------
         Afseal() except +
         Afseal(const Afseal & otherAfseal) except +
@@ -74,11 +77,6 @@ cdef extern from "Afhel/Afseal.h" nogil:
         void decode(Plaintext& plain1,  vector[cpp_complex[double]] ) except +;
         void decode(Plaintext& plain1, vector[double] & valueVOut) except +
         void decode(vector[Plaintext]& plain1, vector[int64_t] & valueVOut) except +
-
-        # Parts
-        void data(Ciphertext& ctxt, int index, uint64_t* dest) except +
-        void data(Plaintext& ptxt, uint64_t* dest) except +
-        void allocate_zero_poly(uint64_t  n, uint64_t coeff_mod_count, uint64_t* dest) except +
 
         # -------------------------- OTHER OPERATIONS -------------------------
         void rotateKeyGen(int& bitCount) except +

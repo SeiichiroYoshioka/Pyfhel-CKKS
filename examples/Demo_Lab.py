@@ -5,7 +5,7 @@ Applied Cryptography - FHE Lab
 The present demo displays the use of Pyfhel-CKKS for the FHE lab
 """
 # Local module
-from Pyfhel import PyCtxt, Pyfhel, PyPtxt, PyPolyPtr
+from Pyfhel import PyCtxt, Pyfhel, PyPtxt
 
 
 # Pyfhel class contains most of the functions.
@@ -13,8 +13,6 @@ from Pyfhel import PyCtxt, Pyfhel, PyPtxt, PyPolyPtr
 # PyCtxt is the ciphertext class
 
 # ================================ MODULE 2 =====================================
-from Pyfhel.PyPolyPtr import PyPolyPtr
-
 
 def module2():
     print("\n\n MODULE 2:")
@@ -59,20 +57,27 @@ def module2():
     # First we encode the decrypted floating point numbers back into polynomials
     ptxt_enc = HE.encodeComplexVector(val_res, 2**log_scale)
 
+
+    # Sadly, due to a bug (or anoying feature) in SEAL,
+    # it is nearly impossible to wrap the C++ representations of the low-level polynomials
+    # into a sane Python/Cython interface. I'm planning on fixing this in SEAL for next year,
+    # but for this year, this module will have to be a C++ exclusive, sorry!
+    # Below, you can see how the C++ computation would proceed
+
     #  Then we get some useful parameters used in the scheme#
     #  auto small_ntt_tables = context_data->small_ntt_tables();
     #  auto &ciphertext_parms = context_data->parms();
     #  auto &coeff_modulus = ciphertext_parms.coeff_modulus();
     #  size_t coeff_mod_count = coeff_modulus.size();
     #  size_t coeff_count = ciphertext_parms.poly_modulus_degree();
-    # ;
-
-
-    # rhs = ptxt_enc - ciphertext.b
-    # seal::util::Pointer<unsigned long, void> rhs = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
-    rhs = PyPolyPtr(HE).allocate_zero_poly(n, coeff_mod_count)
-    # util.sub(ptxt_en
-    sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
+    #
+    # std::cout << "key recovery ..." << std::endl;
+    # MemoryPoolHandle
+    # pool = MemoryManager::GetPool();
+    # // rhs = ptxt_enc - ciphertext.b
+    # seal::util::Pointer < unsigned
+    # long, void > rhs = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
+    # sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
     #
     # auto ca =  util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
     # copy(ctxt_res.data(1), coeff_count, coeff_modulus.size(), ca.get());
@@ -268,6 +273,6 @@ def module3():
     print("\t((x+y)*(z*5))+10=" + str(HE.decode(HE.decrypt(ctxt_result))[0]))
 
 
-# module1()
+module1()
 module2()
-# module3()
+module3()

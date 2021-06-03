@@ -36,6 +36,7 @@
 
 #include "Afseal.h"
 
+
 // ----------------------------- CLASS MANAGEMENT -----------------------------
 Afseal::Afseal() {}
 
