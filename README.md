@@ -11,6 +11,8 @@
 
 **Pyfhel-CKKS**: **PY**thon **F**or **H**omomorphic **E**ncryption **L**ibraries (CKKS Port).
 
+*THIS REPO HAS BEEN ARCHIVED. SUPPORT FOR CKKS AND LOW-LEVEL POLYNOMIAL ACCESS HAS BEEN UPSTREAMED INTO THE MAIN PYFHEL REPO*
+
 * **_Version_**: [_v3.0.3_]
 * **_Status_**: STABLE
 * **_Description_**: Allows ADDITION, SUBSTRACTION, MULTIPLICATION, SCALAR PRODUCT over encrypted vectors|scalars of integers|binaries. This library acts as optimized Python API for the most advanced C++ HE libraries.
